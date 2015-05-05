@@ -1,1 +1,120 @@
-/* Empty. Add your own CSS if you like */
+
+.no-margin {
+  margin:0px !important;
+  padding:0px !important;
+  }
+
+  ul.img-list {
+    list-style-type: none;
+ }
+
+ul.img-list li {
+    display: inline-block;
+    position: relative;
+}
+
+.item {
+  border:0px !important;
+
+}
+
+.main {
+    margin-top:50px;
+    margin-bottom:50px !important;
+}
+
+.location-holder {
+       position:relative;
+    width:80px;
+    height:80px;
+    text-align:center;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+ border: 2px solid #000000;
+ padding:5px;
+}
+
+ .row {
+padding:0px;
+ }
+ .col {
+   padding:0px !important;
+ }
+
+.location-holder:hover {
+    background-color: #d3d3d3;
+    cursor: pointer;
+}
+
+.location-holder p
+{
+    margin-top:10px;
+    font: 12px arial;
+    color:#000000;
+    vertical-align:middle;
+    height:50px;
+    position: inherit;
+    top:25%;
+}
+.verticalLine {
+    border-left: thick solid #000000;
+    height:150px;
+    margin-left:38px;
+}
+
+.verticalLineMap {
+  width:100px;
+  height:100px;
+}
+
+map {
+  display: block;
+  position:absolute;
+  width: 100%;
+  height: 40%;
+  bottom:0;
+  opacity: 5%;
+}
+.scroll {
+  height: 100%;
+}
+
+.date {
+  font-size:25px;
+  font-style:bold;
+  text-align:center;
+}
+
+
+
+
+.slider {
+  height: 100%;
+}
+.slider-slide {
+  padding-top: 80px;
+  color: #000;
+  background-color: #fff;
+  text-align: center;
+
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+}
+
+#logo {
+  margin: 30px 0px;
+}
+
+#list {
+  width: 170px;
+  margin: 30px auto;
+  font-size: 20px;
+}
+#list ol {
+  margin-top: 30px;
+}
+#list ol li {
+  text-align: left;
+  list-style: decimal;
+  margin: 10px 0px;
+}

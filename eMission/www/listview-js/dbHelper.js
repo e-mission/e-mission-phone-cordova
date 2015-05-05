@@ -86,7 +86,7 @@ function tripSection() {
   this.userMode = "";
 
   this.loadFromJSON = function(jsonObject) {
-    jsonObject = JSON.parse(jsonObject.sectionJsonBlob);
+    jsonObject = JSON.parse(atob(jsonObject.sectionJsonBlob));
     this.tripId = jsonObject.trip_id;
     this.sectionId = jsonObject.section_id;
     this.startTime.loadFromDateString(jsonObject.section_start_time);

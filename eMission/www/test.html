@@ -16,38 +16,37 @@
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB16sGmIekuGIvYOfNoW9T44377IU2d2Es&sensor=true"></script>
+
     <!-- your app's js -->
     <script type="text/javascript" src="listview-js/dbHelper.js"></script>
     <script src="listview-js/app.js"></script>
     <script src="listview-js/controllers.js"></script>
-    <script src="listview-js/directives.js"></script>
     <script type="text/javascript">
        document.addEventListener('deviceready', function onDeviceReady() {
           angular.bootstrap(document.getElementsByTagName('body')[0], ['starter']);
        }, false);
     </script>
   </head>
-<body ng-app = "starter" ng-controller="TripsCtrl" animation="slide-left-right-ios7">
-  <ion-view>
-    <ion-content>
-    <ion-slide-box>
-      <ion-slide ng-repeat="(key, obj) in data.slides">
-        {{$index}}
-      </ion-slide>
-    </ion-slide-box>
-    <map on-create="mapCreated(map)"></map>
 
-</ion-content>
-       <ion-tabs class="tabs-positive tabs-icon-top">
+  <body animation="slide-left-right-ios7">
+    <ul class="img-list">
+      <li>
+        <img src="img/team-member-1.jpg" alt="...">
+        <span class="text-content">
+            <span>
+                <div class="location-holder">
+                    <span class="ion-social-twitter social-icon"></span>
+                </div>
+                <div class="location-holder">
+                    <span class="ion-social-facebook social-icon"></span>
+                </div>
+                <div class="location-holder">
+                    <div class="verticalLine"></span>
+                </div>
 
-    <ion-tab title="Trips" icon="ion-merge">
-    </ion-tab>
-    <ion-tab title="Recommendation" icon="ion-location">
-    </ion-tab>
-    <ion-tab title="About" icon="ion-compose">
-    </ion-tab>
-  </ion-tabs>
-  </ion-view>
-</body>
+            </span>
+        </span>
+      </li>
+    </ul>
+  </body>
 </html>
