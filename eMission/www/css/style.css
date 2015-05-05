@@ -1,4 +1,4 @@
-
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400);
 .no-margin {
   margin:0px !important;
   padding:0px !important;
@@ -19,8 +19,8 @@ ul.img-list li {
 }
 
 .main {
-    margin-top:50px;
-    margin-bottom:50px !important;
+    padding-top:50px;
+    padding-bottom:50px !important;
 }
 
 .location-holder {
@@ -28,9 +28,11 @@ ul.img-list li {
     width:80px;
     height:80px;
     text-align:center;
-    -webkit-border-radius: 50px;
-    -moz-border-radius: 50px;
- border: 2px solid #000000;
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+ border: 2px solid whitesmoke;
+ color:white;
+ background:rgb(101, 213, 143);
  padding:5px;
 }
 
@@ -40,31 +42,35 @@ padding:0px;
  .col {
    padding:0px !important;
  }
+ .display-name {
+   text-align:left;
+   margin-top:35px;
+ }
 
 .location-holder:hover {
-    background-color: #d3d3d3;
+    background-color: #4b4b4b;
     cursor: pointer;
 }
 
 .location-holder p
 {
-    margin-top:10px;
-    font: 12px arial;
-    color:#000000;
+    font-family:'Lato';
+    margin-top:15px;
+    font: 12px;
+    color:white;
     vertical-align:middle;
     height:50px;
     position: inherit;
-    top:25%;
 }
 .verticalLine {
-    border-left: thick solid #000000;
-    height:150px;
-    margin-left:38px;
+    border-left: thin solid whitesmoke;
+    height:70px;
+    margin-top:5px;
 }
 
 .verticalLineMap {
   width:100px;
-  height:100px;
+  height:70px;
 }
 
 map {
@@ -80,16 +86,28 @@ map {
 }
 
 .date {
-  font-size:25px;
+  font-family:'Lato';
+  margin-top:40px;
+  font-size:20px;
   font-style:bold;
   text-align:center;
 }
 
 
+body {
+  cursor: url('http://ionicframework.com/img/finger.png'), auto;
+  font-family:'Lato';
 
-
+}
+.small {
+  font-size:7px;
+}
+.bg-color{
+  background:#71bc98!important;
+  color:whitesmoke !important;
+}
 .slider {
-  height: 100%;
+  height: 60%;
 }
 .slider-slide {
   padding-top: 80px;
@@ -117,4 +135,34 @@ map {
   text-align: left;
   list-style: decimal;
   margin: 10px 0px;
+}
+
+.mode {
+  font-size:30px;
+  padding-top:30px;
+}
+
+.item-select select {
+  padding: 24px 35px 16px 0px;
+
+}
+.item-select::after {
+  color:white;
+}
+
+.display-mode {
+  text-align:left;
+}
+
+.confidence-certain {
+  color:#ffffff;
+}
+
+.confidence-medium {
+  color:#fcc280;
+}
+
+.confidence-low {
+  color:#e9584e;
+
 }
