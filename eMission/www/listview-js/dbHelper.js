@@ -92,7 +92,11 @@ function tripSection() {
     // http://stackoverflow.com/questions/14695988/dom-exception-5-invalid-character-error-on-valid-base64-image-string-in-javascri
     // Need to see if this breaks iOS, and if not, should be merged into the crossplatform javascript
     replacedBlob = jsonObject.sectionJsonBlob.replace(/\s/g, '');
-    jsonObject = JSON.parse(atob(replacedBlob));
+    try {
+        jsonObject = JSON.parse(atob(replacedBlob));
+    } catch (e) {
+        jsonObject = JSON.parse(replacedBlob);
+    }
     this.tripId = jsonObject.trip_id;
     this.sectionId = jsonObject.section_id;
     this.startTime.loadFromDateString(jsonObject.section_start_time);
