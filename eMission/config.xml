@@ -15,6 +15,12 @@
   <preference name="BackupWebStorage" value="none"/>
   <preference name="SplashScreen" value="screen"/>
   <preference name="SplashScreenDelay" value="3000"/>
+  <!-- Showing action bar with cordova code, adapted from 
+    http://stackoverflow.com/questions/25436835/how-to-show-actionbar-in-a-cordovaactivity
+    https://www.ibm.com/developerworks/community/blogs/worklight/entry/native_ui_in_a_hybrid_application_with_worklight_6.2?lang=en
+    The instructions even show how to handle the native code callbacks in javascript
+  -->
+  <preference name="ShowTitle" value="true"/>
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
