@@ -43,6 +43,7 @@ for the `www` directory.
 Then, we can create `CordovaActivity` and `EmbeddedCordovaView` screens in the main app that load `screen1.html`, `screen2.html` etc.
 
 In order to create a new screen, the steps are:
+
 1. create `screen_new.html` and `screen-new-js/` in the `www` directory
 1. edit config.xml to display `screen_new.html`
 1. develop away
