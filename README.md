@@ -53,3 +53,38 @@ In order to create a new screen, the steps are:
 As described in https://github.com/e-mission/e-mission-phone/blob/master/README.md, after the screens are ready, the `update_cordova_sources.sh` script can be run with this directory as the second argument. That will copy over the files to the appropriate locations on the native app repo, e.g.
 
     $ ./update_cordova_sources.sh ~/e-mission/e-mission-phone-cordova/eMission
+
+## Debugging
+
+Since this is a web based UI, debugging occurs in the browser. The choice of
+browser depends upon the emulator - chrome is used to debug the android
+emulator and safari is used to debug the ios emulator.
+
+### Chrome
+
+1. Open a new tab and enter chrome://inspect
+1. Choose the HTML file that you are debugging
+1. You can view log messages in the console, or set breakpoints and reload the HTML file
+
+### Safari
+
+1. Turn on Safari Developer mode https://developer.apple.com/safari/tools/
+1. Choose the process that you are debugging
+1. Again, you can view log messages in the console, or set breakpoints and reload the HTML file
+
+## Current screens and their testing
+
+### Travel diary screen
+
+The travel diary reads data from the local database, parses it, and displays
+the data as a list of trips and trip sections. The android and ios data are
+slightly different - one requires decoding from base64, and the other doesn't.
+So sample databases from both are checked in. The decoding is handled in the
+trip parsing, so it is sufficient to use one of them unless the parsing is
+being changed.
+
+The one that is chosen should be copied to TripSections.db, i.e.
+
+    $ cp www/TripSections.android.db www/TripSections.db
+
+before running listview.html
