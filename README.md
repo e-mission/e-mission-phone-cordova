@@ -14,6 +14,14 @@ Add the sqlite plugin to ensure that we can access the database from the javascr
 
     $ ionic plugin add https://github.com/brodysoft/Cordova-SQLitePlugin
 
+Add the whitelist plugin to ensure that we can access google maps from the javascript
+Otherwise, only loading from file URLs is supported, per:
+http://cordova.apache.org/announcements/2015/04/15/cordova-android-4.0.0.html
+
+> Network requests are blocked by default without the plugin, so install this plugin even to allow all requests, and even if you are using CSP.
+
+    $ ionic plugin add https://github.com/apache/cordova-plugin-whitelist.git#r1.0.0
+
 The checked in version does not have the default ionic plugins installed, so on
 checking this out, you also need to install the following plugins
 
