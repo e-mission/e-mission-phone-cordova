@@ -56,35 +56,44 @@ angular.module('starter.controllers', ['ionic'])
                 mr_trips.unshift(trip);
               }
             }
-            i--;
           }
-          dic['date_key'] = key_date;
-          dic['trip_val'] = mr_trips;
-          last_five_trips.push(dic);
-          dic = {}
-            // last five trips: [ {date: date, trips: [trip1, trip2]} ]
+          i--;
         }
-        $scope.data = {};
-        $scope.data.slides = last_five_trips;
-        for (var i = 0; i < $scope.data.slides.length; i++) {
-          var trip = $scope.data.slides[i];
-          for (var j = 0; j < trip.trip_val.length; j++) {
-            var x = trip.trip_val[j];
-            $scope.getDisplayName(x);
-          }
+        dic['date_key'] = key_date;
+        dic['trip_val'] = mr_trips;
+        last_five_trips.push(dic);
+        dic = {}
+          // last five trips: [ {date: date, trips: [trip1, trip2]} ]
+      }
+      $scope.data = {};
+      $scope.data.slides = last_five_trips;
+      for (var i = 0; i < $scope.data.slides.length; i++) {
+        var trip = $scope.data.slides[i];
+        for (var j = 0; j < trip.trip_val.length; j++) {
+          var x = trip.trip_val[j];
+          $scope.getDisplayName(x);
         }
-        $ionicSlideBoxDelegate.update();
+      }
+      $ionicSlideBoxDelegate.update();
 
-        $scope.last_five_trips = last_five_trips;
-        console.log(last_five_trips);
-      });
+      $scope.last_five_trips = last_five_trips;
+      console.log(last_five_trips);
     });
+  });
 
     var getDateOfTrip = function(date) {
       var month;
       var date;
 
-      switch (date.getMonth() + 1) {
+      /*
+       * In order to be consistent with the spec, these need to be
+       * date.getMonth() + 1 and date.getDay() + 1. However, that doesn't
+       * actually work, probably because the date is being parsed incorrectly.
+       *
+       * Working around this for now since we should switch to timestamps
+       * anyway.
+       */
+      switch (date.getMonth()) {
         case 1:
           month = "January";
           break;
@@ -124,7 +133,7 @@ angular.module('starter.controllers', ['ionic'])
 
       };
 
-      switch (date.getDay() + 1) {
+      switch (date.getDay()) {
         case 1:
           day = "Sunday";
           break;
@@ -306,7 +315,7 @@ angular.module('starter.controllers', ['ionic'])
         bounds.extend(coordinates[i]);
       }
       $scope.map.fitBounds(bounds);
-    });
+    };
 
     //Change according to datatype in actual data object and the intervals set in the app.
     // Intervals: Green - confidence > 80 ; Yellow: 80 > confidence > 70; Red: 70 > confidence
