@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter',['ionic', 'starter.controllers', 'starter.directives'])
+angular.module('starter',['ionic', 'starter.controllers', 'starter.directives', 'leaflet-directive'])
 
 .config(function($ionicConfigProvider) {
   // note that you can also chain configs
@@ -21,10 +21,16 @@ angular.module('starter',['ionic', 'starter.controllers', 'starter.directives'])
     if (window.StatusBar) {
       StatusBar.styleDefault();
     }
-    var db = window.sqlitePlugin.openDatabase({name: "TripSections.db", location: 0, createFromLocation: 1});
-    tripSectionDbHelper.getJSON(db, function(jsonTripList) {
-        tripList = tripSectionDbHelper.getUncommitedSections(jsonTripList);
-        console.log("Retrieved trips count = "+tripList.length);
+    /*
+     BEGIN DEVICE VERSION
+    var db = window.sqlitePlugin.openDatabase({name: "userCacheDB", location: 0, createFromLocation: 1});
+    UserCacheHelper.getDocument(db, "diary/trips", function(tripListArray) {
+        console.log("In main, tripListArray has = "+tripListArray.length+" entries");
+        tripListStr = tripListArray[0];
+        tripList = JSON.parse(tripListStr)
+        console.log("In main, tripList has "+tripList.length+" entries");
+        // console.log("In main, first entry is "+JSON.stringify(tripList[0]));
     });
+    */
   });
 })
