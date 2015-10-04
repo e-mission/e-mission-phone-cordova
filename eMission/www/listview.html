@@ -61,11 +61,15 @@
 <body ng-controller="TripsCtrl" animation="slide-left-right-ios7">
   <ion-view title="Trip Diary">
       <ion-header-bar align-title="center" class="bar-positive bg-color">
+         <div class="buttons" style="text-align:left">
             <button class="button button-icon icon ion-ios-arrow-thin-left" ng-click="prevDay()">
             </button>
+         </div>
             {{data.currDay.fmt_time}}
+         <div class="buttons" style="text-align:right">
             <button class="button button-icon icon ion-ios-arrow-thin-right" ng-click="nextDay()">
             </button>
+        </div>
        </ion-header-bar> 
     <ion-content>
         <!--
