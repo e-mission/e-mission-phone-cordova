@@ -65,7 +65,9 @@
             <button class="button button-icon icon ion-ios-arrow-thin-left" ng-click="prevDay()">
             </button>
          </div>
+         <div width=100% style="text-align:center">
             {{data.currDay.fmt_time}}
+         </div>
          <div class="buttons" style="text-align:right">
             <button class="button button-icon icon ion-ios-arrow-thin-right" ng-click="nextDay()">
             </button>
@@ -79,9 +81,13 @@
         </div>
         -->
 
+        <div class="row bg-color"
+            item-width="100%" item-height="300">
+            <img src="img/582752main_sunrise_from_iss-full_small.png">
+        </div>
         <ion-list>
             <ion-item collection-repeat="trip in data.currDay.directive_trips"
-                item-width=100% item-height="getTripHeightPixels(trip)"
+                item-width=100% item-height="trip.sections.length * 30 + 300"
                 class="no-margin bg-color">
               <div class="buttons summary-color">
                 <button class="button button-icon icon ion-ios-minus-outline"
@@ -89,7 +95,7 @@
                 {{getTripDetails(trip)}}
                 <button class="button button-icon icon ion-ios-checkmark-outline"
                     ng-click="confirmTrip(trip)">
-                <button class="button button-icon icon ion-edit"
+                <button class="button button-icon icon ion-ios-more-outline"
                     ng-click="showCorrections(trip)()">
                 </button>
               </div>
@@ -149,6 +155,10 @@
               -->
             </ion-item>
           </ion-list>
+        <div class="row bg-color"
+            item-width="100%" item-height="300">
+            <img src="img/nileredsea_126b5740_small.png">
+        </div>
         </ion-content>
     <ion-tabs class="tabs-default tabs-icon-top">
 
