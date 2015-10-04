@@ -1,46 +1,149 @@
 angular.module('starter.controllers', ['ionic'])
 
-.controller("TripsCtrl", function($scope, $ionicPlatform, $state, $ionicSlideBoxDelegate) {
+.controller("TripsCtrl", function($scope, $http, $ionicPlatform, $state,
+                                    $ionicSlideBoxDelegate, $ionicActionSheet,
+                                    leafletData) {
   console.log("controller TripsCtrl called");
 
-  //DATA: Gautham, this is where you link the data.
-  /*
-  $scope.trips = [
-       {mode:'walking',confidence:1},
-       {mode:'car',confidence:0.5},
-       {mode:'walking',confidence:1},
-       {mode:'cycling',confidence:0.3},
-       {predictedMode:'cycling',confidence:0.3}
-  ];
-  */
+
+  angular.extend($scope, {
+      defaults: {
+          zoomControl: false,
+          dragging: false,
+          zoomAnimation: true,
+          touchZoom: false,
+          scrollWheelZoom: false,
+          doubleClickZoom: false,
+          boxZoom: false,
+      }
+  });
 
   /*
    * I think that this may be a cause of a controller trying to do too much,
    * and should probably be moved into a service.
    */
 
-  // code to get trips from most recent day only
+  // Read all cached trips
+  /*
+   BEGIN DEVICE VERSION
+    */
   var db = window.sqlitePlugin.openDatabase({
-    name: "TripSections.db",
+    name: "userCacheDB",
     location: 0,
     createFromLocation: 1
   });
-  tripSectionDbHelper.getJSON(db, function(jsonTripList) {
+  UserCacheHelper.getDocument(db, "diary/trips", function(tripListArray) {
     $scope.$apply(function() {
-      // console.log(jsonTripList);
-      //$scope.trips = tripSectionDbHelper.getUncommitedSections(jsonTripList);
+      tripListStr = tripListArray[0];
+      tripList = JSON.parse(tripListStr);
 
+  /*
+   BEGIN BROWSER VERSION
+  $http.get("tomtrips.json").success(function(data, status) {
+    console.log(data);
+      tripList = data;
+    */
+
+      console.log("last place enter = "+tripList[tripList.length-1].features[1].properties.enter_fmt_time)
+      console.log("first place exit = "+tripList[0].features[0].properties.exit_fmt_time)
+
+      // Get UTC timestamp for the last trip in the database in current local time
+      var currDayStart = getDayStart();
+
+      // stores array of trip objects, one array for each day.
+      // days are in reverse cron order, and trips are in cron order within each day
+      var tripsByDay = [];
+
+      var oldestTrip = tripList[0]
+      var oldestStartTs = getStartTs(oldestTrip)
+
+      console.log("currDayStart = "+currDayStart+" oldestStartTs = " + oldestStartTs);
+
+      // Iterate over the time range from now until the oldest startTs and
+      // create TripsOnDate objects. Each TripOnDate has a date string, a start
+      // Ts, an endTs and a list of geojson trips on that date. In order to do
+      // this, we want to iterate over the trips only once instead of O(ndays)
+      // times, so we first create the objects and then fill them with the trips.
+
+      tripsByDay.push(getTripsOnDate(currDayStart, Date.now() / 1000))
+
+      while (oldestStartTs < currDayStart) {
+        var prevDayStart = currDayStart - 24 * 60 * 60
+        tripsByDay.push(getTripsOnDate(prevDayStart, currDayStart)); 
+        currDayStart = prevDayStart;
+      }
+
+      tripsByDay.forEach(function(item, index, array) {
+        console.log(index + ":" + JSON.stringify(item));
+      });
+
+      var dayIndex = tripsByDay.length - 1;
+      tripList.forEach(function(trip, index, array) {
+        currTripsByDay = tripsByDay[dayIndex];
+        var currTripStartTs = getStartTs(trip);
+        if (currTripsByDay.start_ts < currTripStartTs &&
+            currTripStartTs < currTripsByDay.end_ts) {
+            console.log("Existing day works, yay!");
+            currTripsByDay.trips.push(trip);
+        } else {
+            dayIndex = findDay(tripsByDay, dayIndex, currTripStartTs);
+            if (dayIndex == -1) {
+                console.warn("We should have a day for each trip, but trip "+trip+" does not have a day! Skipping...");
+            } else {
+                console.log("Found tripsByDay object "
+                            +currTripsByDay.fmt_time+", "+currTripsByDay.trips.length
+                            +" for original local time "
+                            +trip.features[0].properties.exit_fmt_time);
+                currTripsByDay = tripsByDay[dayIndex];
+                currTripsByDay.trips.push(trip);
+            }
+        }
+      });
+
+      tripsByDay.forEach(function(item, index, array) {
+        console.log(index + ":" + item.fmt_time+", "+item.trips.length);
+      });
+
+      tripsByDay.forEach(function(item, index, array) {
+        item.directive_trips = item.trips.map(function(trip) {
+            retVal = {};
+            retVal.data = trip;
+            retVal.style = style_feature;
+            retVal.onEachFeature = onEachFeature;
+            retVal.pointToLayer = pointFormat;
+            retVal.sections = getSections(trip);
+            retVal.temp = {}
+            retVal.temp.showDelete = false;
+            retVal.temp.showReorder = false;
+            return retVal;
+        });
+      });
+
+      filteredTripsByDay = tripsByDay.filter(function(element, index, array) {
+        if (element.trips.length == 0) {
+            return false;
+        } else {
+            return true;
+        }
+      });
+
+      filteredTripsByDay.forEach(function(item, index, array) {
+        console.log(index + ":" + item.fmt_time+", "+item.trips.length);
+      });
+
+      $scope.allDays = filteredTripsByDay;
+
+      $scope.data = {};
+      $scope.data.days = filteredTripsByDay.slice(0,1);
+      $ionicSlideBoxDelegate.update();
+
+      /*
       var last_five_trips = [];
       var dic = {}
       var sec = tripSectionDbHelper.getUncommitedSections(jsonTripList);
 
       // get all sections for the last five days
       for (var j = 0; j < 5; j++) {
-        var mr_trip = sec.pop();
-        if (typeof(mr_trip) == "undefined") {
-            console.log("Unable to parse trip "+mr_trip);
-            continue;
-        }
         var mr_trips = [mr_trip];
         var today = new Date(mr_trip.startTime.date);
         var key_date = getDateOfTrip(today);
@@ -78,8 +181,236 @@ angular.module('starter.controllers', ['ionic'])
 
       $scope.last_five_trips = last_five_trips;
       console.log(last_five_trips);
+    BEGIN DEVICE VERSION
+    */
     });
   });
+
+        var getSections = function(trip) {
+            console.log("getSections("+trip+") called");
+            var sectionList = [];
+            trip.features.forEach(function(item, index, array) {
+                console.log("Considering feature " + JSON.stringify(item));
+                if (item.type == "FeatureCollection") {
+                    item.features.forEach(function (item, index, array) {
+                        if (angular.isDefined(item.properties) && angular.isDefined(item.properties.feature_type)) {
+                            console.log("Considering feature with type " + item.properties.feature_type);
+                            if (item.properties.feature_type == "section") {
+                                console.log("FOUND section" + item + ", appending");
+                                sectionList.push(item);
+                            }
+                        }
+                    });
+                }
+            });
+            return sectionList;
+        };
+
+        /*
+    $scope.to_directive = function(trip) {
+        retVal = {};
+        retVal.data = trip;
+        retVal.style = style_feature;
+        retVal.onEachFeature = onEachFeature;
+        retVal.pointToLayer = pointFormat;
+        return retVal;
+    };
+    */
+
+
+    $scope.userModes = [
+        "walk", "bicycle", "car", "bus", "train", "unicorn"
+    ];
+
+        $scope.getSectionDetails = function(section) {
+            return (section.properties.duration / 60).toFixed(0) + " mins ";
+        };
+
+        $scope.getTripDetails = function(trip) {
+            return (trip.sections.length) + " sections";
+        };
+
+
+    /*
+     * BEGIN: Functions for customizing our geojson display
+     */
+
+    $scope.showModes = function(section) {
+        return function() {
+            currMode = getHumanReadable(section.properties.sensed_mode);
+            currButtons = [{ text: "<b>"+currMode+"</b>"}];
+            $scope.userModes.forEach(function(item, index, array) {
+                if (item != currMode) {
+                    currButtons.push({text: item});
+                }
+            });
+
+           // Show the action sheet
+           var modeSheet = $ionicActionSheet.show({
+             buttons: currButtons,
+             titleText: 'Trip Mode?',
+               destructiveText: 'Delete',
+             buttonClicked: function(index) {
+                console.log("button "+index+" clicked for section "+JSON.stringify(section.properties));
+                return true;
+             },
+               destructiveButtonClicked: function(index) {
+                   console.log("delete clicked for section "+JSON.stringify(section.properties));
+                   return true;
+               }
+           });
+        }
+    };
+
+        $scope.magnifyPoint = function(point) {
+            return function() {
+                // We want to clone and reverse the coordinates array, since
+                // the original coordinates are in geojson format, this is in latlng
+                // Unfortunately, javascript does not support clone!
+                // Instead of doing hacks like stringifying and destringifying from JSON,
+                // I reverse manually.
+                // http://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-clone-an-object/5344074#5344074
+                var latLng = [];
+                latLng = [point.geometry.coordinates[1], point.geometry.coordinates[0]];
+
+                var glass = L.magnifyingGlass({
+                        zoomOffset: 2,
+                        radius: 1000,
+                        layers: [
+                            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png')
+                        ],
+                        fixedPosition: true,
+                        //
+                        latLng: latLng
+                });
+                console.log("Displaying magnifying glass at "+glass.options.latLng);
+                leafletData.getMap().then(function(map) {
+                    glass.addTo(map);
+                    console.log("Finished adding magnifying glass to map");
+                });
+            }
+        };
+
+    var style_feature = function(feature) {
+        switch(feature.properties.feature_type) {
+            case "section": return style_section(feature);
+            case "stop": return style_stop(feature);
+            default: return {}
+        }
+    };
+
+    var onEachFeature = function(feature, layer) {
+        switch(feature.properties.feature_type) {
+            case "stop": layer.bindPopup(""+feature.properties.duration); break;
+            case "start_place": layer.on('click', $scope.magnifyPoint(feature)); break;
+            case "end_place": layer.bindPopup(new Date(feature.properties.enter_ts * 1000).toLocaleTimeString()); break;
+            case "section": layer.setText(getHumanReadable(feature.properties.sensed_mode), {offset: 20});
+                layer.on('click', $scope.showModes(feature)); break;
+            case "location": layer.bindPopup(JSON.stringify(feature.properties)); break
+        }
+      };
+
+   var getHumanReadable = function(sensed_mode) {
+        ret_string = sensed_mode.split('.')[1]
+        if(ret_string == 'ON_FOOT') {
+            return 'WALKING';
+        } else {
+            return ret_string;
+        }
+      };
+
+   var getColoredStyle = function(baseDict, color) {
+        baseDict.color = color;
+        return baseDict
+      };
+
+   var style_section = function(feature) {
+        var baseDict = {
+                weight: 5,
+                opacity: 1,
+        };
+        mode_string = getHumanReadable(feature.properties.sensed_mode);
+        switch(mode_string) {
+            case "WALKING": return getColoredStyle(baseDict, 'brown');
+            case "BICYCLING": return getColoredStyle(baseDict, 'green');
+            case "TRANSPORT": return getColoredStyle(baseDict, 'red');
+            default: return getColoredStyle(baseDict, 'black');
+        }
+      };
+
+   var style_stop = function(feature) {
+        return {fillColor: 'yellow', fillOpacity: 0.8};
+      };
+
+      var pointIcon = L.divIcon({className: 'leaflet-div-icon', iconSize: [5, 5]});
+
+      var startMarker = L.AwesomeMarkers.icon({
+        icon: 'play',
+        prefix: 'ion',
+        markerColor: 'green'
+      });
+
+      var stopMarker = L.AwesomeMarkers.icon({
+        icon: 'stop',
+        prefix: 'ion',
+        markerColor: 'red'
+      });
+
+    var pointFormat = function(feature, latlng) {
+        switch(feature.properties.feature_type) {
+            case "start_place": return L.marker(latlng, {icon: startMarker})
+            case "end_place": return L.marker(latlng, {icon: stopMarker})
+            case "stop": return L.circleMarker(latlng)
+            case "location": return L.marker(latlng, {icon: pointIcon})
+            default: alert("Found unknown type in feature"  + feature); return L.marker(latlng)
+        }
+      };
+
+    /*
+     * END: Functions for customizing our geojson display
+     */
+
+    /*
+     * Local function that returns the timestamp corresponding to midnight in
+     * current local time for the specified timestamp.
+     * The timestamp is in seconds.
+     */
+    var getDayStart = function() {
+        var localNow = new Date();
+        var midnightDate = new Date(localNow.getFullYear(), localNow.getMonth(), localNow.getDate(),
+            0, 0, 0);
+        return midnightDate.getTime() / 1000;
+    };
+
+    /*
+     * Local function that returns a "day" object.
+     * TODO: Should we move this to the server side? We can send over data that
+     * is already pre-grouped into days...
+     */
+    var getTripsOnDate = function(start_ts, end_ts) {
+        return {'fmt_time': new Date(start_ts * 1000).toLocaleDateString(),
+            'start_ts': start_ts,
+            'end_ts': end_ts,
+            'trips': []
+        }
+    };
+
+    /*
+     * Local function that finds the 
+     */
+    var findDay = function(dayList, currIndex, ts) {
+        for(i = currIndex; i >= 0; i--) {
+            if (dayList[i].start_ts < ts && 
+                ts < dayList[i].end_ts) {
+                return i;
+            }
+        }
+        return -1;
+    };
+
+    var getStartTs = function(trip) {
+        return trip.features[0].properties.exit_ts
+    };
 
     var getDateOfTrip = function(date) {
       var month;
@@ -175,10 +506,12 @@ angular.module('starter.controllers', ['ionic'])
     };
 
     $scope.slideHasChanged = function(index) {
-      console.log("slide changed to index: " + index);
-      var trip = $scope.data.slides[index];
-      $scope.setupMap(trip["trip_val"][0]);
-    }
+      console.log("slide changed to index: " + index+" when ionic delegate index = "+$ionicSlideBoxDelegate.currentIndex+
+          " and our cached index is "+$scope.currIndex);
+      $scope.days = $scope.allDays.slice($scope.currIndex, $scope.currIndex+1);
+        $scope.currIndex = $scope.currIndex + 1;
+        $ionicSlideBoxDelegate.update();
+    };
 
     $scope.mapCreated = function(map) {
       console.log("maps here");
@@ -211,14 +544,14 @@ angular.module('starter.controllers', ['ionic'])
       var responseListener = function() {
         console.log("got response");
         var address = JSON.parse(this.response)["address"];
-        var name = ""
+        var name = "";
         if (address["road"]) {
           name = address["road"];
         } else if (address["neighbourhood"]) {
           name = address["neighbourhood"];
         }
         item.displayName = name;
-      }
+      };
       var xmlHttp = new XMLHttpRequest();
       var url = "http://nominatim.openstreetmap.org/reverse?format=json&lat=" + item["trackPoints"][0]["coordinate"][1] + "&lon=" + item["trackPoints"][0]["coordinate"][0]
       xmlHttp.open("GET", url);
@@ -238,7 +571,7 @@ angular.module('starter.controllers', ['ionic'])
     $scope.nextSlide = function() {
       console.log("next");
       $ionicSlideBoxDelegate.next();
-    }
+    };
 
     $scope.pickImage = function(item) {
       if (item.predictedMode != null) {
