@@ -3710,7 +3710,7 @@ angular.module("leaflet-directive")
                         return retVal;
                     };
 
-
+/*
                     L.magnifyingGlass({
                         zoomOffset: 5,
                         radius: 30,
@@ -3733,7 +3733,7 @@ angular.module("leaflet-directive")
                         fixedPosition: true,
                         latLng: reverseAndReturn(geojson.data.features[1].geometry.coordinates)
                     }).addTo(map);
-
+                    */
 
                     var autobounds = L.featureGroup([lObject]).getBounds()
                     map.fitBounds(autobounds,
