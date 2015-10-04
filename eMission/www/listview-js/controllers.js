@@ -131,11 +131,14 @@ angular.module('starter.controllers', ['ionic'])
         console.log(index + ":" + item.fmt_time+", "+item.trips.length);
       });
 
-      $scope.allDays = filteredTripsByDay;
+      $scope.data = {}
+      $scope.data.days = filteredTripsByDay;
 
-      $scope.data = {};
-      $scope.data.days = filteredTripsByDay.slice(0,1);
-      $ionicSlideBoxDelegate.update();
+      $scope.data.currIndex = 0;
+      $scope.data.currDay = $scope.data.days.slice(0,1)[0];
+
+      console.log("currIndex = "+$scope.data.currIndex+" currDay = "+ $scope.data.currDay.fmt_time);
+      // $ionicSlideBoxDelegate.update();
 
       /*
       var last_five_trips = [];
@@ -183,7 +186,7 @@ angular.module('starter.controllers', ['ionic'])
       console.log(last_five_trips);
     BEGIN DEVICE VERSION
     */
-    });
+     });
   });
 
         var getSections = function(trip) {
@@ -218,6 +221,7 @@ angular.module('starter.controllers', ['ionic'])
     */
 
 
+
     $scope.userModes = [
         "walk", "bicycle", "car", "bus", "train", "unicorn"
     ];
@@ -230,6 +234,39 @@ angular.module('starter.controllers', ['ionic'])
             return (trip.sections.length) + " sections";
         };
 
+        $scope.getTripHeightPixels = function(trip) {
+            return trip.sections.length * 20 + 300+"px";
+        };
+
+        $scope.getCurrDay = function() {
+            retVal = $scope.data.days.slice($scope.data.currIndex, $scope.data.currIndex+1)[0];
+            console.log("getCurrDay: returning "+retVal.fmt_time);
+            return retVal;
+        };
+
+        $scope.prevDay = function() {
+            console.log("Called prevDay when currDay = "+$scope.data.currDay.fmt_time);
+            if ($scope.data.currIndex == 0) {
+                console.log("Tried to go before the first day, need to make remote call here");
+            } else {
+                $scope.data.currIndex = $scope.data.currIndex - 1;
+                $scope.data.currDay = $scope.data.days.slice($scope.data.currIndex, $scope.data.currIndex+1)[0];
+                console.log("After moving, currIndex = "+$scope.data.currIndex+
+                    " and currDay = "+$scope.data.currDay.fmt_time);
+            }
+        };
+
+        $scope.nextDay = function() {
+            console.log("Called nextDay when currDay = "+$scope.data.currDay.fmt_time);
+            if ($scope.data.currIndex == $scope.data.days.length - 1) {
+                console.log("Tried to go after the last day, need to make remote call here");
+            } else {
+                $scope.data.currIndex = $scope.data.currIndex + 1;
+                $scope.data.currDay = $scope.data.days.slice($scope.data.currIndex, $scope.data.currIndex+1)[0];
+                console.log("After moving, currIndex = "+$scope.data.currIndex+
+                    " and currDay = "+$scope.data.currDay.fmt_time);
+            }
+        };
 
     /*
      * BEGIN: Functions for customizing our geojson display
@@ -262,7 +299,7 @@ angular.module('starter.controllers', ['ionic'])
         }
     };
 
-        $scope.magnifyPoint = function(point) {
+        $scope.magnifyPoint = function(point, layer) {
             return function() {
                 // We want to clone and reverse the coordinates array, since
                 // the original coordinates are in geojson format, this is in latlng
@@ -302,11 +339,11 @@ angular.module('starter.controllers', ['ionic'])
     var onEachFeature = function(feature, layer) {
         switch(feature.properties.feature_type) {
             case "stop": layer.bindPopup(""+feature.properties.duration); break;
-            case "start_place": layer.on('click', $scope.magnifyPoint(feature)); break;
-            case "end_place": layer.bindPopup(new Date(feature.properties.enter_ts * 1000).toLocaleTimeString()); break;
+            case "start_place": layer.on('click', $scope.magnifyPoint(feature, layer)); break;
+            case "end_place": layer.on('click', $scope.magnifyPoint(feature, layer)); break;
             case "section": layer.setText(getHumanReadable(feature.properties.sensed_mode), {offset: 20});
                 layer.on('click', $scope.showModes(feature)); break;
-            case "location": layer.bindPopup(JSON.stringify(feature.properties)); break
+            // case "location": layer.bindPopup(JSON.stringify(feature.properties)); break
         }
       };
 
