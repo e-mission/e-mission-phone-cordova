@@ -3704,11 +3704,39 @@ angular.module("leaflet-directive")
 
                     lObject.addTo(map);
 
-                    var reverseAndReturn = function(coordinates) {
-                        var retVal = [];
-                        retVal = [coordinates[1], coordinates[0]];
-                        return retVal;
-                    };
+                    /*
+                    When we start dragging, add a magnifying glass that moves with the
+                    dragging.
+                     */
+
+                    /*
+                    L.DomEvent.on(map._container, 'touchmove', function(event) {
+                        console.log("touchmove")
+                    });
+                    */
+
+                    map.on('contextmenu', function(event) {
+                        console.log("Receieved contextmenu event "+event);
+                        if (angular.isUndefined(map._glassMap)) {
+                            map._glassMap = L.magnifyingGlass({
+                                zoomOffset: 5,
+                                radius: 50,
+                                layers: [
+                                    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png'),
+                                    L.geoJson(geojson.data, geojson.options)
+                                ],
+                                fixedPosition: false,
+                                latLng: event.latlng
+                            });
+                            map.addLayer(map._glassMap);
+                            map._glassMap.startClick = Date.now();
+                        } else {
+                            if (Date.now() - map._glassMap.startClick > 3 * 1000) {
+                                map.removeLayer(map._glassMap);
+                                delete map._glassMap;
+                            }
+                        }
+                    });
 
 /*
                     L.magnifyingGlass({
@@ -3737,7 +3765,7 @@ angular.module("leaflet-directive")
 
                     var autobounds = L.featureGroup([lObject]).getBounds()
                     map.fitBounds(autobounds,
-                         {"padding": [30, 30]}
+                         {"paddingTopLeft": [30, 30], "paddingBottomRight": [50, 50]}
                     );
 
                     if(!_hasSetLeafletData){//only do this once and play with the same ref forever

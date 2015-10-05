@@ -75,6 +75,16 @@ L.MagnifyingGlass = L.TileLayer.extend({
     this._update(evt.latlng, evt.layerPoint);
   },
 
+  _updateFromDrag: function(evt) {
+    this._update(evt.latlng, evt.layerPoint);
+  },
+
+  _updateFromTouch: function(evt) {
+    console.log("_updateFromTouch called with "+evt);
+    this._update(this._mainMap.mouseEventToLatLng(evt.touches[0]),
+        this._mainMap.mouseEventToLayerPoint(evt.touches[0]));
+  },
+
   _updateFixed: function() {
     this._update(this.options.latLng);
   },
@@ -109,6 +119,11 @@ L.MagnifyingGlass = L.TileLayer.extend({
     // forward some DOM events as Leaflet events
     L.DomEvent.addListener(this._wrapperElt, 'click', this._fireClick, this);
 
+    /*
+    this._draggableWrapper = new L.Draggable(this._wrapperElt);
+    this._draggableWrapper.enable();
+    */
+
     var opts = this.options;
 
     this.setRadius(opts.radius);
@@ -121,6 +136,8 @@ L.MagnifyingGlass = L.TileLayer.extend({
         L.DomUtil.addClass(this._wrapperElt, ('leaflet-zoom-hide'));
       } else {
         this._mainMap.on('mousemove', this._updateFromMouse, this);
+        L.DomEvent.on(this._mainMap._container, 'touchmove', this._updateFromTouch, this);
+        // this._draggableWrapper.on('drag', this._updateFromDrag, this);
         if(!this._fixedZoom) {
           this._mainMap.on('zoomend', this._updateZoom, this);
         }
@@ -146,6 +163,7 @@ L.MagnifyingGlass = L.TileLayer.extend({
     map.off('viewreset', this._updateFixed, this);
     map.off('mousemove', this._updateFromMouse, this);
     map.off('zoomend', this._updateZoom, this);
+    L.DomEvent.off(this._mainMap._container, 'touchmove', this._updateFromTouch);
     // layers must be explicitely removed before map destruction,
     // otherwise they can't be reused if the mg is re-added
     for(var i=0, l=this.options.layers.length; i<l; i++) {
