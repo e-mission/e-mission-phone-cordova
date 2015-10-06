@@ -13,6 +13,9 @@
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
 
+  <!-- momentjs for all the time stuff -->
+    <script src="lib/moment.min.js"></script>
+
   <!-- ionic/angularjs js -->
   <script src="lib/ionic/js/ionic.bundle.js"></script>
 
@@ -66,7 +69,13 @@
             </button>
          </div>
          <div width=100% style="text-align:center">
-            {{data.currDay.fmt_time}}
+            {{data.currDay.calendar(null, {
+                sameDay: '[Today]',
+                nextDay: '[Tomorrow]',
+                nextWeek: 'dddd',
+                lastDay: '[Yesterday]',
+                lastWeek: '[Last] dddd'
+            })}}
          </div>
          <div class="buttons" style="text-align:right">
             <button class="button button-icon icon ion-ios-arrow-thin-right" ng-click="nextDay()">
@@ -86,7 +95,7 @@
             <img src="img/582752main_sunrise_from_iss-full_small.png">
         </div>
         <ion-list>
-            <ion-item collection-repeat="trip in data.currDay.directive_trips"
+            <ion-item collection-repeat="trip in data.currDayTrips"
                 item-width=100% item-height="trip.sections.length * 30 + 300"
                 class="no-margin bg-color">
               <div class="buttons summary-color">
@@ -157,7 +166,7 @@
           </ion-list>
         <div class="row bg-color"
             item-width="100%" item-height="300">
-            <img src="img/nileredsea_126b5740_small.png">
+            <img src="img/nileredsea_126b5740_small.png" width=300 height=200>
         </div>
         </ion-content>
     <ion-tabs class="tabs-default tabs-icon-top">
