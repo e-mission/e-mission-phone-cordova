@@ -18,176 +18,41 @@ angular.module('starter.controllers', ['ionic'])
       }
   });
 
-  /*
-   * I think that this may be a cause of a controller trying to do too much,
-   * and should probably be moved into a service.
-   */
+      $scope.data = {};
+      $scope.data.currDay = moment("2015-09-16").startOf('day');
+      // $scope.data.currDay = moment().startOf('day');
 
-  // Read all cached trips
-  /*
-   BEGIN DEVICE VERSION
-    */
-  var db = window.sqlitePlugin.openDatabase({
-    name: "userCacheDB",
-    location: 0,
-    createFromLocation: 1
-  });
-  UserCacheHelper.getDocument(db, "diary/trips", function(tripListArray) {
-    $scope.$apply(function() {
-      tripListStr = tripListArray[0];
-      tripList = JSON.parse(tripListStr);
+      var getKeyForDate = function(date) {
+        dateString = date.startOf('day').format('YYYY-MM-DD');
+          return "diary/trips-"+dateString;
+      };
 
-  /*
-   BEGIN BROWSER VERSION
-  $http.get("tomtrips.json").success(function(data, status) {
-    console.log(data);
-      tripList = data;
-    */
 
-      console.log("last place enter = "+tripList[tripList.length-1].features[1].properties.enter_fmt_time)
-      console.log("first place exit = "+tripList[0].features[0].properties.exit_fmt_time)
-
-      // Get UTC timestamp for the last trip in the database in current local time
-      var currDayStart = getDayStart();
-
-      // stores array of trip objects, one array for each day.
-      // days are in reverse cron order, and trips are in cron order within each day
-      var tripsByDay = [];
-
-      var oldestTrip = tripList[0]
-      var oldestStartTs = getStartTs(oldestTrip)
-
-      console.log("currDayStart = "+currDayStart+" oldestStartTs = " + oldestStartTs);
-
-      // Iterate over the time range from now until the oldest startTs and
-      // create TripsOnDate objects. Each TripOnDate has a date string, a start
-      // Ts, an endTs and a list of geojson trips on that date. In order to do
-      // this, we want to iterate over the trips only once instead of O(ndays)
-      // times, so we first create the objects and then fill them with the trips.
-
-      tripsByDay.push(getTripsOnDate(currDayStart, Date.now() / 1000))
-
-      while (oldestStartTs < currDayStart) {
-        var prevDayStart = currDayStart - 24 * 60 * 60
-        tripsByDay.push(getTripsOnDate(prevDayStart, currDayStart)); 
-        currDayStart = prevDayStart;
-      }
-
-      tripsByDay.forEach(function(item, index, array) {
-        console.log(index + ":" + JSON.stringify(item));
+        /*
+         Let us assume that we have recieved a list of trips for that date from somewhere
+         (either local usercache or the internet). Now, what do we need to process them?
+         */
+  var processTripsForDay = function(tripListForDay) {
+      tripListForDay.forEach(function(item, index, array) {
+        console.log(index + ":" + item.properties.start_fmt_time+", "+item.properties.duration);
       });
 
-      var dayIndex = tripsByDay.length - 1;
-      tripList.forEach(function(trip, index, array) {
-        currTripsByDay = tripsByDay[dayIndex];
-        var currTripStartTs = getStartTs(trip);
-        if (currTripsByDay.start_ts < currTripStartTs &&
-            currTripStartTs < currTripsByDay.end_ts) {
-            console.log("Existing day works, yay!");
-            currTripsByDay.trips.push(trip);
-        } else {
-            dayIndex = findDay(tripsByDay, dayIndex, currTripStartTs);
-            if (dayIndex == -1) {
-                console.warn("We should have a day for each trip, but trip "+trip+" does not have a day! Skipping...");
-            } else {
-                console.log("Found tripsByDay object "
-                            +currTripsByDay.fmt_time+", "+currTripsByDay.trips.length
-                            +" for original local time "
-                            +trip.features[0].properties.exit_fmt_time);
-                currTripsByDay = tripsByDay[dayIndex];
-                currTripsByDay.trips.push(trip);
-            }
-        }
-      });
-
-      tripsByDay.forEach(function(item, index, array) {
-        console.log(index + ":" + item.fmt_time+", "+item.trips.length);
-      });
-
-      tripsByDay.forEach(function(item, index, array) {
-        item.directive_trips = item.trips.map(function(trip) {
+      directiveTripListForDay = tripListForDay.map(function(trip) {
             retVal = {};
             retVal.data = trip;
             retVal.style = style_feature;
             retVal.onEachFeature = onEachFeature;
             retVal.pointToLayer = pointFormat;
             retVal.sections = getSections(trip);
-            retVal.temp = {}
+            retVal.temp = {};
             retVal.temp.showDelete = false;
             retVal.temp.showReorder = false;
             return retVal;
-        });
       });
 
-      filteredTripsByDay = tripsByDay.filter(function(element, index, array) {
-        if (element.trips.length == 0) {
-            return false;
-        } else {
-            return true;
-        }
-      });
-
-      filteredTripsByDay.forEach(function(item, index, array) {
-        console.log(index + ":" + item.fmt_time+", "+item.trips.length);
-      });
-
-      $scope.data = {}
-      $scope.data.days = filteredTripsByDay;
-
-      $scope.data.currIndex = 0;
-      $scope.data.currDay = $scope.data.days.slice(0,1)[0];
-
-      console.log("currIndex = "+$scope.data.currIndex+" currDay = "+ $scope.data.currDay.fmt_time);
-      // $ionicSlideBoxDelegate.update();
-
-      /*
-      var last_five_trips = [];
-      var dic = {}
-      var sec = tripSectionDbHelper.getUncommitedSections(jsonTripList);
-
-      // get all sections for the last five days
-      for (var j = 0; j < 5; j++) {
-        var mr_trips = [mr_trip];
-        var today = new Date(mr_trip.startTime.date);
-        var key_date = getDateOfTrip(today);
-
-        for (var i = sec.length - 1; i >= 0;) {
-          var trip = sec[i];
-          // hacky way to check if date is the same
-          var tripDate = new Date(trip.startTime.date)
-          if (tripDate.getMonth() == today.getMonth()) {
-            if (tripDate.getDate() == today.getDate()) {
-              if (tripDate.getFullYear() == today.getFullYear()) {
-                sec.splice(i, 1);
-                mr_trips.unshift(trip);
-              }
-            }
-          }
-          i--;
-        }
-        dic['date_key'] = key_date;
-        dic['trip_val'] = mr_trips;
-        last_five_trips.push(dic);
-        dic = {}
-          // last five trips: [ {date: date, trips: [trip1, trip2]} ]
-      }
-      $scope.data = {};
-      $scope.data.slides = last_five_trips;
-      for (var i = 0; i < $scope.data.slides.length; i++) {
-        var trip = $scope.data.slides[i];
-        for (var j = 0; j < trip.trip_val.length; j++) {
-          var x = trip.trip_val[j];
-          $scope.getDisplayName(x);
-        }
-      }
-      $ionicSlideBoxDelegate.update();
-
-      $scope.last_five_trips = last_five_trips;
-      console.log(last_five_trips);
-    BEGIN DEVICE VERSION
-    */
-     });
-  });
+      $scope.data.currDayTrips = directiveTripListForDay;
+      console.log("currIndex = "+$scope.data.currDay+" currDayTrips = "+ $scope.data.currDayTrips.length);
+  };
 
         var getSections = function(trip) {
             console.log("getSections("+trip+") called");
@@ -209,6 +74,80 @@ angular.module('starter.controllers', ['ionic'])
             return sectionList;
         };
 
+
+
+        var readAndUpdateFromDatabase = function(day, foundFn, notFoundFn) {
+            UserCacheHelper.getDocument(db, getKeyForDate($scope.data.currDay),
+                function (tripListArray) {
+                    $scope.$apply(function () {
+                        if (tripListArray.length > 0) {
+                            tripListStr = tripListArray[0];
+                            tripList = JSON.parse(tripListStr);
+                            foundFn(tripList);
+                        } else {
+                            console.log("while reading data for "+day+" from database, no records found");
+                           // notFoundFn();
+                        }
+                    });
+            });
+        };
+
+        /*
+         * Used for quick debugging using the live updating server. But then I can't use plugins, so we read from
+         * the local file system instead.
+         */
+        var readAndUpdateFromFile = function(day, foundFn, notFoundFn) {
+            $http.get("test_data/"+getKeyForDate(day)).then(function(response) {
+               console.log("while reading data for "+day+" from file, status = "+response.status);
+               tripList = response.data;
+               foundFn(tripList);
+            }, function(response) {
+               console.log("while reading data for "+day+" from file, status = "+response.status);
+               // notFoundFn();
+            });
+        };
+
+        var readAndUpdateFromServer = function(day, foundFn, notFoundFn) {
+            $http.get("results/"+getKeyForDate(day)).then(function(response) {
+               console.log("while reading data for "+day+" from file, status = "+response.status);
+               tripList = response.data;
+               processResultFunction(tripList);
+            }, function(response) {
+               console.log("while reading data for "+day+" from file, status = "+response.status);
+               // notFoundFn();
+            });
+        };
+
+          // Read cached trips for the current day
+  /*
+   BEGIN DEVICE VERSION
+        */
+
+
+  var db = window.sqlitePlugin.openDatabase({
+    name: "userCacheDB",
+    location: 0,
+    createFromLocation: 1
+  });
+        var localCacheReadFn = readAndUpdateFromDatabase;
+
+        /*
+   BEGIN BROWSER VERSION
+   var localCacheReadFn = readAndUpdateFromFile;
+   */
+
+    var readAndUpdateForDay = function(day) {
+        // First, we try the local cache
+        // And if we don't find anything there, we fallback to the real server
+        localCacheReadFn(day, processTripsForDay, function() {
+            readAndUpdateFromServer(day, processTripsForDay, function() {
+                console.log("No trips found for day - need to figure out how do deal with this");
+            });
+        });
+    }
+
+    localCacheReadFn($scope.data.currDay, processTripsForDay);
+
         /*
     $scope.to_directive = function(trip) {
         retVal = {};
@@ -219,7 +158,6 @@ angular.module('starter.controllers', ['ionic'])
         return retVal;
     };
     */
-
 
 
     $scope.userModes = [
@@ -245,27 +183,19 @@ angular.module('starter.controllers', ['ionic'])
         };
 
         $scope.prevDay = function() {
-            console.log("Called prevDay when currDay = "+$scope.data.currDay.fmt_time);
-            if ($scope.data.currIndex == 0) {
-                console.log("Tried to go before the first day, need to make remote call here");
-            } else {
-                $scope.data.currIndex = $scope.data.currIndex - 1;
-                $scope.data.currDay = $scope.data.days.slice($scope.data.currIndex, $scope.data.currIndex+1)[0];
-                console.log("After moving, currIndex = "+$scope.data.currIndex+
-                    " and currDay = "+$scope.data.currDay.fmt_time);
-            }
+            console.log("Called prevDay when currDay = "+$scope.data.currDay);
+            var prevDay = $scope.data.currDay.subtract(1, 'days');
+            console.log("prevDay = "+nextDay);
+            $scope.data.currDay = prevDay;
+            readAndUpdateForDay(prevDay);
         };
 
         $scope.nextDay = function() {
-            console.log("Called nextDay when currDay = "+$scope.data.currDay.fmt_time);
-            if ($scope.data.currIndex == $scope.data.days.length - 1) {
-                console.log("Tried to go after the last day, need to make remote call here");
-            } else {
-                $scope.data.currIndex = $scope.data.currIndex + 1;
-                $scope.data.currDay = $scope.data.days.slice($scope.data.currIndex, $scope.data.currIndex+1)[0];
-                console.log("After moving, currIndex = "+$scope.data.currIndex+
-                    " and currDay = "+$scope.data.currDay.fmt_time);
-            }
+            console.log("Called nextDay when currDay = "+$scope.data.currDay);
+            var nextDay = $scope.data.currDay.add(1, 'days');
+            console.log("nextDay = "+nextDay);
+            $scope.data.currDay = nextDay;
+            readAndUpdateForDay(nextDay);
         };
 
     /*
@@ -337,6 +267,7 @@ angular.module('starter.controllers', ['ionic'])
     };
 
     var onEachFeature = function(feature, layer) {
+        console.log("onEachFeature called with "+JSON.stringify(feature));
         switch(feature.properties.feature_type) {
             case "stop": layer.bindPopup(""+feature.properties.duration); break;
             case "start_place": layer.on('click', $scope.magnifyPoint(feature, layer)); break;
@@ -348,7 +279,7 @@ angular.module('starter.controllers', ['ionic'])
       };
 
    var getHumanReadable = function(sensed_mode) {
-        ret_string = sensed_mode.split('.')[1]
+        ret_string = sensed_mode.split('.')[1];
         if(ret_string == 'ON_FOOT') {
             return 'WALKING';
         } else {
@@ -395,10 +326,10 @@ angular.module('starter.controllers', ['ionic'])
 
     var pointFormat = function(feature, latlng) {
         switch(feature.properties.feature_type) {
-            case "start_place": return L.marker(latlng, {icon: startMarker})
-            case "end_place": return L.marker(latlng, {icon: stopMarker})
-            case "stop": return L.circleMarker(latlng)
-            case "location": return L.marker(latlng, {icon: pointIcon})
+            case "start_place": return L.marker(latlng, {icon: startMarker});
+            case "end_place": return L.marker(latlng, {icon: stopMarker});
+            case "stop": return L.circleMarker(latlng);
+            case "location": return L.marker(latlng, {icon: pointIcon});
             default: alert("Found unknown type in feature"  + feature); return L.marker(latlng)
         }
       };
@@ -499,9 +430,8 @@ angular.module('starter.controllers', ['ionic'])
           month = "December";
           break;
 
-      };
-
-      switch (date.getDay()) {
+      }
+        switch (date.getDay()) {
         case 1:
           day = "Sunday";
           break;
@@ -523,9 +453,8 @@ angular.module('starter.controllers', ['ionic'])
         case 7:
           day = "Saturday";
           break;
-      };
-
-      return (day + ", " + month + " " + date.getDate() + ", " + date.getFullYear());
+      }
+        return (day + ", " + month + " " + date.getDate() + ", " + date.getFullYear());
     };
 
 
@@ -552,7 +481,7 @@ angular.module('starter.controllers', ['ionic'])
 
     $scope.mapCreated = function(map) {
       console.log("maps here");
-      console.log(map)
+      console.log(map);
       $scope.map = map;
       $scope.setupMap($scope.data.slides[0]["trip_val"][0]);
     };
@@ -590,7 +519,7 @@ angular.module('starter.controllers', ['ionic'])
         item.displayName = name;
       };
       var xmlHttp = new XMLHttpRequest();
-      var url = "http://nominatim.openstreetmap.org/reverse?format=json&lat=" + item["trackPoints"][0]["coordinate"][1] + "&lon=" + item["trackPoints"][0]["coordinate"][0]
+      var url = "http://nominatim.openstreetmap.org/reverse?format=json&lat=" + item["trackPoints"][0]["coordinate"][1] + "&lon=" + item["trackPoints"][0]["coordinate"][0];
       xmlHttp.open("GET", url);
       xmlHttp.onload = responseListener;
       xmlHttp.send();
@@ -648,25 +577,25 @@ angular.module('starter.controllers', ['ionic'])
       if ($scope.endMarker) {
         $scope.endMarker.setMap(null)
       }
-      var points = item["trackPoints"]
-      var latitude = points[0]["coordinate"][1]
-      var longitude = points[0]["coordinate"][0]
-      var endLat = points[points.length - 1]["coordinate"][1]
-      var endLng = points[points.length - 1]["coordinate"][0]
+      var points = item["trackPoints"];
+      var latitude = points[0]["coordinate"][1];
+      var longitude = points[0]["coordinate"][0];
+      var endLat = points[points.length - 1]["coordinate"][1];
+      var endLng = points[points.length - 1]["coordinate"][0];
       $scope.startMarker = new google.maps.Marker({
         position: new google.maps.LatLng(latitude, longitude),
         icon: 'img/maps-markera.png'
       });
-      $scope.startMarker.setMap($scope.map)
+      $scope.startMarker.setMap($scope.map);
       $scope.endMarker = new google.maps.Marker({
         position: new google.maps.LatLng(endLat, endLng),
         icon: 'img/maps-markerb.png'
       });
-      $scope.endMarker.setMap($scope.map)
+      $scope.endMarker.setMap($scope.map);
       $scope.map.setCenter({
         lat: latitude,
         lng: longitude
-      })
+      });
       var coordinates = [];
       for (var i = 0; i < points.length; i++) {
         coordinates.push(new google.maps.LatLng(points[i]["coordinate"][1], points[i]["coordinate"][0]))
@@ -678,8 +607,8 @@ angular.module('starter.controllers', ['ionic'])
         strokeOpacity: 1.0,
         strokeWeight: 2
       });
-      $scope.path = path
-      path.setMap($scope.map)
+      $scope.path = path;
+      path.setMap($scope.map);
       var bounds = new google.maps.LatLngBounds();
       for (var i = 0; i < coordinates.length; i++) {
         bounds.extend(coordinates[i]);
@@ -751,7 +680,7 @@ angular.module('starter.controllers', ['ionic'])
     }];
 
     $scope.modeUpdate = function(trip, newMode) {
-      console.log("selected new mode " + newMode + " with tripId " + trip.tripId)
+      console.log("selected new mode " + newMode + " with tripId " + trip.tripId);
       var db = window.sqlitePlugin.openDatabase({
         name: "TripSections.db",
         location: 2,
@@ -771,4 +700,4 @@ angular.module('starter.controllers', ['ionic'])
       $scope.modes[0].newMode;
     };
 
-  })
+  });
