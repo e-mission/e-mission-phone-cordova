@@ -107,7 +107,11 @@ body {
   color:whitesmoke !important;
 }
 .summary-color{
-  background:#82cda9!important;
+  background:#1b9e77!important;
+  color:whitesmoke !important;
+}
+.place-color{
+  background:#7570b3!important;
   color:whitesmoke !important;
 }
 .slider {
