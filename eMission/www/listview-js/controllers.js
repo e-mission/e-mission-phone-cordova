@@ -1,7 +1,7 @@
 angular.module('starter.controllers', ['ionic'])
 
 .controller("TripsCtrl", function($scope, $http, $ionicPlatform, $state,
-                                    $ionicSlideBoxDelegate, $ionicActionSheet,
+                                    $ionicScrollDelegate, $ionicActionSheet,
                                     leafletData) {
   console.log("controller TripsCtrl called");
 
@@ -18,6 +18,24 @@ angular.module('starter.controllers', ['ionic'])
       }
   });
 
+        moment.locale('en', {
+    relativeTime : {
+        future: "in %s",
+        past:   "%s ago",
+        s:  "s",
+        m:  "a min",
+        mm: "%d m",
+        h:  "an hr",
+        hh: "%d h",
+        d:  "a day",
+        dd: "%d days",
+        M:  "a month",
+        MM: "%d months",
+        y:  "a year",
+        yy: "%d years"
+    }
+});
+
       $scope.data = {};
       $scope.data.currDay = moment("2015-09-16").startOf('day');
       // $scope.data.currDay = moment().startOf('day');
@@ -32,7 +50,7 @@ angular.module('starter.controllers', ['ionic'])
          Let us assume that we have recieved a list of trips for that date from somewhere
          (either local usercache or the internet). Now, what do we need to process them?
          */
-  var processTripsForDay = function(tripListForDay) {
+  var processTripsForDay = function(day, tripListForDay) {
       tripListForDay.forEach(function(item, index, array) {
         console.log(index + ":" + item.properties.start_fmt_time+", "+item.properties.duration);
       });
@@ -43,26 +61,60 @@ angular.module('starter.controllers', ['ionic'])
             retVal.style = style_feature;
             retVal.onEachFeature = onEachFeature;
             retVal.pointToLayer = pointFormat;
-            retVal.sections = getSections(trip);
-            retVal.temp = {};
-            retVal.temp.showDelete = false;
-            retVal.temp.showReorder = false;
+            var tc = getTripComponents(trip);
+            retVal.start_place = tc[0];
+            retVal.end_place = tc[1];
+            retVal.stops = tc[2];
+            retVal.sections = tc[3];
             return retVal;
       });
 
+      $scope.data.currDay = day;
       $scope.data.currDayTrips = directiveTripListForDay;
+
+      $scope.data.currDayTrips.forEach(function(dt, index, array) {
+          if (dt.start_place.properties.displayName) {
+              console.log("Already have display name "+ dt.start_place.properties.displayName +" for start_place");
+          } else {
+              $scope.getDisplayName(dt.start_place);
+          }
+          if (dt.end_place.properties.displayName) {
+              console.log("Already have display name " + dt.end_place.properties.displayName + " for start_place");
+          } else {
+              $scope.getDisplayName(dt.end_place);
+          }
+      });
+
       console.log("currIndex = "+$scope.data.currDay+" currDayTrips = "+ $scope.data.currDayTrips.length);
+      $ionicScrollDelegate.scrollTop(true);
   };
 
-        var getSections = function(trip) {
+        var getTripComponents = function(trip) {
             console.log("getSections("+trip+") called");
+            var startPlace = null;
+            var endPlace = null;
+            var stopList = [];
             var sectionList = [];
-            trip.features.forEach(function(item, index, array) {
-                console.log("Considering feature " + JSON.stringify(item));
-                if (item.type == "FeatureCollection") {
-                    item.features.forEach(function (item, index, array) {
+            trip.features.forEach(function(feature, index, array) {
+                console.log("Considering feature " + JSON.stringify(feature));
+                switch (feature.type) {
+                    case "Feature":
+                        switch(feature.properties.feature_type) {
+                            case "start_place":
+                                startPlace = feature;
+                                break;
+                            case "end_place":
+                                endPlace = feature;
+                                break;
+                            case "stop":
+                                stopList.push(feature);
+                                break;
+                        }
+                        break;
+                    case "FeatureCollection":
+                        feature.features.forEach(function (item, index, array) {
                         if (angular.isDefined(item.properties) && angular.isDefined(item.properties.feature_type)) {
-                            console.log("Considering feature with type " + item.properties.feature_type);
+                            // console.log("Considering feature with type " + item.properties.feature_type);
                             if (item.properties.feature_type == "section") {
                                 console.log("FOUND section" + item + ", appending");
                                 sectionList.push(item);
@@ -71,7 +123,7 @@ angular.module('starter.controllers', ['ionic'])
                     });
                 }
             });
-            return sectionList;
+            return [startPlace, endPlace, stopList, sectionList];
         };
 
 
@@ -83,10 +135,10 @@ angular.module('starter.controllers', ['ionic'])
                         if (tripListArray.length > 0) {
                             tripListStr = tripListArray[0];
                             tripList = JSON.parse(tripListStr);
-                            foundFn(tripList);
+                            foundFn(day, tripList);
                         } else {
                             console.log("while reading data for "+day+" from database, no records found");
-                           // notFoundFn();
+                            notFoundFn(day, "no matching record for key "+getKeyForDate(date));
                         }
                     });
             });
@@ -100,10 +152,10 @@ angular.module('starter.controllers', ['ionic'])
             $http.get("test_data/"+getKeyForDate(day)).then(function(response) {
                console.log("while reading data for "+day+" from file, status = "+response.status);
                tripList = response.data;
-               foundFn(tripList);
+               foundFn(day, tripList);
             }, function(response) {
                console.log("while reading data for "+day+" from file, status = "+response.status);
-               // notFoundFn();
+               notFoundFn(day, response);
             });
         };
 
@@ -111,37 +163,38 @@ angular.module('starter.controllers', ['ionic'])
             $http.get("results/"+getKeyForDate(day)).then(function(response) {
                console.log("while reading data for "+day+" from file, status = "+response.status);
                tripList = response.data;
-               processResultFunction(tripList);
+               processResultFunction(day, tripList);
             }, function(response) {
                console.log("while reading data for "+day+" from file, status = "+response.status);
-               // notFoundFn();
+               notFoundFn(day, response);
             });
         };
 
-          // Read cached trips for the current day
-  /*
+        /*
    BEGIN DEVICE VERSION
         */
 
-
+          // Read cached trips for the current day
   var db = window.sqlitePlugin.openDatabase({
     name: "userCacheDB",
     location: 0,
     createFromLocation: 1
   });
+
         var localCacheReadFn = readAndUpdateFromDatabase;
 
         /*
    BEGIN BROWSER VERSION
-   var localCacheReadFn = readAndUpdateFromFile;
-   */
+         */
+   // var localCacheReadFn = readAndUpdateFromFile;
 
     var readAndUpdateForDay = function(day) {
         // First, we try the local cache
         // And if we don't find anything there, we fallback to the real server
-        localCacheReadFn(day, processTripsForDay, function() {
-            readAndUpdateFromServer(day, processTripsForDay, function() {
-                console.log("No trips found for day - need to figure out how do deal with this");
+        localCacheReadFn(day, processTripsForDay, function(day, error) {
+            readAndUpdateFromServer(day, processTripsForDay, function(day, error) {
+                console.log("No trips found for day "+error);
+                alert("deal with me!");
             });
         });
     }
@@ -164,12 +217,55 @@ angular.module('starter.controllers', ['ionic'])
         "walk", "bicycle", "car", "bus", "train", "unicorn"
     ];
 
+        $scope.getKmph = function(section) {
+            metersPerSec = section.properties.distance / section.properties.duration;
+            return (metersPerSec * 3.6).toFixed(2);
+        };
+
+        $scope.getFormattedDistance = function(dist_in_meters) {
+            if (dist_in_meters > 1000) {
+                return (dist_in_meters/1000).toFixed(0);
+            } else {
+                return (dist_in_meters/1000).toFixed(3);
+            }
+        }
+
         $scope.getSectionDetails = function(section) {
-            return (section.properties.duration / 60).toFixed(0) + " mins ";
+            startMoment = moment(section.properties.start_ts * 1000);
+            endMoment = moment(section.properties.end_ts * 1000);
+            retVal = [startMoment.format('LT'),
+                    endMoment.format('LT'),
+                    endMoment.to(startMoment, true),
+                    formatDistance(section.properties.distance),
+                    tokmph(section.properties.distance, section.properties.duration).toFixed(2),
+                    $scope.getHumanReadable(section.properties.sensed_mode)];
+            return retVal;
+        };
+
+        $scope.getFormattedTime = function(ts_in_secs) {
+            if (angular.isDefined(ts_in_secs)) {
+                return moment(ts_in_secs * 1000).format('LT');
+            } else {
+                return "---";
+            }
+        };
+
+        $scope.getFormattedDuration = function(end_ts_in_secs, start_ts_in_secs) {
+            startMoment = moment(start_ts_in_secs * 1000);
+            endMoment = moment(end_ts_in_secs * 1000);
+            return endMoment.to(startMoment, true);
         };
 
         $scope.getTripDetails = function(trip) {
             return (trip.sections.length) + " sections";
+        };
+
+        $scope.getTimeSplit = function(tripList) {
+            var retVal = {};
+            var tripTimes = tripList.map(function(dt) {
+                return dt.data.properties.duration;
+            });
+
         };
 
         $scope.getTripHeightPixels = function(trip) {
@@ -184,17 +280,15 @@ angular.module('starter.controllers', ['ionic'])
 
         $scope.prevDay = function() {
             console.log("Called prevDay when currDay = "+$scope.data.currDay);
-            var prevDay = $scope.data.currDay.subtract(1, 'days');
-            console.log("prevDay = "+nextDay);
-            $scope.data.currDay = prevDay;
+            var prevDay = moment($scope.data.currDay).subtract(1, 'days');
+            console.log("prevDay = "+prevDay);
             readAndUpdateForDay(prevDay);
         };
 
         $scope.nextDay = function() {
             console.log("Called nextDay when currDay = "+$scope.data.currDay);
-            var nextDay = $scope.data.currDay.add(1, 'days');
+            var nextDay = moment($scope.data.currDay).add(1, 'days');
             console.log("nextDay = "+nextDay);
-            $scope.data.currDay = nextDay;
             readAndUpdateForDay(nextDay);
         };
 
@@ -204,7 +298,7 @@ angular.module('starter.controllers', ['ionic'])
 
     $scope.showModes = function(section) {
         return function() {
-            currMode = getHumanReadable(section.properties.sensed_mode);
+            currMode = $scope.getHumanReadable(section.properties.sensed_mode);
             currButtons = [{ text: "<b>"+currMode+"</b>"}];
             $scope.userModes.forEach(function(item, index, array) {
                 if (item != currMode) {
@@ -267,18 +361,18 @@ angular.module('starter.controllers', ['ionic'])
     };
 
     var onEachFeature = function(feature, layer) {
-        console.log("onEachFeature called with "+JSON.stringify(feature));
+        // console.log("onEachFeature called with "+JSON.stringify(feature));
         switch(feature.properties.feature_type) {
             case "stop": layer.bindPopup(""+feature.properties.duration); break;
             case "start_place": layer.on('click', $scope.magnifyPoint(feature, layer)); break;
             case "end_place": layer.on('click', $scope.magnifyPoint(feature, layer)); break;
-            case "section": layer.setText(getHumanReadable(feature.properties.sensed_mode), {offset: 20});
+            case "section": layer.setText($scope.getHumanReadable(feature.properties.sensed_mode), {offset: 20});
                 layer.on('click', $scope.showModes(feature)); break;
             // case "location": layer.bindPopup(JSON.stringify(feature.properties)); break
         }
       };
 
-   var getHumanReadable = function(sensed_mode) {
+   $scope.getHumanReadable = function(sensed_mode) {
         ret_string = sensed_mode.split('.')[1];
         if(ret_string == 'ON_FOOT') {
             return 'WALKING';
@@ -297,7 +391,7 @@ angular.module('starter.controllers', ['ionic'])
                 weight: 5,
                 opacity: 1,
         };
-        mode_string = getHumanReadable(feature.properties.sensed_mode);
+        mode_string = $scope.getHumanReadable(feature.properties.sensed_mode);
         switch(mode_string) {
             case "WALKING": return getColoredStyle(baseDict, 'brown');
             case "BICYCLING": return getColoredStyle(baseDict, 'green');
@@ -337,44 +431,6 @@ angular.module('starter.controllers', ['ionic'])
     /*
      * END: Functions for customizing our geojson display
      */
-
-    /*
-     * Local function that returns the timestamp corresponding to midnight in
-     * current local time for the specified timestamp.
-     * The timestamp is in seconds.
-     */
-    var getDayStart = function() {
-        var localNow = new Date();
-        var midnightDate = new Date(localNow.getFullYear(), localNow.getMonth(), localNow.getDate(),
-            0, 0, 0);
-        return midnightDate.getTime() / 1000;
-    };
-
-    /*
-     * Local function that returns a "day" object.
-     * TODO: Should we move this to the server side? We can send over data that
-     * is already pre-grouped into days...
-     */
-    var getTripsOnDate = function(start_ts, end_ts) {
-        return {'fmt_time': new Date(start_ts * 1000).toLocaleDateString(),
-            'start_ts': start_ts,
-            'end_ts': end_ts,
-            'trips': []
-        }
-    };
-
-    /*
-     * Local function that finds the 
-     */
-    var findDay = function(dayList, currIndex, ts) {
-        for(i = currIndex; i >= 0; i--) {
-            if (dayList[i].start_ts < ts && 
-                ts < dayList[i].end_ts) {
-                return i;
-            }
-        }
-        return -1;
-    };
 
     var getStartTs = function(trip) {
         return trip.features[0].properties.exit_ts
@@ -506,34 +562,41 @@ angular.module('starter.controllers', ['ionic'])
       });
     };
 
-    $scope.getDisplayName = function(item) {
-      var responseListener = function() {
-        console.log("got response");
-        var address = JSON.parse(this.response)["address"];
+    $scope.getDisplayName = function(place_feature) {
+      var responseListener = function(data) {
+        var address = data["address"];
         var name = "";
         if (address["road"]) {
           name = address["road"];
         } else if (address["neighbourhood"]) {
           name = address["neighbourhood"];
         }
-        item.displayName = name;
+          if (address["city"]) {
+            name = name + ", " + address["city"];
+          } else if (address["town"]) {
+            name = name + ", " + address["town"];
+          } else if (address["county"]) {
+              name = name + ", " + address["county"];
+          }
+
+          console.log("got response, setting display name to "+name);
+        place_feature.properties.displayName = name;
       };
-      var xmlHttp = new XMLHttpRequest();
-      var url = "http://nominatim.openstreetmap.org/reverse?format=json&lat=" + item["trackPoints"][0]["coordinate"][1] + "&lon=" + item["trackPoints"][0]["coordinate"][0];
-      xmlHttp.open("GET", url);
-      xmlHttp.onload = responseListener;
-      xmlHttp.send();
+
+
+      var url = "http://nominatim.openstreetmap.org/reverse?format=json&lat=" + place_feature.geometry.coordinates[1]
+          + "&lon=" + place_feature.geometry.coordinates[0];
+        console.log("About to make call "+url);
+        $http.get(url).then(function(response) {
+               console.log("while reading data from nominatim, status = "+response.status
+                   +" data = "+JSON.stringify(response.data));
+               responseListener(response.data);
+            }, function(response) {
+               console.log("while reading data for "+day+" from file, status = "+response.status);
+               notFoundFn(day, response);
+            });
     };
 
-    /*
-    var db = $cordovaSQLite.openDB({name: "TripSections.db"});
-    tripSectionDbHelper.getJSON({name: "TripSections.db"}, function(jsonTripList){
-        alert("this is actually happening");
-        console.log("testing other things");
-        $scope.trips = tripSectionDbHelper.getUncommittedSections(jsonTripList);
-        console.log($scope.trips.length + "trips have been loaded");
-    });
-    */
     $scope.nextSlide = function() {
       console.log("next");
       $ionicSlideBoxDelegate.next();
