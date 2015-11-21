@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400);
+/* @import url(http://fonts.googleapis.com/css?family=Lato:300,400); */
 .no-margin {
   margin:0px !important;
   padding:0px !important;
@@ -52,6 +52,7 @@ padding:0px;
     cursor: pointer;
 }
 
+/*
 .location-holder p
 {
     font-family:'Lato';
@@ -62,6 +63,8 @@ padding:0px;
     height:50px;
     position: inherit;
 }
+*/
+
 .verticalLine {
     border-left: thin solid whitesmoke;
     height:70px;
@@ -85,6 +88,7 @@ map {
   height: 100%;
 }
 
+/*
 .date {
   font-family:'Lato';
   margin-top:40px;
@@ -92,11 +96,12 @@ map {
   font-style:bold;
   text-align:center;
 }
+*/
 
 
 body {
-  cursor: url('http://ionicframework.com/img/finger.png'), auto;
-  font-family:'Lato';
+  /* cursor: url('http://ionicframework.com/img/finger.png'), auto; */
+  /* font-family:'Lato'; */
 
 }
 .small {
