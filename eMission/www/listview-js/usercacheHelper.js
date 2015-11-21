@@ -19,10 +19,16 @@ var RW_DOCUMENT_TYPE = "rw-document";
 var UserCacheHelper = {
     getDocument: function(db, key, callBack) {
         db.transaction(function(tx) {
+            /*
+             * We can have multiple entries for a particular key as the document associated with the key
+             * is updated throughout the day. We should really override as part of the sync. But for now,
+             * will deal with it in the client by retrieving the last entry.
+             */
             var selQuery = "SELECT "+KEY_DATA+" FROM "+TABLE_USER_CACHE +
                 " WHERE "+ KEY_KEY + " = '" + key + "'" +
                 " AND ("+ KEY_TYPE + " = '" + DOCUMENT_TYPE + "'" +
-                  " OR "+ KEY_TYPE + " = '" + RW_DOCUMENT_TYPE+ "')";
+                  " OR "+ KEY_TYPE + " = '" + RW_DOCUMENT_TYPE+ "') "+
+                  "ORDER BY "+KEY_WRITE_TS+" DESC LIMIT 1";
             console.log("About to execute query "+selQuery+" against userCache")
             tx.executeSql(selQuery,
                 [],
