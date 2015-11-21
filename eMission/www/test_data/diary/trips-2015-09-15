@@ -1,9 +1,9 @@
 [
     {
         "properties": {
-            "distance": 0, 
+            "distance": 20620.878429647815, 
             "end_place": {
-                "$oid": "5612d5f9f6858f61ac2a1da4"
+                "$oid": "5614c52bf6858f0f4b9b037b"
             }, 
             "user_id": {
                 "$uuid": "b0d937d070ef305e9563440369012b39"
@@ -18,7 +18,7 @@
             }, 
             "end_ts": 1442331527.361, 
             "start_ts": 1442330379.398, 
-            "start_fmt_time": "2015-09-15 08:19:39.398000-07:00", 
+            "start_fmt_time": "2015-09-15T08:19:39.398000-07:00", 
             "end_loc": {
                 "type": "Point", 
                 "coordinates": [
@@ -28,12 +28,18 @@
             }, 
             "source": "DwellSegmentationTimeFilter", 
             "start_place": {
-                "$oid": "5612d5f9f6858f61ac2a1da2"
+                "$oid": "5614c52bf6858f0f4b9b0379"
             }, 
-            "end_fmt_time": "2015-09-15 08:38:47.361000-07:00", 
+            "end_fmt_time": "2015-09-15T08:38:47.361000-07:00", 
+            "end_local_dt": {
+                "$date": 1442331527361
+            }, 
             "duration": 1147.9630000591278, 
             "_id": {
-                "$oid": "5612d5f9f6858f61ac2a1da3"
+                "$oid": "5614c52bf6858f0f4b9b037a"
+            }, 
+            "start_local_dt": {
+                "$date": 1442330379398
             }
         }, 
         "type": "FeatureCollection", 
@@ -47,16 +53,22 @@
                     ]
                 }, 
                 "type": "Feature", 
-                "id": "5612d5f9f6858f61ac2a1da2", 
+                "id": "5614c52bf6858f0f4b9b0379", 
                 "properties": {
-                    "enter_fmt_time": "2015-09-14 18:45:54.337000-07:00", 
+                    "enter_fmt_time": "2015-09-14T18:45:54.337000-07:00", 
+                    "exit_local_dt": {
+                        "$date": 1442330379398
+                    }, 
                     "feature_type": "start_place", 
-                    "exit_fmt_time": "2015-09-15 08:19:39.398000-07:00", 
+                    "exit_fmt_time": "2015-09-15T08:19:39.398000-07:00", 
+                    "enter_local_dt": {
+                        "$date": 1442281554337
+                    }, 
                     "ending_trip": {
-                        "$oid": "5612d5f9f6858f61ac2a1da1"
+                        "$oid": "5614c52bf6858f0f4b9b0378"
                     }, 
                     "starting_trip": {
-                        "$oid": "5612d5f9f6858f61ac2a1da3"
+                        "$oid": "5614c52bf6858f0f4b9b037a"
                     }, 
                     "source": "DwellSegmentationTimeFilter", 
                     "enter_ts": 1442281554.337, 
@@ -73,16 +85,22 @@
                     ]
                 }, 
                 "type": "Feature", 
-                "id": "5612d5f9f6858f61ac2a1da4", 
+                "id": "5614c52bf6858f0f4b9b037b", 
                 "properties": {
-                    "enter_fmt_time": "2015-09-15 08:38:47.361000-07:00", 
+                    "enter_fmt_time": "2015-09-15T08:38:47.361000-07:00", 
+                    "exit_local_dt": {
+                        "$date": 1442355451263
+                    }, 
                     "feature_type": "end_place", 
-                    "exit_fmt_time": "2015-09-15 15:17:31.263000-07:00", 
+                    "exit_fmt_time": "2015-09-15T15:17:31.263000-07:00", 
+                    "enter_local_dt": {
+                        "$date": 1442331527361
+                    }, 
                     "ending_trip": {
-                        "$oid": "5612d5f9f6858f61ac2a1da3"
+                        "$oid": "5614c52bf6858f0f4b9b037a"
                     }, 
                     "starting_trip": {
-                        "$oid": "5612d5f9f6858f61ac2a1da5"
+                        "$oid": "5614c52bf6858f0f4b9b037c"
                     }, 
                     "source": "DwellSegmentationTimeFilter", 
                     "enter_ts": 1442331527.361, 
@@ -110,10 +128,13 @@
                                     "distance": 0, 
                                     "feature_type": "location", 
                                     "idx": 0, 
-                                    "fmt_time": "2015-09-15 08:19:39.398000-07:00", 
+                                    "fmt_time": "2015-09-15T08:19:39.398000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442330379.398, 
                                     "longitude": -122.0877771, 
+                                    "local_dt": {
+                                        "$date": 1442330379398
+                                    }, 
                                     "latitude": 37.3888171, 
                                     "speed": 0, 
                                     "heading": 0, 
@@ -135,10 +156,13 @@
                                     "distance": 74.7077025524183, 
                                     "feature_type": "location", 
                                     "idx": 1, 
-                                    "fmt_time": "2015-09-15 08:20:05.880000-07:00", 
+                                    "fmt_time": "2015-09-15T08:20:05.880000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442330405.88, 
                                     "longitude": -122.0881586, 
+                                    "local_dt": {
+                                        "$date": 1442330405880
+                                    }, 
                                     "latitude": 37.3882175, 
                                     "speed": 2.8210747766389503, 
                                     "heading": 0, 
@@ -160,10 +184,13 @@
                                     "distance": 1.400832505008721, 
                                     "feature_type": "location", 
                                     "idx": 2, 
-                                    "fmt_time": "2015-09-15 08:20:55.641000-07:00", 
+                                    "fmt_time": "2015-09-15T08:20:55.641000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442330455.641, 
                                     "longitude": -122.0881558, 
+                                    "local_dt": {
+                                        "$date": 1442330455641
+                                    }, 
                                     "latitude": 37.3882299, 
                                     "speed": 0.028151212944224804, 
                                     "heading": 0, 
@@ -185,10 +212,13 @@
                                     "distance": 21.711083990072037, 
                                     "feature_type": "location", 
                                     "idx": 3, 
-                                    "fmt_time": "2015-09-15 08:21:28.841000-07:00", 
+                                    "fmt_time": "2015-09-15T08:21:28.841000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442330488.841, 
                                     "longitude": -122.0879932, 
+                                    "local_dt": {
+                                        "$date": 1442330488841
+                                    }, 
                                     "latitude": 37.3883763, 
                                     "speed": 0.6539483120147395, 
                                     "heading": 0, 
@@ -210,10 +240,13 @@
                                     "distance": 30.864947853179583, 
                                     "feature_type": "location", 
                                     "idx": 4, 
-                                    "fmt_time": "2015-09-15 08:21:58.061000-07:00", 
+                                    "fmt_time": "2015-09-15T08:21:58.061000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442330518.061, 
                                     "longitude": -122.0881429, 
+                                    "local_dt": {
+                                        "$date": 1442330518061
+                                    }, 
                                     "latitude": 37.3881255, 
                                     "speed": 1.056295271148485, 
                                     "heading": 0, 
@@ -235,10 +268,13 @@
                                     "distance": 445.8050046792251, 
                                     "feature_type": "location", 
                                     "idx": 5, 
-                                    "fmt_time": "2015-09-15 08:22:30.399000-07:00", 
+                                    "fmt_time": "2015-09-15T08:22:30.399000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442330550.399, 
                                     "longitude": -122.0840184, 
+                                    "local_dt": {
+                                        "$date": 1442330550399
+                                    }, 
                                     "latitude": 37.3858159, 
                                     "speed": 13.785794024085927, 
                                     "heading": 0, 
@@ -260,10 +296,13 @@
                                     "distance": 407.23516019267225, 
                                     "feature_type": "location", 
                                     "idx": 6, 
-                                    "fmt_time": "2015-09-15 08:23:01.770000-07:00", 
+                                    "fmt_time": "2015-09-15T08:23:01.770000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442330581.77, 
                                     "longitude": -122.080101, 
+                                    "local_dt": {
+                                        "$date": 1442330581770
+                                    }, 
                                     "latitude": 37.3838861, 
                                     "speed": 12.981261659626977, 
                                     "heading": 0, 
@@ -285,10 +324,13 @@
                                     "distance": 249.76122619946366, 
                                     "feature_type": "location", 
                                     "idx": 7, 
-                                    "fmt_time": "2015-09-15 08:23:33.335000-07:00", 
+                                    "fmt_time": "2015-09-15T08:23:33.335000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442330613.335, 
                                     "longitude": -122.077701, 
+                                    "local_dt": {
+                                        "$date": 1442330613335
+                                    }, 
                                     "latitude": 37.3826993, 
                                     "speed": 7.912600213739935, 
                                     "heading": 0, 
@@ -310,10 +352,13 @@
                                     "distance": 89.9373892731999, 
                                     "feature_type": "location", 
                                     "idx": 8, 
-                                    "fmt_time": "2015-09-15 08:24:07.324000-07:00", 
+                                    "fmt_time": "2015-09-15T08:24:07.324000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442330647.324, 
                                     "longitude": -122.0768279, 
+                                    "local_dt": {
+                                        "$date": 1442330647324
+                                    }, 
                                     "latitude": 37.3822835, 
                                     "speed": 2.646073426315944, 
                                     "heading": 0, 
@@ -335,10 +380,13 @@
                                     "distance": 396.3154976290204, 
                                     "feature_type": "location", 
                                     "idx": 9, 
-                                    "fmt_time": "2015-09-15 08:24:38.219000-07:00", 
+                                    "fmt_time": "2015-09-15T08:24:38.219000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442330678.219, 
                                     "longitude": -122.073297, 
+                                    "local_dt": {
+                                        "$date": 1442330678219
+                                    }, 
                                     "latitude": 37.3800855, 
                                     "speed": 12.827819867787703, 
                                     "heading": 0, 
@@ -360,10 +408,13 @@
                                     "distance": 10.336672492603991, 
                                     "feature_type": "location", 
                                     "idx": 10, 
-                                    "fmt_time": "2015-09-15 08:25:08.483000-07:00", 
+                                    "fmt_time": "2015-09-15T08:25:08.483000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442330708.483, 
                                     "longitude": -122.0733012, 
+                                    "local_dt": {
+                                        "$date": 1442330708483
+                                    }, 
                                     "latitude": 37.3801784, 
                                     "speed": 0.34155010948488485, 
                                     "heading": 0, 
@@ -385,10 +436,13 @@
                                     "distance": 326.840306354033, 
                                     "feature_type": "location", 
                                     "idx": 11, 
-                                    "fmt_time": "2015-09-15 08:25:39.336000-07:00", 
+                                    "fmt_time": "2015-09-15T08:25:39.336000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442330739.336, 
                                     "longitude": -122.0699621, 
+                                    "local_dt": {
+                                        "$date": 1442330739336
+                                    }, 
                                     "latitude": 37.3789137, 
                                     "speed": 10.593469262050533, 
                                     "heading": 0, 
@@ -410,10 +464,13 @@
                                     "distance": 7078.823538513407, 
                                     "feature_type": "location", 
                                     "idx": 12, 
-                                    "fmt_time": "2015-09-15 08:29:48.096000-07:00", 
+                                    "fmt_time": "2015-09-15T08:29:48.096000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442330988.096, 
                                     "longitude": -122.0479219, 
+                                    "local_dt": {
+                                        "$date": 1442330988096
+                                    }, 
                                     "latitude": 37.3177109, 
                                     "speed": 28.45643808805591, 
                                     "heading": 0, 
@@ -435,10 +492,13 @@
                                     "distance": 2000.4341881025362, 
                                     "feature_type": "location", 
                                     "idx": 13, 
-                                    "fmt_time": "2015-09-15 08:30:53.455000-07:00", 
+                                    "fmt_time": "2015-09-15T08:30:53.455000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442331053.455, 
                                     "longitude": -122.0347451, 
+                                    "local_dt": {
+                                        "$date": 1442331053455
+                                    }, 
                                     "latitude": 37.3030885, 
                                     "speed": 30.606866523278534, 
                                     "heading": 0, 
@@ -460,10 +520,13 @@
                                     "distance": 1038.4405849863251, 
                                     "feature_type": "location", 
                                     "idx": 14, 
-                                    "fmt_time": "2015-09-15 08:31:24.358000-07:00", 
+                                    "fmt_time": "2015-09-15T08:31:24.358000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442331084.358, 
                                     "longitude": -122.0274913, 
+                                    "local_dt": {
+                                        "$date": 1442331084358
+                                    }, 
                                     "latitude": 37.2957455, 
                                     "speed": 33.60322884757621, 
                                     "heading": 0, 
@@ -485,10 +548,13 @@
                                     "distance": 6017.218744673682, 
                                     "feature_type": "location", 
                                     "idx": 15, 
-                                    "fmt_time": "2015-09-15 08:34:48.521000-07:00", 
+                                    "fmt_time": "2015-09-15T08:34:48.521000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442331288.521, 
                                     "longitude": -121.974077, 
+                                    "local_dt": {
+                                        "$date": 1442331288521
+                                    }, 
                                     "latitude": 37.2622498, 
                                     "speed": 29.472621133861114, 
                                     "heading": 0, 
@@ -510,10 +576,13 @@
                                     "distance": 568.5743172555385, 
                                     "feature_type": "location", 
                                     "idx": 16, 
-                                    "fmt_time": "2015-09-15 08:35:19.367000-07:00", 
+                                    "fmt_time": "2015-09-15T08:35:19.367000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442331319.367, 
                                     "longitude": -121.9683889, 
+                                    "local_dt": {
+                                        "$date": 1442331319367
+                                    }, 
                                     "latitude": 37.2598725, 
                                     "speed": 18.43267566846494, 
                                     "heading": 0, 
@@ -535,10 +604,13 @@
                                     "distance": 416.8728231750163, 
                                     "feature_type": "location", 
                                     "idx": 17, 
-                                    "fmt_time": "2015-09-15 08:35:51.196000-07:00", 
+                                    "fmt_time": "2015-09-15T08:35:51.196000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442331351.196, 
                                     "longitude": -121.9651434, 
+                                    "local_dt": {
+                                        "$date": 1442331351196
+                                    }, 
                                     "latitude": 37.2571554, 
                                     "speed": 13.097264231517748, 
                                     "heading": 0, 
@@ -560,10 +632,13 @@
                                     "distance": 1307.404108961046, 
                                     "feature_type": "location", 
                                     "idx": 18, 
-                                    "fmt_time": "2015-09-15 08:37:17.992000-07:00", 
+                                    "fmt_time": "2015-09-15T08:37:17.992000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442331437.992, 
                                     "longitude": -121.9577874, 
+                                    "local_dt": {
+                                        "$date": 1442331437992
+                                    }, 
                                     "latitude": 37.267352, 
                                     "speed": 15.062953464486673, 
                                     "heading": 0, 
@@ -585,10 +660,13 @@
                                     "distance": 36.016630126856136, 
                                     "feature_type": "location", 
                                     "idx": 19, 
-                                    "fmt_time": "2015-09-15 08:37:29.392000-07:00", 
+                                    "fmt_time": "2015-09-15T08:37:29.392000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442331449.392, 
                                     "longitude": -121.9579815, 
+                                    "local_dt": {
+                                        "$date": 1442331449392
+                                    }, 
                                     "latitude": 37.2670673, 
                                     "speed": 3.1593535595443236, 
                                     "heading": 0, 
@@ -610,10 +688,13 @@
                                     "distance": 31.710861820228867, 
                                     "feature_type": "location", 
                                     "idx": 20, 
-                                    "fmt_time": "2015-09-15 08:38:00.563000-07:00", 
+                                    "fmt_time": "2015-09-15T08:38:00.563000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442331480.563, 
                                     "longitude": -121.958268, 
+                                    "local_dt": {
+                                        "$date": 1442331480563
+                                    }, 
                                     "latitude": 37.266896, 
                                     "speed": 1.0173193614689326, 
                                     "heading": 0, 
@@ -635,10 +716,13 @@
                                     "distance": 51.63300200774332, 
                                     "feature_type": "location", 
                                     "idx": 21, 
-                                    "fmt_time": "2015-09-15 08:38:14.952000-07:00", 
+                                    "fmt_time": "2015-09-15T08:38:14.952000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442331494.952, 
                                     "longitude": -121.9580676, 
+                                    "local_dt": {
+                                        "$date": 1442331494952
+                                    }, 
                                     "latitude": 37.2673321, 
                                     "speed": 3.588366267757302, 
                                     "heading": 0, 
@@ -660,10 +744,13 @@
                                     "distance": 18.833806304536658, 
                                     "feature_type": "location", 
                                     "idx": 22, 
-                                    "fmt_time": "2015-09-15 08:38:47.361000-07:00", 
+                                    "fmt_time": "2015-09-15T08:38:47.361000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442331527.361, 
                                     "longitude": -121.9581105, 
+                                    "local_dt": {
+                                        "$date": 1442331527361
+                                    }, 
                                     "latitude": 37.2671662, 
                                     "speed": 0.5811288905099874, 
                                     "heading": 0, 
@@ -776,14 +863,14 @@
                             ]
                         }, 
                         "type": "Feature", 
-                        "id": "5612d603f6858f61ac2a1f14", 
+                        "id": "5614c536f6858f0f4b9b04eb", 
                         "properties": {
                             "distance": 20620.878429647815, 
                             "feature_type": "section", 
                             "sensed_mode": "MotionTypes.IN_VEHICLE", 
                             "end_ts": 1442331527.361, 
                             "start_ts": 1442330379.398, 
-                            "start_fmt_time": "2015-09-15 08:19:39.398000-07:00", 
+                            "start_fmt_time": "2015-09-15T08:19:39.398000-07:00", 
                             "source": "SmoothedHighConfidenceMotion", 
                             "distances": [
                                 0, 
@@ -810,10 +897,16 @@
                                 51.63300200774332, 
                                 18.833806304536658
                             ], 
-                            "end_fmt_time": "2015-09-15 08:38:47.361000-07:00", 
+                            "end_fmt_time": "2015-09-15T08:38:47.361000-07:00", 
+                            "end_local_dt": {
+                                "$date": 1442331527361
+                            }, 
                             "duration": 1147.9630000591278, 
                             "trip_id": {
-                                "$oid": "5612d5f9f6858f61ac2a1da3"
+                                "$oid": "5614c52bf6858f0f4b9b037a"
+                            }, 
+                            "start_local_dt": {
+                                "$date": 1442330379398
                             }, 
                             "speeds": [
                                 0, 
@@ -845,13 +938,13 @@
                 ]
             }
         ], 
-        "id": "5612d5f9f6858f61ac2a1da3"
+        "id": "5614c52bf6858f0f4b9b037a"
     }, 
     {
         "properties": {
-            "distance": 0, 
+            "distance": 22027.85167813866, 
             "end_place": {
-                "$oid": "5612d5f9f6858f61ac2a1da6"
+                "$oid": "5614c52bf6858f0f4b9b037d"
             }, 
             "user_id": {
                 "$uuid": "b0d937d070ef305e9563440369012b39"
@@ -866,7 +959,7 @@
             }, 
             "end_ts": 1442358895.25, 
             "start_ts": 1442355451.263, 
-            "start_fmt_time": "2015-09-15 15:17:31.263000-07:00", 
+            "start_fmt_time": "2015-09-15T15:17:31.263000-07:00", 
             "end_loc": {
                 "type": "Point", 
                 "coordinates": [
@@ -876,12 +969,18 @@
             }, 
             "source": "DwellSegmentationTimeFilter", 
             "start_place": {
-                "$oid": "5612d5f9f6858f61ac2a1da4"
+                "$oid": "5614c52bf6858f0f4b9b037b"
             }, 
-            "end_fmt_time": "2015-09-15 16:14:55.250000-07:00", 
+            "end_fmt_time": "2015-09-15T16:14:55.250000-07:00", 
+            "end_local_dt": {
+                "$date": 1442358895250
+            }, 
             "duration": 3443.986999988556, 
             "_id": {
-                "$oid": "5612d5f9f6858f61ac2a1da5"
+                "$oid": "5614c52bf6858f0f4b9b037c"
+            }, 
+            "start_local_dt": {
+                "$date": 1442355451263
             }
         }, 
         "type": "FeatureCollection", 
@@ -895,16 +994,22 @@
                     ]
                 }, 
                 "type": "Feature", 
-                "id": "5612d5f9f6858f61ac2a1da4", 
+                "id": "5614c52bf6858f0f4b9b037b", 
                 "properties": {
-                    "enter_fmt_time": "2015-09-15 08:38:47.361000-07:00", 
+                    "enter_fmt_time": "2015-09-15T08:38:47.361000-07:00", 
+                    "exit_local_dt": {
+                        "$date": 1442355451263
+                    }, 
                     "feature_type": "start_place", 
-                    "exit_fmt_time": "2015-09-15 15:17:31.263000-07:00", 
+                    "exit_fmt_time": "2015-09-15T15:17:31.263000-07:00", 
+                    "enter_local_dt": {
+                        "$date": 1442331527361
+                    }, 
                     "ending_trip": {
-                        "$oid": "5612d5f9f6858f61ac2a1da3"
+                        "$oid": "5614c52bf6858f0f4b9b037a"
                     }, 
                     "starting_trip": {
-                        "$oid": "5612d5f9f6858f61ac2a1da5"
+                        "$oid": "5614c52bf6858f0f4b9b037c"
                     }, 
                     "source": "DwellSegmentationTimeFilter", 
                     "enter_ts": 1442331527.361, 
@@ -921,16 +1026,22 @@
                     ]
                 }, 
                 "type": "Feature", 
-                "id": "5612d5f9f6858f61ac2a1da6", 
+                "id": "5614c52bf6858f0f4b9b037d", 
                 "properties": {
-                    "enter_fmt_time": "2015-09-15 16:14:55.250000-07:00", 
+                    "enter_fmt_time": "2015-09-15T16:14:55.250000-07:00", 
+                    "exit_local_dt": {
+                        "$date": 1442359846283
+                    }, 
                     "feature_type": "end_place", 
-                    "exit_fmt_time": "2015-09-15 16:30:46.283000-07:00", 
+                    "exit_fmt_time": "2015-09-15T16:30:46.283000-07:00", 
+                    "enter_local_dt": {
+                        "$date": 1442358895250
+                    }, 
                     "ending_trip": {
-                        "$oid": "5612d5f9f6858f61ac2a1da5"
+                        "$oid": "5614c52bf6858f0f4b9b037c"
                     }, 
                     "starting_trip": {
-                        "$oid": "5612d5f9f6858f61ac2a1da7"
+                        "$oid": "5614c52bf6858f0f4b9b037e"
                     }, 
                     "source": "DwellSegmentationTimeFilter", 
                     "enter_ts": 1442358895.25, 
@@ -940,58 +1051,110 @@
             }, 
             {
                 "geometry": {
-                    "type": "Point", 
+                    "type": "LineString", 
                     "coordinates": [
-                        -122.0881268, 
-                        37.3912418
+                        [
+                            -122.0881293, 
+                            37.3911378
+                        ], 
+                        [
+                            -122.0881268, 
+                            37.3912418
+                        ]
                     ]
                 }, 
                 "type": "Feature", 
-                "id": "5612d603f6858f61ac2a1f17", 
+                "id": "5614c536f6858f0f4b9b04ee", 
                 "properties": {
-                    "enter_fmt_time": "2015-09-15 15:34:09.589000-07:00", 
+                    "enter_fmt_time": "2015-09-15T15:34:09.589000-07:00", 
+                    "exit_local_dt": {
+                        "$date": 1442356493570
+                    }, 
                     "feature_type": "stop", 
                     "ending_section": {
-                        "$oid": "5612d603f6858f61ac2a1f15"
+                        "$oid": "5614c536f6858f0f4b9b04ec"
                     }, 
                     "starting_section": {
-                        "$oid": "5612d603f6858f61ac2a1f16"
+                        "$oid": "5614c536f6858f0f4b9b04ed"
                     }, 
-                    "exit_fmt_time": "2015-09-15 15:34:53.570000-07:00", 
+                    "exit_fmt_time": "2015-09-15T15:34:53.570000-07:00", 
+                    "enter_local_dt": {
+                        "$date": 1442356449589
+                    }, 
+                    "exit_loc": {
+                        "type": "Point", 
+                        "coordinates": [
+                            -122.0881268, 
+                            37.3912418
+                        ]
+                    }, 
                     "source": "SmoothedHighConfidenceMotion", 
+                    "enter_loc": {
+                        "type": "Point", 
+                        "coordinates": [
+                            -122.0881293, 
+                            37.3911378
+                        ]
+                    }, 
                     "enter_ts": 1442356449.589, 
                     "duration": 43.98099994659424, 
                     "trip_id": {
-                        "$oid": "5612d5f9f6858f61ac2a1da5"
+                        "$oid": "5614c52bf6858f0f4b9b037c"
                     }, 
                     "exit_ts": 1442356493.57
                 }
             }, 
             {
                 "geometry": {
-                    "type": "Point", 
+                    "type": "LineString", 
                     "coordinates": [
-                        -122.0950919, 
-                        37.3915683
+                        [
+                            -122.0908565, 
+                            37.3893215
+                        ], 
+                        [
+                            -122.0950919, 
+                            37.3915683
+                        ]
                     ]
                 }, 
                 "type": "Feature", 
-                "id": "5612d603f6858f61ac2a1f19", 
+                "id": "5614c536f6858f0f4b9b04f0", 
                 "properties": {
-                    "enter_fmt_time": "2015-09-15 16:10:05.070000-07:00", 
+                    "enter_fmt_time": "2015-09-15T16:10:05.070000-07:00", 
+                    "exit_local_dt": {
+                        "$date": 1442358645122
+                    }, 
                     "feature_type": "stop", 
                     "ending_section": {
-                        "$oid": "5612d603f6858f61ac2a1f16"
+                        "$oid": "5614c536f6858f0f4b9b04ed"
                     }, 
                     "starting_section": {
-                        "$oid": "5612d603f6858f61ac2a1f18"
+                        "$oid": "5614c536f6858f0f4b9b04ef"
                     }, 
-                    "exit_fmt_time": "2015-09-15 16:10:45.122000-07:00", 
+                    "exit_fmt_time": "2015-09-15T16:10:45.122000-07:00", 
+                    "enter_local_dt": {
+                        "$date": 1442358605070
+                    }, 
+                    "exit_loc": {
+                        "type": "Point", 
+                        "coordinates": [
+                            -122.0950919, 
+                            37.3915683
+                        ]
+                    }, 
                     "source": "SmoothedHighConfidenceMotion", 
+                    "enter_loc": {
+                        "type": "Point", 
+                        "coordinates": [
+                            -122.0908565, 
+                            37.3893215
+                        ]
+                    }, 
                     "enter_ts": 1442358605.07, 
                     "duration": 40.05200004577637, 
                     "trip_id": {
-                        "$oid": "5612d5f9f6858f61ac2a1da5"
+                        "$oid": "5614c52bf6858f0f4b9b037c"
                     }, 
                     "exit_ts": 1442358645.122
                 }
@@ -1016,10 +1179,13 @@
                                     "distance": 0, 
                                     "feature_type": "location", 
                                     "idx": 0, 
-                                    "fmt_time": "2015-09-15 15:17:31.263000-07:00", 
+                                    "fmt_time": "2015-09-15T15:17:31.263000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442355451.263, 
                                     "longitude": -121.9622288, 
+                                    "local_dt": {
+                                        "$date": 1442355451263
+                                    }, 
                                     "latitude": 37.2617525, 
                                     "speed": 0, 
                                     "heading": 0, 
@@ -1041,10 +1207,13 @@
                                     "distance": 0.13604952307239182, 
                                     "feature_type": "location", 
                                     "idx": 1, 
-                                    "fmt_time": "2015-09-15 15:18:09.587000-07:00", 
+                                    "fmt_time": "2015-09-15T15:18:09.587000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442355489.587, 
                                     "longitude": -121.9622291, 
+                                    "local_dt": {
+                                        "$date": 1442355489587
+                                    }, 
                                     "latitude": 37.2617537, 
                                     "speed": 0.0035499823476724027, 
                                     "heading": 0, 
@@ -1066,10 +1235,13 @@
                                     "distance": 0.13804962963167258, 
                                     "feature_type": "location", 
                                     "idx": 2, 
-                                    "fmt_time": "2015-09-15 15:18:41.239000-07:00", 
+                                    "fmt_time": "2015-09-15T15:18:41.239000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442355521.239, 
                                     "longitude": -121.9622287, 
+                                    "local_dt": {
+                                        "$date": 1442355521239
+                                    }, 
                                     "latitude": 37.2617525, 
                                     "speed": 0.004361482017190218, 
                                     "heading": 0, 
@@ -1091,10 +1263,13 @@
                                     "distance": 193.530977602085, 
                                     "feature_type": "location", 
                                     "idx": 3, 
-                                    "fmt_time": "2015-09-15 15:19:12.148000-07:00", 
+                                    "fmt_time": "2015-09-15T15:19:12.148000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442355552.148, 
                                     "longitude": -121.9633007, 
+                                    "local_dt": {
+                                        "$date": 1442355552148
+                                    }, 
                                     "latitude": 37.2602355, 
                                     "speed": 6.261314766044531, 
                                     "heading": 0, 
@@ -1116,10 +1291,13 @@
                                     "distance": 433.89665922043895, 
                                     "feature_type": "location", 
                                     "idx": 4, 
-                                    "fmt_time": "2015-09-15 15:19:42.087000-07:00", 
+                                    "fmt_time": "2015-09-15T15:19:42.087000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442355582.087, 
                                     "longitude": -121.9681739, 
+                                    "local_dt": {
+                                        "$date": 1442355582087
+                                    }, 
                                     "latitude": 37.2598073, 
                                     "speed": 14.492690497213264, 
                                     "heading": 0, 
@@ -1141,10 +1319,13 @@
                                     "distance": 7026.209431350959, 
                                     "feature_type": "location", 
                                     "idx": 5, 
-                                    "fmt_time": "2015-09-15 15:23:22.698000-07:00", 
+                                    "fmt_time": "2015-09-15T15:23:22.698000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442355802.698, 
                                     "longitude": -122.0303297, 
+                                    "local_dt": {
+                                        "$date": 1442355802698
+                                    }, 
                                     "latitude": 37.2991364, 
                                     "speed": 31.848862610690574, 
                                     "heading": 0, 
@@ -1166,10 +1347,13 @@
                                     "distance": 932.5815363869625, 
                                     "feature_type": "location", 
                                     "idx": 6, 
-                                    "fmt_time": "2015-09-15 15:23:53.952000-07:00", 
+                                    "fmt_time": "2015-09-15T15:23:53.952000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442355833.952, 
                                     "longitude": -122.0375088, 
+                                    "local_dt": {
+                                        "$date": 1442355833952
+                                    }, 
                                     "latitude": 37.3052788, 
                                     "speed": 29.838789848455008, 
                                     "heading": 0, 
@@ -1191,10 +1375,13 @@
                                     "distance": 971.7536531903874, 
                                     "feature_type": "location", 
                                     "idx": 7, 
-                                    "fmt_time": "2015-09-15 15:24:25.002000-07:00", 
+                                    "fmt_time": "2015-09-15T15:24:25.002000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442355865.002, 
                                     "longitude": -122.0448253, 
+                                    "local_dt": {
+                                        "$date": 1442355865002
+                                    }, 
                                     "latitude": 37.3117986, 
                                     "speed": 31.296413759132694, 
                                     "heading": 0, 
@@ -1216,10 +1403,13 @@
                                     "distance": 2885.3219416621555, 
                                     "feature_type": "location", 
                                     "idx": 8, 
-                                    "fmt_time": "2015-09-15 15:25:58.983000-07:00", 
+                                    "fmt_time": "2015-09-15T15:25:58.983000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442355958.983, 
                                     "longitude": -122.0584096, 
+                                    "local_dt": {
+                                        "$date": 1442355958983
+                                    }, 
                                     "latitude": 37.3353914, 
                                     "speed": 30.70111983594314, 
                                     "heading": 0, 
@@ -1241,10 +1431,13 @@
                                     "distance": 1090.1367279906542, 
                                     "feature_type": "location", 
                                     "idx": 9, 
-                                    "fmt_time": "2015-09-15 15:26:29.339000-07:00", 
+                                    "fmt_time": "2015-09-15T15:26:29.339000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442355989.339, 
                                     "longitude": -122.0596723, 
+                                    "local_dt": {
+                                        "$date": 1442355989339
+                                    }, 
                                     "latitude": 37.3451437, 
                                     "speed": 35.91173836831427, 
                                     "heading": 0, 
@@ -1266,10 +1459,13 @@
                                     "distance": 892.3310086819973, 
                                     "feature_type": "location", 
                                     "idx": 10, 
-                                    "fmt_time": "2015-09-15 15:27:01.094000-07:00", 
+                                    "fmt_time": "2015-09-15T15:27:01.094000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442356021.094, 
                                     "longitude": -122.0613299, 
+                                    "local_dt": {
+                                        "$date": 1442356021094
+                                    }, 
                                     "latitude": 37.3530597, 
                                     "speed": 28.10048828424348, 
                                     "heading": 0, 
@@ -1291,10 +1487,13 @@
                                     "distance": 1980.4887917275712, 
                                     "feature_type": "location", 
                                     "idx": 11, 
-                                    "fmt_time": "2015-09-15 15:28:05.068000-07:00", 
+                                    "fmt_time": "2015-09-15T15:28:05.068000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442356085.068, 
                                     "longitude": -122.0656246, 
+                                    "local_dt": {
+                                        "$date": 1442356085068
+                                    }, 
                                     "latitude": 37.3705405, 
                                     "speed": 30.95771395310809, 
                                     "heading": 0, 
@@ -1316,10 +1515,13 @@
                                     "distance": 1030.6720025354985, 
                                     "feature_type": "location", 
                                     "idx": 12, 
-                                    "fmt_time": "2015-09-15 15:29:08.269000-07:00", 
+                                    "fmt_time": "2015-09-15T15:29:08.269000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442356148.269, 
                                     "longitude": -122.0702336, 
+                                    "local_dt": {
+                                        "$date": 1442356148269
+                                    }, 
                                     "latitude": 37.3790552, 
                                     "speed": 16.30784327684467, 
                                     "heading": 0, 
@@ -1341,10 +1543,13 @@
                                     "distance": 263.4688253499204, 
                                     "feature_type": "location", 
                                     "idx": 13, 
-                                    "fmt_time": "2015-09-15 15:29:38.211000-07:00", 
+                                    "fmt_time": "2015-09-15T15:29:38.211000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442356178.211, 
                                     "longitude": -122.0728689, 
+                                    "local_dt": {
+                                        "$date": 1442356178211
+                                    }, 
                                     "latitude": 37.3801638, 
                                     "speed": 8.79930619604416, 
                                     "heading": 0, 
@@ -1366,10 +1571,13 @@
                                     "distance": 53.50115018002874, 
                                     "feature_type": "location", 
                                     "idx": 14, 
-                                    "fmt_time": "2015-09-15 15:30:08.204000-07:00", 
+                                    "fmt_time": "2015-09-15T15:30:08.204000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442356208.204, 
                                     "longitude": -122.0734253, 
+                                    "local_dt": {
+                                        "$date": 1442356208204
+                                    }, 
                                     "latitude": 37.379974, 
                                     "speed": 1.7837878880269347, 
                                     "heading": 0, 
@@ -1391,10 +1599,13 @@
                                     "distance": 421.89157497526554, 
                                     "feature_type": "location", 
                                     "idx": 15, 
-                                    "fmt_time": "2015-09-15 15:30:38.280000-07:00", 
+                                    "fmt_time": "2015-09-15T15:30:38.280000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442356238.28, 
                                     "longitude": -122.0770693, 
+                                    "local_dt": {
+                                        "$date": 1442356238280
+                                    }, 
                                     "latitude": 37.3824258, 
                                     "speed": 14.027516136556898, 
                                     "heading": 0, 
@@ -1416,10 +1627,13 @@
                                     "distance": 518.6399719780126, 
                                     "feature_type": "location", 
                                     "idx": 16, 
-                                    "fmt_time": "2015-09-15 15:31:09.660000-07:00", 
+                                    "fmt_time": "2015-09-15T15:31:09.660000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442356269.66, 
                                     "longitude": -122.0820742, 
+                                    "local_dt": {
+                                        "$date": 1442356269660
+                                    }, 
                                     "latitude": 37.384863, 
                                     "speed": 16.52772371212762, 
                                     "heading": 0, 
@@ -1441,10 +1655,13 @@
                                     "distance": 179.43542358034168, 
                                     "feature_type": "location", 
                                     "idx": 17, 
-                                    "fmt_time": "2015-09-15 15:31:41.233000-07:00", 
+                                    "fmt_time": "2015-09-15T15:31:41.233000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442356301.233, 
                                     "longitude": -122.0838458, 
+                                    "local_dt": {
+                                        "$date": 1442356301233
+                                    }, 
                                     "latitude": 37.385652, 
                                     "speed": 5.683192089459271, 
                                     "heading": 0, 
@@ -1466,10 +1683,13 @@
                                     "distance": 261.6337593512009, 
                                     "feature_type": "location", 
                                     "idx": 18, 
-                                    "fmt_time": "2015-09-15 15:32:13.413000-07:00", 
+                                    "fmt_time": "2015-09-15T15:32:13.413000-07:00", 
                                     "altitude": -1, 
                                     "ts": 1442356333.413, 
                                     "longitude": -122.0862696, 
+                                    "local_dt": {
+                                        "$date": 1442356333413
+                                    }, 
                                     "latitude": 37.3870038, 
                                     "speed": 8.130321902064741, 
                                     "heading": 302, 
@@ -1491,10 +1711,13 @@
                                     "distance": 76.44418767649593, 
                                     "feature_type": "location", 
                                     "idx": 19, 
-                                    "fmt_time": "2015-09-15 15:32:18.338000-07:00", 
+                                    "fmt_time": "2015-09-15T15:32:18.338000-07:00", 
                                     "altitude": 4.199999809265137, 
                                     "ts": 1442356338.338, 
                                     "longitude": -122.0869705, 
+                                    "local_dt": {
+                                        "$date": 1442356338338
+                                    }, 
                                     "latitude": 37.3874069, 
                                     "speed": 15.521662622665275, 
                                     "heading": 301, 
@@ -1516,10 +1739,13 @@
                                     "distance": 83.02608209625633, 
                                     "feature_type": "location", 
                                     "idx": 20, 
-                                    "fmt_time": "2015-09-15 15:32:24.352000-07:00", 
+                                    "fmt_time": "2015-09-15T15:32:24.352000-07:00", 
                                     "altitude": 5.699999809265137, 
                                     "ts": 1442356344.352, 
                                     "longitude": -122.0877778, 
+                                    "local_dt": {
+                                        "$date": 1442356344352
+                                    }, 
                                     "latitude": 37.3877891, 
                                     "speed": 13.805467731771735, 
                                     "heading": 301, 
@@ -1541,10 +1767,13 @@
                                     "distance": 67.28490405383737, 
                                     "feature_type": "location", 
                                     "idx": 21, 
-                                    "fmt_time": "2015-09-15 15:32:29.417000-07:00", 
+                                    "fmt_time": "2015-09-15T15:32:29.417000-07:00", 
                                     "altitude": 3.5, 
                                     "ts": 1442356349.417, 
                                     "longitude": -122.0884186, 
+                                    "local_dt": {
+                                        "$date": 1442356349417
+                                    }, 
                                     "latitude": 37.3881161, 
                                     "speed": 13.284284954334547, 
                                     "heading": 302, 
@@ -1566,10 +1795,13 @@
                                     "distance": 75.58803021955346, 
                                     "feature_type": "location", 
                                     "idx": 22, 
-                                    "fmt_time": "2015-09-15 15:32:35.341000-07:00", 
+                                    "fmt_time": "2015-09-15T15:32:35.341000-07:00", 
                                     "altitude": 3, 
                                     "ts": 1442356355.341, 
                                     "longitude": -122.089149, 
+                                    "local_dt": {
+                                        "$date": 1442356355341
+                                    }, 
                                     "latitude": 37.3884701, 
                                     "speed": 12.759626924910824, 
                                     "heading": 300, 
@@ -1591,10 +1823,13 @@
                                     "distance": 64.19011222436271, 
                                     "feature_type": "location", 
                                     "idx": 23, 
-                                    "fmt_time": "2015-09-15 15:32:40.334000-07:00", 
+                                    "fmt_time": "2015-09-15T15:32:40.334000-07:00", 
                                     "altitude": 2.0999999046325684, 
                                     "ts": 1442356360.334, 
                                     "longitude": -122.0897702, 
+                                    "local_dt": {
+                                        "$date": 1442356360334
+                                    }, 
                                     "latitude": 37.3887695, 
                                     "speed": 12.856020795519346, 
                                     "heading": 301, 
@@ -1616,10 +1851,13 @@
                                     "distance": 47.312571888597084, 
                                     "feature_type": "location", 
                                     "idx": 24, 
-                                    "fmt_time": "2015-09-15 15:32:45.430000-07:00", 
+                                    "fmt_time": "2015-09-15T15:32:45.430000-07:00", 
                                     "altitude": 1.5, 
                                     "ts": 1442356365.43, 
                                     "longitude": -122.0901817, 
+                                    "local_dt": {
+                                        "$date": 1442356365430
+                                    }, 
                                     "latitude": 37.3890418, 
                                     "speed": 9.284256729962385, 
                                     "heading": 335, 
@@ -1641,10 +1879,13 @@
                                     "distance": 47.29897180186902, 
                                     "feature_type": "location", 
                                     "idx": 25, 
-                                    "fmt_time": "2015-09-15 15:32:50.337000-07:00", 
+                                    "fmt_time": "2015-09-15T15:32:50.337000-07:00", 
                                     "altitude": 0.10000000149011612, 
                                     "ts": 1442356370.337, 
                                     "longitude": -122.0899941, 
+                                    "local_dt": {
+                                        "$date": 1442356370337
+                                    }, 
                                     "latitude": 37.3894402, 
                                     "speed": 9.639081612983928, 
                                     "heading": 25, 
@@ -1666,10 +1907,13 @@
                                     "distance": 71.80268638722777, 
                                     "feature_type": "location", 
                                     "idx": 26, 
-                                    "fmt_time": "2015-09-15 15:32:56.358000-07:00", 
+                                    "fmt_time": "2015-09-15T15:32:56.358000-07:00", 
                                     "altitude": -1.5, 
                                     "ts": 1442356376.358, 
                                     "longitude": -122.0896568, 
+                                    "local_dt": {
+                                        "$date": 1442356376358
+                                    }, 
                                     "latitude": 37.3900277, 
                                     "speed": 11.925375292442693, 
                                     "heading": 26, 
@@ -1691,10 +1935,13 @@
                                     "distance": 65.67091576756962, 
                                     "feature_type": "location", 
                                     "idx": 27, 
-                                    "fmt_time": "2015-09-15 15:33:02.335000-07:00", 
+                                    "fmt_time": "2015-09-15T15:33:02.335000-07:00", 
                                     "altitude": -3.0999999046325684, 
                                     "ts": 1442356382.335, 
                                     "longitude": -122.0893361, 
+                                    "local_dt": {
+                                        "$date": 1442356382335
+                                    }, 
                                     "latitude": 37.3905605, 
                                     "speed": 10.987270501677461, 
                                     "heading": 27, 
@@ -1716,10 +1963,13 @@
                                     "distance": 45.55877626401654, 
                                     "feature_type": "location", 
                                     "idx": 28, 
-                                    "fmt_time": "2015-09-15 15:33:07.336000-07:00", 
+                                    "fmt_time": "2015-09-15T15:33:07.336000-07:00", 
                                     "altitude": -4.599999904632568, 
                                     "ts": 1442356387.336, 
                                     "longitude": -122.0891197, 
+                                    "local_dt": {
+                                        "$date": 1442356387336
+                                    }, 
                                     "latitude": 37.3909324, 
                                     "speed": 9.109933398179896, 
                                     "heading": 22, 
@@ -1741,10 +1991,13 @@
                                     "distance": 38.648918505422344, 
                                     "feature_type": "location", 
                                     "idx": 29, 
-                                    "fmt_time": "2015-09-15 15:33:13.352000-07:00", 
+                                    "fmt_time": "2015-09-15T15:33:13.352000-07:00", 
                                     "altitude": -9.399999618530273, 
                                     "ts": 1442356393.352, 
                                     "longitude": -122.0888977, 
+                                    "local_dt": {
+                                        "$date": 1442356393352
+                                    }, 
                                     "latitude": 37.3912319, 
                                     "speed": 6.424354770131834, 
                                     "heading": 26, 
@@ -1766,10 +2019,13 @@
                                     "distance": 25.511681073183865, 
                                     "feature_type": "location", 
                                     "idx": 30, 
-                                    "fmt_time": "2015-09-15 15:33:19.331000-07:00", 
+                                    "fmt_time": "2015-09-15T15:33:19.331000-07:00", 
                                     "altitude": -8, 
                                     "ts": 1442356399.331, 
                                     "longitude": -122.0887196, 
+                                    "local_dt": {
+                                        "$date": 1442356399331
+                                    }, 
                                     "latitude": 37.3914125, 
                                     "speed": 4.266880863445268, 
                                     "heading": 68, 
@@ -1791,10 +2047,13 @@
                                     "distance": 28.573832843832726, 
                                     "feature_type": "location", 
                                     "idx": 31, 
-                                    "fmt_time": "2015-09-15 15:33:24.338000-07:00", 
+                                    "fmt_time": "2015-09-15T15:33:24.338000-07:00", 
                                     "altitude": -6.199999809265137, 
                                     "ts": 1442356404.338, 
                                     "longitude": -122.0884229, 
+                                    "local_dt": {
+                                        "$date": 1442356404338
+                                    }, 
                                     "latitude": 37.3913102, 
                                     "speed": 5.706777115636058, 
                                     "heading": 123, 
@@ -1816,10 +2075,13 @@
                                     "distance": 18.532682931755797, 
                                     "feature_type": "location", 
                                     "idx": 32, 
-                                    "fmt_time": "2015-09-15 15:33:30.331000-07:00", 
+                                    "fmt_time": "2015-09-15T15:33:30.331000-07:00", 
                                     "altitude": -4.5, 
                                     "ts": 1442356410.331, 
                                     "longitude": -122.0882465, 
+                                    "local_dt": {
+                                        "$date": 1442356410331
+                                    }, 
                                     "latitude": 37.39122, 
                                     "speed": 3.092388259199666, 
                                     "heading": 115, 
@@ -1841,10 +2103,13 @@
                                     "distance": 2.014565640913948, 
                                     "feature_type": "location", 
                                     "idx": 33, 
-                                    "fmt_time": "2015-09-15 15:33:35.329000-07:00", 
+                                    "fmt_time": "2015-09-15T15:33:35.329000-07:00", 
                                     "altitude": -4.199999809265137, 
                                     "ts": 1442356415.329, 
                                     "longitude": -122.0882258, 
+                                    "local_dt": {
+                                        "$date": 1442356415329
+                                    }, 
                                     "latitude": 37.3912276, 
                                     "speed": 0.4030743654632476, 
                                     "heading": 0, 
@@ -1866,10 +2131,13 @@
                                     "distance": 1.399984808967371, 
                                     "feature_type": "location", 
                                     "idx": 34, 
-                                    "fmt_time": "2015-09-15 15:33:41.469000-07:00", 
+                                    "fmt_time": "2015-09-15T15:33:41.469000-07:00", 
                                     "altitude": -4.400000095367432, 
                                     "ts": 1442356421.469, 
                                     "longitude": -122.088211, 
+                                    "local_dt": {
+                                        "$date": 1442356421469
+                                    }, 
                                     "latitude": 37.3912321, 
                                     "speed": 0.22801055131076747, 
                                     "heading": 0, 
@@ -1891,10 +2159,13 @@
                                     "distance": 0.5654093413828297, 
                                     "feature_type": "location", 
                                     "idx": 35, 
-                                    "fmt_time": "2015-09-15 15:33:47.404000-07:00", 
+                                    "fmt_time": "2015-09-15T15:33:47.404000-07:00", 
                                     "altitude": -4.599999904632568, 
                                     "ts": 1442356427.404, 
                                     "longitude": -122.0882174, 
+                                    "local_dt": {
+                                        "$date": 1442356427404
+                                    }, 
                                     "latitude": 37.3912321, 
                                     "speed": 0.09526694976142347, 
                                     "heading": 0, 
@@ -1916,10 +2187,13 @@
                                     "distance": 0.9680410798871322, 
                                     "feature_type": "location", 
                                     "idx": 36, 
-                                    "fmt_time": "2015-09-15 15:33:52.403000-07:00", 
+                                    "fmt_time": "2015-09-15T15:33:52.403000-07:00", 
                                     "altitude": -5.400000095367432, 
                                     "ts": 1442356432.403, 
                                     "longitude": -122.0882178, 
+                                    "local_dt": {
+                                        "$date": 1442356432403
+                                    }, 
                                     "latitude": 37.3912408, 
                                     "speed": 0.19364694255886125, 
                                     "heading": 115, 
@@ -1941,10 +2215,13 @@
                                     "distance": 13.86732826311126, 
                                     "feature_type": "location", 
                                     "idx": 37, 
-                                    "fmt_time": "2015-09-15 15:34:09.589000-07:00", 
+                                    "fmt_time": "2015-09-15T15:34:09.589000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442356449.589, 
                                     "longitude": -122.0881293, 
+                                    "local_dt": {
+                                        "$date": 1442356449589
+                                    }, 
                                     "latitude": 37.3911378, 
                                     "speed": 0.8068967978450796, 
                                     "heading": 0, 
@@ -2117,14 +2394,14 @@
                             ]
                         }, 
                         "type": "Feature", 
-                        "id": "5612d603f6858f61ac2a1f15", 
+                        "id": "5614c536f6858f0f4b9b04ec", 
                         "properties": {
                             "distance": 19910.027217784427, 
                             "feature_type": "section", 
                             "sensed_mode": "MotionTypes.IN_VEHICLE", 
                             "end_ts": 1442356449.589, 
                             "start_ts": 1442355451.263, 
-                            "start_fmt_time": "2015-09-15 15:17:31.263000-07:00", 
+                            "start_fmt_time": "2015-09-15T15:17:31.263000-07:00", 
                             "source": "SmoothedHighConfidenceMotion", 
                             "distances": [
                                 0, 
@@ -2166,13 +2443,19 @@
                                 0.9680410798871322, 
                                 13.86732826311126
                             ], 
-                            "end_fmt_time": "2015-09-15 15:34:09.589000-07:00", 
+                            "end_fmt_time": "2015-09-15T15:34:09.589000-07:00", 
+                            "end_local_dt": {
+                                "$date": 1442356449589
+                            }, 
                             "duration": 998.3259999752045, 
                             "end_stop": {
-                                "$oid": "5612d603f6858f61ac2a1f17"
+                                "$oid": "5614c536f6858f0f4b9b04ee"
                             }, 
                             "trip_id": {
-                                "$oid": "5612d5f9f6858f61ac2a1da5"
+                                "$oid": "5614c52bf6858f0f4b9b037c"
+                            }, 
+                            "start_local_dt": {
+                                "$date": 1442355451263
                             }, 
                             "speeds": [
                                 0, 
@@ -2238,10 +2521,13 @@
                                     "distance": 0, 
                                     "feature_type": "location", 
                                     "idx": 0, 
-                                    "fmt_time": "2015-09-15 15:34:53.570000-07:00", 
+                                    "fmt_time": "2015-09-15T15:34:53.570000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442356493.57, 
                                     "longitude": -122.0881268, 
+                                    "local_dt": {
+                                        "$date": 1442356493570
+                                    }, 
                                     "latitude": 37.3912418, 
                                     "speed": 0, 
                                     "heading": 0, 
@@ -2263,10 +2549,13 @@
                                     "distance": 41.22900231845648, 
                                     "feature_type": "location", 
                                     "idx": 1, 
-                                    "fmt_time": "2015-09-15 15:35:24.304000-07:00", 
+                                    "fmt_time": "2015-09-15T15:35:24.304000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442356524.304, 
                                     "longitude": -122.0885775, 
+                                    "local_dt": {
+                                        "$date": 1442356524304
+                                    }, 
                                     "latitude": 37.391338, 
                                     "speed": 1.3414785697258353, 
                                     "heading": 0, 
@@ -2288,10 +2577,13 @@
                                     "distance": 29.01027184138683, 
                                     "feature_type": "location", 
                                     "idx": 2, 
-                                    "fmt_time": "2015-09-15 15:35:55.398000-07:00", 
+                                    "fmt_time": "2015-09-15T15:35:55.398000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442356555.398, 
                                     "longitude": -122.0888267, 
+                                    "local_dt": {
+                                        "$date": 1442356555398
+                                    }, 
                                     "latitude": 37.3911681, 
                                     "speed": 0.932986162831149, 
                                     "heading": 0, 
@@ -2313,10 +2605,13 @@
                                     "distance": 9.867098395254104, 
                                     "feature_type": "location", 
                                     "idx": 3, 
-                                    "fmt_time": "2015-09-15 15:36:27.206000-07:00", 
+                                    "fmt_time": "2015-09-15T15:36:27.206000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442356587.206, 
                                     "longitude": -122.0887623, 
+                                    "local_dt": {
+                                        "$date": 1442356587206
+                                    }, 
                                     "latitude": 37.3910956, 
                                     "speed": 0.31020807243577264, 
                                     "heading": 0, 
@@ -2338,10 +2633,13 @@
                                     "distance": 42.16673874422841, 
                                     "feature_type": "location", 
                                     "idx": 4, 
-                                    "fmt_time": "2015-09-15 15:36:58.747000-07:00", 
+                                    "fmt_time": "2015-09-15T15:36:58.747000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442356618.747, 
                                     "longitude": -122.0883893, 
+                                    "local_dt": {
+                                        "$date": 1442356618747
+                                    }, 
                                     "latitude": 37.3913322, 
                                     "speed": 1.3368865569298094, 
                                     "heading": 0, 
@@ -2363,10 +2661,13 @@
                                     "distance": 33.55096275429485, 
                                     "feature_type": "location", 
                                     "idx": 5, 
-                                    "fmt_time": "2015-09-15 15:37:29.803000-07:00", 
+                                    "fmt_time": "2015-09-15T15:37:29.803000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442356649.803, 
                                     "longitude": -122.0880811, 
+                                    "local_dt": {
+                                        "$date": 1442356649803
+                                    }, 
                                     "latitude": 37.3911559, 
                                     "speed": 1.080337543807206, 
                                     "heading": 0, 
@@ -2388,10 +2689,13 @@
                                     "distance": 0.7574117140563469, 
                                     "feature_type": "location", 
                                     "idx": 6, 
-                                    "fmt_time": "2015-09-15 15:38:00.659000-07:00", 
+                                    "fmt_time": "2015-09-15T15:38:00.659000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442356680.659, 
                                     "longitude": -122.0880736, 
+                                    "local_dt": {
+                                        "$date": 1442356680659
+                                    }, 
                                     "latitude": 37.3911592, 
                                     "speed": 0.024546659170575573, 
                                     "heading": 0, 
@@ -2413,10 +2717,13 @@
                                     "distance": 193.19614688755024, 
                                     "feature_type": "location", 
                                     "idx": 7, 
-                                    "fmt_time": "2015-09-15 15:39:32.426000-07:00", 
+                                    "fmt_time": "2015-09-15T15:39:32.426000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442356772.426, 
                                     "longitude": -122.0859121, 
+                                    "local_dt": {
+                                        "$date": 1442356772426
+                                    }, 
                                     "latitude": 37.3914229, 
                                     "speed": 2.1052899895380253, 
                                     "heading": 0, 
@@ -2438,10 +2745,13 @@
                                     "distance": 482.67442858045655, 
                                     "feature_type": "location", 
                                     "idx": 8, 
-                                    "fmt_time": "2015-09-15 16:09:53.572000-07:00", 
+                                    "fmt_time": "2015-09-15T16:09:53.572000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442358593.572, 
                                     "longitude": -122.0905256, 
+                                    "local_dt": {
+                                        "$date": 1442358593572
+                                    }, 
                                     "latitude": 37.3890977, 
                                     "speed": 0.2650388429070056, 
                                     "heading": 0, 
@@ -2463,10 +2773,13 @@
                                     "distance": 38.39171642044042, 
                                     "feature_type": "location", 
                                     "idx": 9, 
-                                    "fmt_time": "2015-09-15 16:10:05.070000-07:00", 
+                                    "fmt_time": "2015-09-15T16:10:05.070000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442358605.07, 
                                     "longitude": -122.0908565, 
+                                    "local_dt": {
+                                        "$date": 1442358605070
+                                    }, 
                                     "latitude": 37.3893215, 
                                     "speed": 3.3389908447123657, 
                                     "heading": 0, 
@@ -2523,15 +2836,8 @@
                             ]
                         }, 
                         "type": "Feature", 
-                        "id": "5612d603f6858f61ac2a1f16", 
+                        "id": "5614c536f6858f0f4b9b04ed", 
                         "properties": {
-                            "distance": 870.8437776561243, 
-                            "feature_type": "section", 
-                            "sensed_mode": "MotionTypes.ON_FOOT", 
-                            "end_ts": 1442358605.07, 
-                            "start_ts": 1442356493.57, 
-                            "start_fmt_time": "2015-09-15 15:34:53.570000-07:00", 
-                            "source": "SmoothedHighConfidenceMotion", 
                             "distances": [
                                 0, 
                                 41.22900231845648, 
@@ -2544,16 +2850,28 @@
                                 482.67442858045655, 
                                 38.39171642044042
                             ], 
-                            "end_fmt_time": "2015-09-15 16:10:05.070000-07:00", 
+                            "feature_type": "section", 
+                            "sensed_mode": "MotionTypes.ON_FOOT", 
+                            "end_ts": 1442358605.07, 
+                            "start_ts": 1442356493.57, 
+                            "start_fmt_time": "2015-09-15T15:34:53.570000-07:00", 
+                            "source": "SmoothedHighConfidenceMotion", 
+                            "end_fmt_time": "2015-09-15T16:10:05.070000-07:00", 
+                            "end_local_dt": {
+                                "$date": 1442358605070
+                            }, 
                             "duration": 2111.5, 
                             "start_stop": {
-                                "$oid": "5612d603f6858f61ac2a1f17"
+                                "$oid": "5614c536f6858f0f4b9b04ee"
                             }, 
                             "end_stop": {
-                                "$oid": "5612d603f6858f61ac2a1f19"
+                                "$oid": "5614c536f6858f0f4b9b04f0"
                             }, 
                             "trip_id": {
-                                "$oid": "5612d5f9f6858f61ac2a1da5"
+                                "$oid": "5614c52bf6858f0f4b9b037c"
+                            }, 
+                            "start_local_dt": {
+                                "$date": 1442356493570
                             }, 
                             "speeds": [
                                 0, 
@@ -2566,7 +2884,8 @@
                                 2.1052899895380253, 
                                 0.2650388429070056, 
                                 3.3389908447123657
-                            ]
+                            ], 
+                            "distance": 870.8437776561243
                         }
                     }
                 ]
@@ -2591,10 +2910,13 @@
                                     "distance": 0, 
                                     "feature_type": "location", 
                                     "idx": 0, 
-                                    "fmt_time": "2015-09-15 16:10:45.122000-07:00", 
+                                    "fmt_time": "2015-09-15T16:10:45.122000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442358645.122, 
                                     "longitude": -122.0950919, 
+                                    "local_dt": {
+                                        "$date": 1442358645122
+                                    }, 
                                     "latitude": 37.3915683, 
                                     "speed": 0, 
                                     "heading": 0, 
@@ -2616,10 +2938,13 @@
                                     "distance": 28.476038659757297, 
                                     "feature_type": "location", 
                                     "idx": 1, 
-                                    "fmt_time": "2015-09-15 16:11:14.143000-07:00", 
+                                    "fmt_time": "2015-09-15T16:11:14.143000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442358674.143, 
                                     "longitude": -122.0951005, 
+                                    "local_dt": {
+                                        "$date": 1442358674143
+                                    }, 
                                     "latitude": 37.3913123, 
                                     "speed": 0.981221830729156, 
                                     "heading": 0, 
@@ -2641,10 +2966,13 @@
                                     "distance": 440.4022607702319, 
                                     "feature_type": "location", 
                                     "idx": 2, 
-                                    "fmt_time": "2015-09-15 16:11:48.492000-07:00", 
+                                    "fmt_time": "2015-09-15T16:11:48.492000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442358708.492, 
                                     "longitude": -122.0984692, 
+                                    "local_dt": {
+                                        "$date": 1442358708492
+                                    }, 
                                     "latitude": 37.3942318, 
                                     "speed": 12.82139969160181, 
                                     "heading": 0, 
@@ -2666,10 +2994,13 @@
                                     "distance": 440.13954062622713, 
                                     "feature_type": "location", 
                                     "idx": 3, 
-                                    "fmt_time": "2015-09-15 16:12:19.207000-07:00", 
+                                    "fmt_time": "2015-09-15T16:12:19.207000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442358739.207, 
                                     "longitude": -122.1027857, 
+                                    "local_dt": {
+                                        "$date": 1442358739207
+                                    }, 
                                     "latitude": 37.3962086, 
                                     "speed": 14.329791367610712, 
                                     "heading": 0, 
@@ -2691,10 +3022,13 @@
                                     "distance": 322.64626726158957, 
                                     "feature_type": "location", 
                                     "idx": 4, 
-                                    "fmt_time": "2015-09-15 16:12:51.223000-07:00", 
+                                    "fmt_time": "2015-09-15T16:12:51.223000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442358771.223, 
                                     "longitude": -122.1058226, 
+                                    "local_dt": {
+                                        "$date": 1442358771223
+                                    }, 
                                     "latitude": 37.3978206, 
                                     "speed": 10.077657013206593, 
                                     "heading": 0, 
@@ -2716,10 +3050,13 @@
                                     "distance": 4.230408047300507, 
                                     "feature_type": "location", 
                                     "idx": 5, 
-                                    "fmt_time": "2015-09-15 16:13:22.599000-07:00", 
+                                    "fmt_time": "2015-09-15T16:13:22.599000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442358802.599, 
                                     "longitude": -122.1057838, 
+                                    "local_dt": {
+                                        "$date": 1442358802599
+                                    }, 
                                     "latitude": 37.3978429, 
                                     "speed": 0.13482942558238278, 
                                     "heading": 0, 
@@ -2741,10 +3078,13 @@
                                     "distance": 1.9654529472027078, 
                                     "feature_type": "location", 
                                     "idx": 6, 
-                                    "fmt_time": "2015-09-15 16:13:53.584000-07:00", 
+                                    "fmt_time": "2015-09-15T16:13:53.584000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442358833.584, 
                                     "longitude": -122.1057749, 
+                                    "local_dt": {
+                                        "$date": 1442358833584
+                                    }, 
                                     "latitude": 37.3978267, 
                                     "speed": 0.0634324007982433, 
                                     "heading": 0, 
@@ -2766,10 +3106,13 @@
                                     "distance": 3.811356390213968, 
                                     "feature_type": "location", 
                                     "idx": 7, 
-                                    "fmt_time": "2015-09-15 16:14:25.155000-07:00", 
+                                    "fmt_time": "2015-09-15T16:14:25.155000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442358865.155, 
                                     "longitude": -122.1057979, 
+                                    "local_dt": {
+                                        "$date": 1442358865155
+                                    }, 
                                     "latitude": 37.3978557, 
                                     "speed": 0.12072333492835377, 
                                     "heading": 0, 
@@ -2791,10 +3134,13 @@
                                     "distance": 5.309357995583441, 
                                     "feature_type": "location", 
                                     "idx": 8, 
-                                    "fmt_time": "2015-09-15 16:14:55.250000-07:00", 
+                                    "fmt_time": "2015-09-15T16:14:55.250000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442358895.25, 
                                     "longitude": -122.1058006, 
+                                    "local_dt": {
+                                        "$date": 1442358895250
+                                    }, 
                                     "latitude": 37.397808, 
                                     "speed": 0.17641993655211916, 
                                     "heading": 0, 
@@ -2847,14 +3193,14 @@
                             ]
                         }, 
                         "type": "Feature", 
-                        "id": "5612d603f6858f61ac2a1f18", 
+                        "id": "5614c536f6858f0f4b9b04ef", 
                         "properties": {
                             "distance": 1246.9806826981064, 
                             "feature_type": "section", 
                             "sensed_mode": "MotionTypes.IN_VEHICLE", 
                             "end_ts": 1442358895.25, 
                             "start_ts": 1442358645.122, 
-                            "start_fmt_time": "2015-09-15 16:10:45.122000-07:00", 
+                            "start_fmt_time": "2015-09-15T16:10:45.122000-07:00", 
                             "source": "SmoothedHighConfidenceMotion", 
                             "distances": [
                                 0, 
@@ -2867,13 +3213,19 @@
                                 3.811356390213968, 
                                 5.309357995583441
                             ], 
-                            "end_fmt_time": "2015-09-15 16:14:55.250000-07:00", 
+                            "end_fmt_time": "2015-09-15T16:14:55.250000-07:00", 
+                            "end_local_dt": {
+                                "$date": 1442358895250
+                            }, 
                             "duration": 250.12800002098083, 
                             "start_stop": {
-                                "$oid": "5612d603f6858f61ac2a1f19"
+                                "$oid": "5614c536f6858f0f4b9b04f0"
                             }, 
                             "trip_id": {
-                                "$oid": "5612d5f9f6858f61ac2a1da5"
+                                "$oid": "5614c52bf6858f0f4b9b037c"
+                            }, 
+                            "start_local_dt": {
+                                "$date": 1442358645122
                             }, 
                             "speeds": [
                                 0, 
@@ -2891,13 +3243,13 @@
                 ]
             }
         ], 
-        "id": "5612d5f9f6858f61ac2a1da5"
+        "id": "5614c52bf6858f0f4b9b037c"
     }, 
     {
         "properties": {
-            "distance": 0, 
+            "distance": 3905.5259998871525, 
             "end_place": {
-                "$oid": "5612d5f9f6858f61ac2a1da8"
+                "$oid": "5614c52bf6858f0f4b9b037f"
             }, 
             "user_id": {
                 "$uuid": "b0d937d070ef305e9563440369012b39"
@@ -2912,7 +3264,7 @@
             }, 
             "end_ts": 1442360340.418, 
             "start_ts": 1442359846.283, 
-            "start_fmt_time": "2015-09-15 16:30:46.283000-07:00", 
+            "start_fmt_time": "2015-09-15T16:30:46.283000-07:00", 
             "end_loc": {
                 "type": "Point", 
                 "coordinates": [
@@ -2922,12 +3274,18 @@
             }, 
             "source": "DwellSegmentationTimeFilter", 
             "start_place": {
-                "$oid": "5612d5f9f6858f61ac2a1da6"
+                "$oid": "5614c52bf6858f0f4b9b037d"
             }, 
-            "end_fmt_time": "2015-09-15 16:39:00.418000-07:00", 
+            "end_fmt_time": "2015-09-15T16:39:00.418000-07:00", 
+            "end_local_dt": {
+                "$date": 1442360340418
+            }, 
             "duration": 494.13499999046326, 
             "_id": {
-                "$oid": "5612d5f9f6858f61ac2a1da7"
+                "$oid": "5614c52bf6858f0f4b9b037e"
+            }, 
+            "start_local_dt": {
+                "$date": 1442359846283
             }
         }, 
         "type": "FeatureCollection", 
@@ -2941,16 +3299,22 @@
                     ]
                 }, 
                 "type": "Feature", 
-                "id": "5612d5f9f6858f61ac2a1da6", 
+                "id": "5614c52bf6858f0f4b9b037d", 
                 "properties": {
-                    "enter_fmt_time": "2015-09-15 16:14:55.250000-07:00", 
+                    "enter_fmt_time": "2015-09-15T16:14:55.250000-07:00", 
+                    "exit_local_dt": {
+                        "$date": 1442359846283
+                    }, 
                     "feature_type": "start_place", 
-                    "exit_fmt_time": "2015-09-15 16:30:46.283000-07:00", 
+                    "exit_fmt_time": "2015-09-15T16:30:46.283000-07:00", 
+                    "enter_local_dt": {
+                        "$date": 1442358895250
+                    }, 
                     "ending_trip": {
-                        "$oid": "5612d5f9f6858f61ac2a1da5"
+                        "$oid": "5614c52bf6858f0f4b9b037c"
                     }, 
                     "starting_trip": {
-                        "$oid": "5612d5f9f6858f61ac2a1da7"
+                        "$oid": "5614c52bf6858f0f4b9b037e"
                     }, 
                     "source": "DwellSegmentationTimeFilter", 
                     "enter_ts": 1442358895.25, 
@@ -2967,16 +3331,22 @@
                     ]
                 }, 
                 "type": "Feature", 
-                "id": "5612d5f9f6858f61ac2a1da8", 
+                "id": "5614c52bf6858f0f4b9b037f", 
                 "properties": {
-                    "enter_fmt_time": "2015-09-15 16:39:00.418000-07:00", 
+                    "enter_fmt_time": "2015-09-15T16:39:00.418000-07:00", 
+                    "exit_local_dt": {
+                        "$date": 1442364316344
+                    }, 
                     "feature_type": "end_place", 
-                    "exit_fmt_time": "2015-09-15 17:45:16.344000-07:00", 
+                    "exit_fmt_time": "2015-09-15T17:45:16.344000-07:00", 
+                    "enter_local_dt": {
+                        "$date": 1442360340418
+                    }, 
                     "ending_trip": {
-                        "$oid": "5612d5f9f6858f61ac2a1da7"
+                        "$oid": "5614c52bf6858f0f4b9b037e"
                     }, 
                     "starting_trip": {
-                        "$oid": "5612d5f9f6858f61ac2a1da9"
+                        "$oid": "5614c52bf6858f0f4b9b0380"
                     }, 
                     "source": "DwellSegmentationTimeFilter", 
                     "enter_ts": 1442360340.418, 
@@ -3004,10 +3374,13 @@
                                     "distance": 0, 
                                     "feature_type": "location", 
                                     "idx": 0, 
-                                    "fmt_time": "2015-09-15 16:30:46.283000-07:00", 
+                                    "fmt_time": "2015-09-15T16:30:46.283000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442359846.283, 
                                     "longitude": -122.1017799, 
+                                    "local_dt": {
+                                        "$date": 1442359846283
+                                    }, 
                                     "latitude": 37.3958453, 
                                     "speed": 0, 
                                     "heading": 0, 
@@ -3029,10 +3402,13 @@
                                     "distance": 197.73452734668166, 
                                     "feature_type": "location", 
                                     "idx": 1, 
-                                    "fmt_time": "2015-09-15 16:31:22.126000-07:00", 
+                                    "fmt_time": "2015-09-15T16:31:22.126000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442359882.126, 
                                     "longitude": -122.0998345, 
+                                    "local_dt": {
+                                        "$date": 1442359882126
+                                    }, 
                                     "latitude": 37.3949658, 
                                     "speed": 5.5166846442663235, 
                                     "heading": 0, 
@@ -3054,10 +3430,13 @@
                                     "distance": 405.5635945360045, 
                                     "feature_type": "location", 
                                     "idx": 2, 
-                                    "fmt_time": "2015-09-15 16:31:52.131000-07:00", 
+                                    "fmt_time": "2015-09-15T16:31:52.131000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442359912.131, 
                                     "longitude": -122.0961924, 
+                                    "local_dt": {
+                                        "$date": 1442359912131
+                                    }, 
                                     "latitude": 37.3927454, 
                                     "speed": 13.516533677359105, 
                                     "heading": 0, 
@@ -3079,10 +3458,13 @@
                                     "distance": 206.34226622831096, 
                                     "feature_type": "location", 
                                     "idx": 3, 
-                                    "fmt_time": "2015-09-15 16:32:23.629000-07:00", 
+                                    "fmt_time": "2015-09-15T16:32:23.629000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442359943.629, 
                                     "longitude": -122.0954536, 
+                                    "local_dt": {
+                                        "$date": 1442359943629
+                                    }, 
                                     "latitude": 37.390985, 
                                     "speed": 6.550964087896521, 
                                     "heading": 0, 
@@ -3104,10 +3486,13 @@
                                     "distance": 571.5126679040312, 
                                     "feature_type": "location", 
                                     "idx": 4, 
-                                    "fmt_time": "2015-09-15 16:32:54.707000-07:00", 
+                                    "fmt_time": "2015-09-15T16:32:54.707000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442359974.707, 
                                     "longitude": -122.0964676, 
+                                    "local_dt": {
+                                        "$date": 1442359974707
+                                    }, 
                                     "latitude": 37.3859088, 
                                     "speed": 18.389621810969693, 
                                     "heading": 0, 
@@ -3129,10 +3514,13 @@
                                     "distance": 445.50142884773356, 
                                     "feature_type": "location", 
                                     "idx": 5, 
-                                    "fmt_time": "2015-09-15 16:33:28.513000-07:00", 
+                                    "fmt_time": "2015-09-15T16:33:28.513000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442360008.513, 
                                     "longitude": -122.0959903, 
+                                    "local_dt": {
+                                        "$date": 1442360008513
+                                    }, 
                                     "latitude": 37.3819203, 
                                     "speed": 13.178176327372055, 
                                     "heading": 0, 
@@ -3154,10 +3542,13 @@
                                     "distance": 1056.2649446352423, 
                                     "feature_type": "location", 
                                     "idx": 6, 
-                                    "fmt_time": "2015-09-15 16:35:17.186000-07:00", 
+                                    "fmt_time": "2015-09-15T16:35:17.186000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442360117.186, 
                                     "longitude": -122.0959305, 
+                                    "local_dt": {
+                                        "$date": 1442360117186
+                                    }, 
                                     "latitude": 37.3724212, 
                                     "speed": 9.719663059727477, 
                                     "heading": 0, 
@@ -3179,10 +3570,13 @@
                                     "distance": 518.2026202420124, 
                                     "feature_type": "location", 
                                     "idx": 7, 
-                                    "fmt_time": "2015-09-15 16:35:54.333000-07:00", 
+                                    "fmt_time": "2015-09-15T16:35:54.333000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442360154.333, 
                                     "longitude": -122.0960397, 
+                                    "local_dt": {
+                                        "$date": 1442360154333
+                                    }, 
                                     "latitude": 37.3677617, 
                                     "speed": 13.950053100661352, 
                                     "heading": 0, 
@@ -3204,10 +3598,13 @@
                                     "distance": 316.280616245663, 
                                     "feature_type": "location", 
                                     "idx": 8, 
-                                    "fmt_time": "2015-09-15 16:36:25.775000-07:00", 
+                                    "fmt_time": "2015-09-15T16:36:25.775000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442360185.775, 
                                     "longitude": -122.0948124, 
+                                    "local_dt": {
+                                        "$date": 1442360185775
+                                    }, 
                                     "latitude": 37.3650898, 
                                     "speed": 10.059176093440014, 
                                     "heading": 0, 
@@ -3229,10 +3626,13 @@
                                     "distance": 136.07936244996893, 
                                     "feature_type": "location", 
                                     "idx": 9, 
-                                    "fmt_time": "2015-09-15 16:36:56.992000-07:00", 
+                                    "fmt_time": "2015-09-15T16:36:56.992000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442360216.992, 
                                     "longitude": -122.0932806, 
+                                    "local_dt": {
+                                        "$date": 1442360216992
+                                    }, 
                                     "latitude": 37.3649654, 
                                     "speed": 4.359142852186671, 
                                     "heading": 0, 
@@ -3254,10 +3654,13 @@
                                     "distance": 12.20398176030026, 
                                     "feature_type": "location", 
                                     "idx": 10, 
-                                    "fmt_time": "2015-09-15 16:37:27.045000-07:00", 
+                                    "fmt_time": "2015-09-15T16:37:27.045000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442360247.045, 
                                     "longitude": -122.0931866, 
+                                    "local_dt": {
+                                        "$date": 1442360247045
+                                    }, 
                                     "latitude": 37.364885, 
                                     "speed": 0.40608198087192027, 
                                     "heading": 0, 
@@ -3279,10 +3682,13 @@
                                     "distance": 25.61721853295593, 
                                     "feature_type": "location", 
                                     "idx": 11, 
-                                    "fmt_time": "2015-09-15 16:37:59.136000-07:00", 
+                                    "fmt_time": "2015-09-15T16:37:59.136000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442360279.136, 
                                     "longitude": -122.0931364, 
+                                    "local_dt": {
+                                        "$date": 1442360279136
+                                    }, 
                                     "latitude": 37.3646581, 
                                     "speed": 0.7982680084550089, 
                                     "heading": 0, 
@@ -3304,10 +3710,13 @@
                                     "distance": 1.7696289394803084, 
                                     "feature_type": "location", 
                                     "idx": 12, 
-                                    "fmt_time": "2015-09-15 16:38:29.022000-07:00", 
+                                    "fmt_time": "2015-09-15T16:38:29.022000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442360309.022, 
                                     "longitude": -122.0931505, 
+                                    "local_dt": {
+                                        "$date": 1442360309022
+                                    }, 
                                     "latitude": 37.3646468, 
                                     "speed": 0.0592126390356454, 
                                     "heading": 0, 
@@ -3329,10 +3738,13 @@
                                     "distance": 12.453142218767034, 
                                     "feature_type": "location", 
                                     "idx": 13, 
-                                    "fmt_time": "2015-09-15 16:39:00.418000-07:00", 
+                                    "fmt_time": "2015-09-15T16:39:00.418000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442360340.418, 
                                     "longitude": -122.0931607, 
+                                    "local_dt": {
+                                        "$date": 1442360340418
+                                    }, 
                                     "latitude": 37.3647585, 
                                     "speed": 0.3966474154376733, 
                                     "heading": 0, 
@@ -3409,14 +3821,14 @@
                             ]
                         }, 
                         "type": "Feature", 
-                        "id": "5612d603f6858f61ac2a1f1a", 
+                        "id": "5614c536f6858f0f4b9b04f1", 
                         "properties": {
                             "distance": 3905.5259998871525, 
                             "feature_type": "section", 
                             "sensed_mode": "MotionTypes.IN_VEHICLE", 
                             "end_ts": 1442360340.418, 
                             "start_ts": 1442359846.283, 
-                            "start_fmt_time": "2015-09-15 16:30:46.283000-07:00", 
+                            "start_fmt_time": "2015-09-15T16:30:46.283000-07:00", 
                             "source": "SmoothedHighConfidenceMotion", 
                             "distances": [
                                 0, 
@@ -3434,10 +3846,16 @@
                                 1.7696289394803084, 
                                 12.453142218767034
                             ], 
-                            "end_fmt_time": "2015-09-15 16:39:00.418000-07:00", 
+                            "end_fmt_time": "2015-09-15T16:39:00.418000-07:00", 
+                            "end_local_dt": {
+                                "$date": 1442360340418
+                            }, 
                             "duration": 494.13499999046326, 
                             "trip_id": {
-                                "$oid": "5612d5f9f6858f61ac2a1da7"
+                                "$oid": "5614c52bf6858f0f4b9b037e"
+                            }, 
+                            "start_local_dt": {
+                                "$date": 1442359846283
                             }, 
                             "speeds": [
                                 0, 
@@ -3460,13 +3878,13 @@
                 ]
             }
         ], 
-        "id": "5612d5f9f6858f61ac2a1da7"
+        "id": "5614c52bf6858f0f4b9b037e"
     }, 
     {
         "properties": {
-            "distance": 0, 
+            "distance": 3616.544860787505, 
             "end_place": {
-                "$oid": "5612d5f9f6858f61ac2a1daa"
+                "$oid": "5614c52bf6858f0f4b9b0381"
             }, 
             "user_id": {
                 "$uuid": "b0d937d070ef305e9563440369012b39"
@@ -3481,7 +3899,7 @@
             }, 
             "end_ts": 1442364952.527, 
             "start_ts": 1442364316.344, 
-            "start_fmt_time": "2015-09-15 17:45:16.344000-07:00", 
+            "start_fmt_time": "2015-09-15T17:45:16.344000-07:00", 
             "end_loc": {
                 "type": "Point", 
                 "coordinates": [
@@ -3491,12 +3909,18 @@
             }, 
             "source": "DwellSegmentationTimeFilter", 
             "start_place": {
-                "$oid": "5612d5f9f6858f61ac2a1da8"
+                "$oid": "5614c52bf6858f0f4b9b037f"
             }, 
-            "end_fmt_time": "2015-09-15 17:55:52.527000-07:00", 
+            "end_fmt_time": "2015-09-15T17:55:52.527000-07:00", 
+            "end_local_dt": {
+                "$date": 1442364952527
+            }, 
             "duration": 636.1829998493195, 
             "_id": {
-                "$oid": "5612d5f9f6858f61ac2a1da9"
+                "$oid": "5614c52bf6858f0f4b9b0380"
+            }, 
+            "start_local_dt": {
+                "$date": 1442364316344
             }
         }, 
         "type": "FeatureCollection", 
@@ -3510,16 +3934,22 @@
                     ]
                 }, 
                 "type": "Feature", 
-                "id": "5612d5f9f6858f61ac2a1da8", 
+                "id": "5614c52bf6858f0f4b9b037f", 
                 "properties": {
-                    "enter_fmt_time": "2015-09-15 16:39:00.418000-07:00", 
+                    "enter_fmt_time": "2015-09-15T16:39:00.418000-07:00", 
+                    "exit_local_dt": {
+                        "$date": 1442364316344
+                    }, 
                     "feature_type": "start_place", 
-                    "exit_fmt_time": "2015-09-15 17:45:16.344000-07:00", 
+                    "exit_fmt_time": "2015-09-15T17:45:16.344000-07:00", 
+                    "enter_local_dt": {
+                        "$date": 1442360340418
+                    }, 
                     "ending_trip": {
-                        "$oid": "5612d5f9f6858f61ac2a1da7"
+                        "$oid": "5614c52bf6858f0f4b9b037e"
                     }, 
                     "starting_trip": {
-                        "$oid": "5612d5f9f6858f61ac2a1da9"
+                        "$oid": "5614c52bf6858f0f4b9b0380"
                     }, 
                     "source": "DwellSegmentationTimeFilter", 
                     "enter_ts": 1442360340.418, 
@@ -3536,16 +3966,22 @@
                     ]
                 }, 
                 "type": "Feature", 
-                "id": "5612d5f9f6858f61ac2a1daa", 
+                "id": "5614c52bf6858f0f4b9b0381", 
                 "properties": {
-                    "enter_fmt_time": "2015-09-15 17:55:52.527000-07:00", 
+                    "enter_fmt_time": "2015-09-15T17:55:52.527000-07:00", 
+                    "exit_local_dt": {
+                        "$date": 1442414104952
+                    }, 
                     "feature_type": "end_place", 
-                    "exit_fmt_time": "2015-09-16 07:35:04.952000-07:00", 
+                    "exit_fmt_time": "2015-09-16T07:35:04.952000-07:00", 
+                    "enter_local_dt": {
+                        "$date": 1442364952527
+                    }, 
                     "ending_trip": {
-                        "$oid": "5612d5f9f6858f61ac2a1da9"
+                        "$oid": "5614c52bf6858f0f4b9b0380"
                     }, 
                     "starting_trip": {
-                        "$oid": "5612d5f9f6858f61ac2a1dab"
+                        "$oid": "5614c52bf6858f0f4b9b0382"
                     }, 
                     "source": "DwellSegmentationTimeFilter", 
                     "enter_ts": 1442364952.527, 
@@ -3573,10 +4009,13 @@
                                     "distance": 0, 
                                     "feature_type": "location", 
                                     "idx": 0, 
-                                    "fmt_time": "2015-09-15 17:45:16.344000-07:00", 
+                                    "fmt_time": "2015-09-15T17:45:16.344000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442364316.344, 
                                     "longitude": -122.0892257, 
+                                    "local_dt": {
+                                        "$date": 1442364316344
+                                    }, 
                                     "latitude": 37.3650419, 
                                     "speed": 0, 
                                     "heading": 0, 
@@ -3598,10 +4037,13 @@
                                     "distance": 134.18631812944557, 
                                     "feature_type": "location", 
                                     "idx": 1, 
-                                    "fmt_time": "2015-09-15 17:45:30.146000-07:00", 
+                                    "fmt_time": "2015-09-15T17:45:30.146000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442364330.146, 
                                     "longitude": -122.0877099, 
+                                    "local_dt": {
+                                        "$date": 1442364330146
+                                    }, 
                                     "latitude": 37.3651119, 
                                     "speed": 9.722237357075704, 
                                     "heading": 0, 
@@ -3623,10 +4065,13 @@
                                     "distance": 72.46663409750455, 
                                     "feature_type": "location", 
                                     "idx": 2, 
-                                    "fmt_time": "2015-09-15 17:46:23.711000-07:00", 
+                                    "fmt_time": "2015-09-15T17:46:23.711000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442364383.711, 
                                     "longitude": -122.0870112, 
+                                    "local_dt": {
+                                        "$date": 1442364383711
+                                    }, 
                                     "latitude": 37.365453, 
                                     "speed": 1.3528728464499682, 
                                     "heading": 0, 
@@ -3648,10 +4093,13 @@
                                     "distance": 434.01418910418374, 
                                     "feature_type": "location", 
                                     "idx": 3, 
-                                    "fmt_time": "2015-09-15 17:46:54.627000-07:00", 
+                                    "fmt_time": "2015-09-15T17:46:54.627000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442364414.627, 
                                     "longitude": -122.0870433, 
+                                    "local_dt": {
+                                        "$date": 1442364414627
+                                    }, 
                                     "latitude": 37.3693561, 
                                     "speed": 14.038497454721536, 
                                     "heading": 0, 
@@ -3673,10 +4121,13 @@
                                     "distance": 466.34227215971964, 
                                     "feature_type": "location", 
                                     "idx": 4, 
-                                    "fmt_time": "2015-09-15 17:47:25.958000-07:00", 
+                                    "fmt_time": "2015-09-15T17:47:25.958000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442364445.958, 
                                     "longitude": -122.0869271, 
+                                    "local_dt": {
+                                        "$date": 1442364445958
+                                    }, 
                                     "latitude": 37.373549, 
                                     "speed": 14.884372486486715, 
                                     "heading": 0, 
@@ -3698,10 +4149,13 @@
                                     "distance": 441.63663816585125, 
                                     "feature_type": "location", 
                                     "idx": 5, 
-                                    "fmt_time": "2015-09-15 17:47:56.927000-07:00", 
+                                    "fmt_time": "2015-09-15T17:47:56.927000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442364476.927, 
                                     "longitude": -122.0868247, 
+                                    "local_dt": {
+                                        "$date": 1442364476927
+                                    }, 
                                     "latitude": 37.3775199, 
                                     "speed": 14.260603723861095, 
                                     "heading": 0, 
@@ -3723,10 +4177,13 @@
                                     "distance": 510.46904714007616, 
                                     "feature_type": "location", 
                                     "idx": 6, 
-                                    "fmt_time": "2015-09-15 17:48:28.985000-07:00", 
+                                    "fmt_time": "2015-09-15T17:48:28.985000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442364508.985, 
                                     "longitude": -122.0867634, 
+                                    "local_dt": {
+                                        "$date": 1442364508985
+                                    }, 
                                     "latitude": 37.3821104, 
                                     "speed": 15.923296822615482, 
                                     "heading": 0, 
@@ -3748,10 +4205,13 @@
                                     "distance": 0, 
                                     "feature_type": "location", 
                                     "idx": 7, 
-                                    "fmt_time": "2015-09-15 17:48:40.905000-07:00", 
+                                    "fmt_time": "2015-09-15T17:48:40.905000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442364520.905, 
                                     "longitude": -122.0867634, 
+                                    "local_dt": {
+                                        "$date": 1442364520905
+                                    }, 
                                     "latitude": 37.3821104, 
                                     "speed": 0, 
                                     "heading": 0, 
@@ -3773,10 +4233,13 @@
                                     "distance": 360.28362672124064, 
                                     "feature_type": "location", 
                                     "idx": 8, 
-                                    "fmt_time": "2015-09-15 17:49:00.306000-07:00", 
+                                    "fmt_time": "2015-09-15T17:49:00.306000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442364540.306, 
                                     "longitude": -122.087281, 
+                                    "local_dt": {
+                                        "$date": 1442364540306
+                                    }, 
                                     "latitude": 37.3853243, 
                                     "speed": 18.570363707860356, 
                                     "heading": 0, 
@@ -3798,10 +4261,13 @@
                                     "distance": 314.8546073259741, 
                                     "feature_type": "location", 
                                     "idx": 9, 
-                                    "fmt_time": "2015-09-15 17:50:03.847000-07:00", 
+                                    "fmt_time": "2015-09-15T17:50:03.847000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442364603.847, 
                                     "longitude": -122.0883422, 
+                                    "local_dt": {
+                                        "$date": 1442364603847
+                                    }, 
                                     "latitude": 37.3880274, 
                                     "speed": 4.955140899169711, 
                                     "heading": 0, 
@@ -3823,10 +4289,13 @@
                                     "distance": 5.576312632526786, 
                                     "feature_type": "location", 
                                     "idx": 10, 
-                                    "fmt_time": "2015-09-15 17:50:36.475000-07:00", 
+                                    "fmt_time": "2015-09-15T17:50:36.475000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442364636.475, 
                                     "longitude": -122.0882803, 
+                                    "local_dt": {
+                                        "$date": 1442364636475
+                                    }, 
                                     "latitude": 37.3880372, 
                                     "speed": 0.17090574442016185, 
                                     "heading": 0, 
@@ -3848,10 +4317,13 @@
                                     "distance": 6.616523301228691, 
                                     "feature_type": "location", 
                                     "idx": 11, 
-                                    "fmt_time": "2015-09-15 17:51:07.340000-07:00", 
+                                    "fmt_time": "2015-09-15T17:51:07.340000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442364667.34, 
                                     "longitude": -122.0882067, 
+                                    "local_dt": {
+                                        "$date": 1442364667340
+                                    }, 
                                     "latitude": 37.3880482, 
                                     "speed": 0.2143697812792581, 
                                     "heading": 0, 
@@ -3873,10 +4345,13 @@
                                     "distance": 219.89976666726164, 
                                     "feature_type": "location", 
                                     "idx": 12, 
-                                    "fmt_time": "2015-09-15 17:51:25.608000-07:00", 
+                                    "fmt_time": "2015-09-15T17:51:25.608000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442364685.608, 
                                     "longitude": -122.0871067, 
+                                    "local_dt": {
+                                        "$date": 1442364685608
+                                    }, 
                                     "latitude": 37.3898222, 
                                     "speed": 12.037429666735806, 
                                     "heading": 0, 
@@ -3898,10 +4373,13 @@
                                     "distance": 395.05810020142445, 
                                     "feature_type": "location", 
                                     "idx": 13, 
-                                    "fmt_time": "2015-09-15 17:51:56.653000-07:00", 
+                                    "fmt_time": "2015-09-15T17:51:56.653000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442364716.653, 
                                     "longitude": -122.0849472, 
+                                    "local_dt": {
+                                        "$date": 1442364716653
+                                    }, 
                                     "latitude": 37.3929333, 
                                     "speed": 12.725337388647391, 
                                     "heading": 0, 
@@ -3923,10 +4401,13 @@
                                     "distance": 3.244101807843447, 
                                     "feature_type": "location", 
                                     "idx": 14, 
-                                    "fmt_time": "2015-09-15 17:52:40.224000-07:00", 
+                                    "fmt_time": "2015-09-15T17:52:40.224000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442364760.224, 
                                     "longitude": -122.0849839, 
+                                    "local_dt": {
+                                        "$date": 1442364760224
+                                    }, 
                                     "latitude": 37.3929343, 
                                     "speed": 0.07445552817723647, 
                                     "heading": 0, 
@@ -3948,10 +4429,13 @@
                                     "distance": 0.6127706264879103, 
                                     "feature_type": "location", 
                                     "idx": 15, 
-                                    "fmt_time": "2015-09-15 17:53:11.418000-07:00", 
+                                    "fmt_time": "2015-09-15T17:53:11.418000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442364791.418, 
                                     "longitude": -122.084982, 
+                                    "local_dt": {
+                                        "$date": 1442364791418
+                                    }, 
                                     "latitude": 37.392929, 
                                     "speed": 0.01964386184444147, 
                                     "heading": 0, 
@@ -3973,10 +4457,13 @@
                                     "distance": 210.8895373235917, 
                                     "feature_type": "location", 
                                     "idx": 16, 
-                                    "fmt_time": "2015-09-15 17:53:30.193000-07:00", 
+                                    "fmt_time": "2015-09-15T17:53:30.193000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442364810.193, 
                                     "longitude": -122.0860347, 
+                                    "local_dt": {
+                                        "$date": 1442364810193
+                                    }, 
                                     "latitude": 37.3912268, 
                                     "speed": 11.232465313042894, 
                                     "heading": 0, 
@@ -3998,10 +4485,13 @@
                                     "distance": 29.603822548027903, 
                                     "feature_type": "location", 
                                     "idx": 17, 
-                                    "fmt_time": "2015-09-15 17:53:55.784000-07:00", 
+                                    "fmt_time": "2015-09-15T17:53:55.784000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442364835.784, 
                                     "longitude": -122.0862054, 
+                                    "local_dt": {
+                                        "$date": 1442364835784
+                                    }, 
                                     "latitude": 37.3909977, 
                                     "speed": 1.1568060150506736, 
                                     "heading": 0, 
@@ -4023,10 +4513,13 @@
                                     "distance": 1.3974521738249228, 
                                     "feature_type": "location", 
                                     "idx": 18, 
-                                    "fmt_time": "2015-09-15 17:54:46.363000-07:00", 
+                                    "fmt_time": "2015-09-15T17:54:46.363000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442364886.363, 
                                     "longitude": -122.0861896, 
+                                    "local_dt": {
+                                        "$date": 1442364886363
+                                    }, 
                                     "latitude": 37.3909983, 
                                     "speed": 0.027629098517770605, 
                                     "heading": 0, 
@@ -4048,10 +4541,13 @@
                                     "distance": 4.838935845854463, 
                                     "feature_type": "location", 
                                     "idx": 19, 
-                                    "fmt_time": "2015-09-15 17:55:18.605000-07:00", 
+                                    "fmt_time": "2015-09-15T17:55:18.605000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442364918.605, 
                                     "longitude": -122.0862241, 
+                                    "local_dt": {
+                                        "$date": 1442364918605
+                                    }, 
                                     "latitude": 37.3909645, 
                                     "speed": 0.15008175145451644, 
                                     "heading": 0, 
@@ -4073,10 +4569,13 @@
                                     "distance": 4.554204815436454, 
                                     "feature_type": "location", 
                                     "idx": 20, 
-                                    "fmt_time": "2015-09-15 17:55:52.527000-07:00", 
+                                    "fmt_time": "2015-09-15T17:55:52.527000-07:00", 
                                     "altitude": 0, 
                                     "ts": 1442364952.527, 
                                     "longitude": -122.0861872, 
+                                    "local_dt": {
+                                        "$date": 1442364952527
+                                    }, 
                                     "latitude": 37.3909931, 
                                     "speed": 0.13425519794396046, 
                                     "heading": 0, 
@@ -4181,14 +4680,14 @@
                             ]
                         }, 
                         "type": "Feature", 
-                        "id": "5612d603f6858f61ac2a1f1b", 
+                        "id": "5614c536f6858f0f4b9b04f2", 
                         "properties": {
                             "distance": 3616.544860787505, 
                             "feature_type": "section", 
                             "sensed_mode": "MotionTypes.IN_VEHICLE", 
                             "end_ts": 1442364952.527, 
                             "start_ts": 1442364316.344, 
-                            "start_fmt_time": "2015-09-15 17:45:16.344000-07:00", 
+                            "start_fmt_time": "2015-09-15T17:45:16.344000-07:00", 
                             "source": "SmoothedHighConfidenceMotion", 
                             "distances": [
                                 0, 
@@ -4213,10 +4712,16 @@
                                 4.838935845854463, 
                                 4.554204815436454
                             ], 
-                            "end_fmt_time": "2015-09-15 17:55:52.527000-07:00", 
+                            "end_fmt_time": "2015-09-15T17:55:52.527000-07:00", 
+                            "end_local_dt": {
+                                "$date": 1442364952527
+                            }, 
                             "duration": 636.1829998493195, 
                             "trip_id": {
-                                "$oid": "5612d5f9f6858f61ac2a1da9"
+                                "$oid": "5614c52bf6858f0f4b9b0380"
+                            }, 
+                            "start_local_dt": {
+                                "$date": 1442364316344
                             }, 
                             "speeds": [
                                 0, 
@@ -4246,6 +4751,6 @@
                 ]
             }
         ], 
-        "id": "5612d5f9f6858f61ac2a1da9"
+        "id": "5614c52bf6858f0f4b9b0380"
     }
 ]
