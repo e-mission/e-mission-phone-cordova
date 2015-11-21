@@ -1,7 +1,8 @@
 angular.module('starter.controllers', ['ionic'])
 
 .controller("TripsCtrl", function($scope, $http, $ionicPlatform, $state,
-                                    $ionicScrollDelegate, $ionicActionSheet,
+                                    $ionicScrollDelegate, $ionicPopup,
+                                    $ionicActionSheet,
                                     leafletData) {
   console.log("controller TripsCtrl called");
 
@@ -22,7 +23,7 @@ angular.module('starter.controllers', ['ionic'])
     relativeTime : {
         future: "in %s",
         past:   "%s ago",
-        s:  "s",
+        s:  "secs",
         m:  "a min",
         mm: "%d m",
         h:  "an hr",
@@ -37,8 +38,8 @@ angular.module('starter.controllers', ['ionic'])
 });
 
       $scope.data = {};
-      $scope.data.currDay = moment("2015-09-16").startOf('day');
-      // $scope.data.currDay = moment().startOf('day');
+      // $scope.data.currDay = moment("2015-08-25").startOf('day');
+      $scope.data.currDay = moment().startOf('day');
 
       var getKeyForDate = function(date) {
         dateString = date.startOf('day').format('YYYY-MM-DD');
@@ -66,6 +67,9 @@ angular.module('starter.controllers', ['ionic'])
             retVal.end_place = tc[1];
             retVal.stops = tc[2];
             retVal.sections = tc[3];
+            // Hardcoding to avoid repeated nominatim calls
+            // retVal.start_place.properties.displayName = "Start";
+            // retVal.start_place.properties.displayName = "End";
             return retVal;
       });
 
@@ -73,19 +77,60 @@ angular.module('starter.controllers', ['ionic'])
       $scope.data.currDayTrips = directiveTripListForDay;
 
       $scope.data.currDayTrips.forEach(function(dt, index, array) {
-          if (dt.start_place.properties.displayName) {
-              console.log("Already have display name "+ dt.start_place.properties.displayName +" for start_place");
+          if (angular.isDefined(dt.start_place.properties.displayName)) {
+              console.log("Already have display name "+ dt.start_place.properties.displayName +" for start_place")
           } else {
-              $scope.getDisplayName(dt.start_place);
+              console.log("Don't have display name for start place, going to query nominatim")
+              $scope.getDisplayName(dt.start_place)
           }
-          if (dt.end_place.properties.displayName) {
-              console.log("Already have display name " + dt.end_place.properties.displayName + " for start_place");
+          if (angular.isDefined(dt.end_place.properties.displayName)) {
+              console.log("Already have display name " + dt.end_place.properties.displayName + " for end_place")
           } else {
-              $scope.getDisplayName(dt.end_place);
+              console.log("Don't have display name for end place, going to query nominatim")
+              $scope.getDisplayName(dt.end_place)
           }
       });
 
+      var dayMovingTime = 0;
+      var dayStoppedTime = 0;
+      var dayDistance = 0;
+
+      $scope.data.currDayTrips.forEach(function(dt, index, array) {
+          dt.tripSummary = {}
+          var movingTime = 0
+          var stoppedTime = 0
+          dt.stops.forEach(function(stop, index, array) {
+            stoppedTime = stoppedTime + stop.properties.duration;
+          });
+          dt.sections.forEach(function(section, index, array) {
+            movingTime = movingTime + section.properties.duration;
+          });
+          dt.tripSummary.movingTime = movingTime;
+          dt.tripSummary.stoppedTime = stoppedTime;
+          dt.tripSummary.movingPct = (movingTime / (movingTime + stoppedTime)) * 100;
+          dt.tripSummary.stoppedPct = (stoppedTime / (movingTime + stoppedTime)) * 100;
+          dayMovingTime = dayMovingTime + dt.tripSummary.movingTime;
+          dayStoppedTime = dayStoppedTime + dt.tripSummary.stoppedTime;
+          console.log("distance = "+dt.data.properties.distance);
+          dayDistance = dayDistance + dt.data.properties.distance;
+      });
+
+      var dayInSecs = 24 * 60 * 60;
+
+      $scope.data.currDaySummary = {}
+      $scope.data.currDaySummary.movingTime = dayMovingTime;
+      $scope.data.currDaySummary.stoppedTime = dayStoppedTime;
+      $scope.data.currDaySummary.inPlaceTime = dayInSecs - (dayMovingTime + dayStoppedTime);
+      
+      $scope.data.currDaySummary.movingPct = ($scope.data.currDaySummary.movingTime * 100)/dayInSecs;
+      $scope.data.currDaySummary.stoppedPct = ($scope.data.currDaySummary.stoppedTime * 100)/dayInSecs;
+      $scope.data.currDaySummary.inPlacePct = ($scope.data.currDaySummary.inPlaceTime * 100)/dayInSecs;
+
+      $scope.data.currDaySummary.distance = dayDistance;
+
       console.log("currIndex = "+$scope.data.currDay+" currDayTrips = "+ $scope.data.currDayTrips.length);
+
+        // Return to the top of the page. If we don't do this, then we will be stuck at the 
       $ionicScrollDelegate.scrollTop(true);
   };
 
@@ -96,7 +141,7 @@ angular.module('starter.controllers', ['ionic'])
             var stopList = [];
             var sectionList = [];
             trip.features.forEach(function(feature, index, array) {
-                console.log("Considering feature " + JSON.stringify(feature));
+                // console.log("Considering feature " + JSON.stringify(feature));
                 switch (feature.type) {
                     case "Feature":
                         switch(feature.properties.feature_type) {
@@ -129,16 +174,19 @@ angular.module('starter.controllers', ['ionic'])
 
 
         var readAndUpdateFromDatabase = function(day, foundFn, notFoundFn) {
-            UserCacheHelper.getDocument(db, getKeyForDate($scope.data.currDay),
+            UserCacheHelper.getDocument(db, getKeyForDate(day),
                 function (tripListArray) {
                     $scope.$apply(function () {
+                        /*
+                         * Take the version with the most data
+                         */
                         if (tripListArray.length > 0) {
                             tripListStr = tripListArray[0];
                             tripList = JSON.parse(tripListStr);
                             foundFn(day, tripList);
                         } else {
                             console.log("while reading data for "+day+" from database, no records found");
-                            notFoundFn(day, "no matching record for key "+getKeyForDate(date));
+                            notFoundFn(day, "no matching record for key "+getKeyForDate(day));
                         }
                     });
             });
@@ -161,11 +209,11 @@ angular.module('starter.controllers', ['ionic'])
 
         var readAndUpdateFromServer = function(day, foundFn, notFoundFn) {
             $http.get("results/"+getKeyForDate(day)).then(function(response) {
-               console.log("while reading data for "+day+" from file, status = "+response.status);
+               console.log("while reading data for "+day+" from server, status = "+response.status);
                tripList = response.data;
                processResultFunction(day, tripList);
             }, function(response) {
-               console.log("while reading data for "+day+" from file, status = "+response.status);
+               console.log("while reading data for "+day+" from server, status = "+response.status);
                notFoundFn(day, response);
             });
         };
@@ -186,7 +234,7 @@ angular.module('starter.controllers', ['ionic'])
         /*
    BEGIN BROWSER VERSION
          */
-   // var localCacheReadFn = readAndUpdateFromFile;
+    // var localCacheReadFn = readAndUpdateFromFile;
 
     var readAndUpdateForDay = function(day) {
         // First, we try the local cache
@@ -194,12 +242,33 @@ angular.module('starter.controllers', ['ionic'])
         localCacheReadFn(day, processTripsForDay, function(day, error) {
             readAndUpdateFromServer(day, processTripsForDay, function(day, error) {
                 console.log("No trips found for day "+error);
-                alert("deal with me!");
+                var alertPopup = $ionicPopup.alert({
+                     title: 'No trips found!',
+                     template: "This is probably because you didn't go anywhere, but it because we messed up tracking, please let us know!"
+                   });
+                alertPopup.then(function(res) {
+                    console.log("Alerted user");
+                    $scope.data.currDay = day;
+                    $scope.data.currDayTrips = []
+                    $scope.data.currDaySummary = {}
+                });
             });
         });
     }
 
-    localCacheReadFn($scope.data.currDay, processTripsForDay);
+    // Initial read for the current day. We expect this to be in the cache.
+    localCacheReadFn($scope.data.currDay, processTripsForDay, function() {
+                console.log("No trips found for day "+$scope.data.currDay.format('YYYY-MM-DD'));
+                var alertPopup = $ionicPopup.alert({
+                    title: "You don't have any trips for today. Yet.",
+                    template: "This is probably because you didn't go anywhere yet, but if it is because we messed up tracking, please let us know!"
+                });
+                alertPopup.then(function(res) {
+                    console.log("Alerted user");
+                    $scope.data.currDayTrips = []
+                    $scope.data.currDaySummary = {}
+                });
+    });
 
         /*
     $scope.to_directive = function(trip) {
@@ -250,10 +319,14 @@ angular.module('starter.controllers', ['ionic'])
             }
         };
 
-        $scope.getFormattedDuration = function(end_ts_in_secs, start_ts_in_secs) {
+        $scope.getFormattedTimeRange = function(end_ts_in_secs, start_ts_in_secs) {
             startMoment = moment(start_ts_in_secs * 1000);
             endMoment = moment(end_ts_in_secs * 1000);
             return endMoment.to(startMoment, true);
+        };
+
+        $scope.getFormattedDuration = function(duration_in_secs) {
+            return moment.duration(duration_in_secs * 1000).humanize()
         };
 
         $scope.getTripDetails = function(trip) {
@@ -279,14 +352,14 @@ angular.module('starter.controllers', ['ionic'])
         };
 
         $scope.prevDay = function() {
-            console.log("Called prevDay when currDay = "+$scope.data.currDay);
+            console.log("Called prevDay when currDay = "+$scope.data.currDay.format('YYYY-MM-DD'));
             var prevDay = moment($scope.data.currDay).subtract(1, 'days');
-            console.log("prevDay = "+prevDay);
+            console.log("prevDay = "+prevDay.format('YYYY-MM-DD'));
             readAndUpdateForDay(prevDay);
         };
 
         $scope.nextDay = function() {
-            console.log("Called nextDay when currDay = "+$scope.data.currDay);
+            console.log("Called nextDay when currDay = "+$scope.data.currDay.format('YYYY-MM-DD'));
             var nextDay = moment($scope.data.currDay).add(1, 'days');
             console.log("nextDay = "+nextDay);
             readAndUpdateForDay(nextDay);
@@ -592,7 +665,7 @@ angular.module('starter.controllers', ['ionic'])
                    +" data = "+JSON.stringify(response.data));
                responseListener(response.data);
             }, function(response) {
-               console.log("while reading data for "+day+" from file, status = "+response.status);
+               console.log("while reading data from nominatim, status = "+response.status);
                notFoundFn(day, response);
             });
     };
