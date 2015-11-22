@@ -57,6 +57,15 @@
     // angular.element(document).ready(function onDeviceReady() {
       console.log("bootstrapping angular");
       angular.bootstrap(document.getElementsByTagName('body')[0], ['starter']);
+      /*
+       * As part of handling the device ready, register to reload on resume.
+       * TODO: Can this be changed to be more push-oriented so that we don't have to reload if
+       * nothing has changed?
+       */
+      document.addEventListener( "resume", function onDeviceResume() {
+          console.log("activity is resumed, reloading page");
+          window.location.reload();
+      }, false);
     }, false);
   </script>
 </head>
@@ -89,15 +98,31 @@
           </div>
         </div>
         -->
-
-        <div class="row bg-color"
+        <div class="col bg-color">
+            <div class="row">
+                <div class="col">In Places</div>
+                <div class="col">Moving</div>
+                <div class="col">Stopped</div>
+            </div>
+            <div class="row">
+                <div class="col">{{getFormattedDuration(data.currDaySummary.inPlaceTime)}} 
+                    ({{data.currDaySummary.inPlacePct.toFixed(2)}}%)</div>
+                <div class="col">{{getFormattedDuration(data.currDaySummary.movingTime)}} 
+                    ({{data.currDaySummary.movingPct.toFixed(2)}}%)</div>
+                <div class="col">{{getFormattedDuration(data.currDaySummary.stoppedTime)}} 
+                    ({{data.currDaySummary.stoppedPct.toFixed(2)}}%)</div>
+            </div>
+            <div class="row">{{data.currDayTrips.length}} trips, covering {{getFormattedDistance(data.currDaySummary.distance)}} km </div>
+        </div>
+        <div class="bg-color"
             item-width="100%" item-height="300">
             <img src="img/582752main_sunrise_from_iss-full_small.png">
         </div>
         <ion-list>
             <ion-item collection-repeat="trip in data.currDayTrips"
-                item-width=100% item-height="trip.sections.length * 30 + 300"
+                item-width=100% item-height="100 + trip.sections.length * 40 + 300"
                 class="no-margin bg-color">
+                <!--
               <div class="buttons summary-color">
                 <button class="button button-icon icon ion-ios-minus-outline"
                     ng-click="deleteTrip(trip)"></button>
@@ -108,20 +133,46 @@
                     ng-click="showCorrections(trip)()">
                 </button>
               </div>
-                <ion-list class="summary-color" width=100%>
-                    <ion-item ng-repeat="section in trip.sections"
-                    class="no-margin summary-color">
-                        <button class="button button-small summary-color"
-                                ng-click="showModes(section)()">
-                            {{section.properties.sensed_mode}}
-                        </button>
-                        {{getSectionDetails(section)}}
-                        <button class="button button-small button-icon icon ion-ios-more-outline"
-                                ng-click="showCorrections(section)">
-                        </button>
-                    </ion-item>
-                </ion-list>
-                <leaflet geojson="trip" id="$index" defaults="defaults"></leaflet>
+                -->
+               <div class="summary-color col">
+                <div class="row"> to {{trip.end_place.properties.displayName}} </div>
+                <div class="row item-text-wrap"> {{getFormattedTime(trip.data.properties.start_ts)}} to 
+                    {{getFormattedTime(trip.data.properties.end_ts)}} 
+                    ({{getFormattedTimeRange(trip.data.properties.start_ts,
+                                            trip.data.properties.end_ts)}},
+                    {{getFormattedDistance(trip.data.properties.distance)}} km)
+                </div>
+                <div class="row"> {{trip.sections.length}} segment(s), stopped for {{getFormattedDuration(trip.tripSummary.stoppedTime)}} ({{trip.tripSummary.stoppedPct.toFixed(2)}}%)} </div>
+                </div>
+               </div>
+               <div class="col button-small">
+                    <div class="row">
+                        <div class="col">start </div>
+                        <div class="col">end </div>
+                        <i class="col icon ion-ios-time-outline"></i>
+                        <div class="col">km </div>
+                        <div class="col">kmph </div>
+                        <div class="col">mode </div>
+                    </div>
+                    <div class="row" ng-repeat="section in trip.sections">
+                        <div class="col">{{getFormattedTime(section.properties.start_ts)}}</div>
+                        <div class="col">{{getFormattedTime(section.properties.end_ts)}}</div>
+                        <div class="col">{{getFormattedTimeRange(section.properties.end_ts, section.properties.start_ts)}}</div>
+                        <div class="col">{{getFormattedDistance(section.properties.distance)}}</div>
+                        <div class="col">{{getKmph(section)}}</div>
+                        <div class="col">{{getHumanReadable(section.properties.sensed_mode)}}</div>
+                    </div>
+                </div>
+               <leaflet geojson="trip" id="$index" defaults="defaults"></leaflet>
+                <div class="col place-color">
+                    <div class="row">at {{trip.end_place.properties.displayName}}</div>
+                    <div class="row">
+                        {{getFormattedTime(trip.end_place.properties.enter_ts)}} 
+                        to {{getFormattedTime(trip.end_place.properties.exit_ts)}}
+                        ({{getFormattedTimeRange(trip.end_place.properties.enter_ts,
+                                                trip.end_place.properties.exit_ts)}})
+                    </div>
+                </div>
                 <!--
                 <div class="col col-33 col-offset-33">
                   <ul class="img-list">
@@ -164,7 +215,7 @@
               -->
             </ion-item>
           </ion-list>
-        <div class="row bg-color"
+        <div class="bg-color"
             item-width="100%" item-height="300">
             <img src="img/nileredsea_126b5740_small.png" width=300 height=200>
         </div>
