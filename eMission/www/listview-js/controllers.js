@@ -38,7 +38,7 @@ angular.module('starter.controllers', ['ionic'])
 });
 
       $scope.data = {};
-      // $scope.data.currDay = moment("2015-08-25").startOf('day');
+      // $scope.data.currDay = moment("2015-09-16").startOf('day');
       $scope.data.currDay = moment().startOf('day');
 
       var getKeyForDate = function(date) {
