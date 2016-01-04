@@ -37,28 +37,6 @@ angular.module('starter.controllers', ['ionic'])
     }
 });
 
-            $scope.exampleData = [
-                    { key: "One", y: 5 },
-                    { key: "Two", y: 2 },
-                    { key: "Three", y: 9 },
-                    { key: "Four", y: 7 },
-                    { key: "Five", y: 4 },
-                    { key: "Six", y: 3 },
-                    { key: "Seven", y: 9 }
-                ];
-
-            $scope.xFunction = function(){
-                return function(d) {
-                    return d.key;
-                };
-            }
-
-            $scope.yFunction = function(){
-                return function(d) {
-                    return d.time;
-                };
-            }
-
       $scope.data = {};
       // $scope.data.currDay = moment("2015-09-16").startOf('day');
       $scope.data.currDay = moment().startOf('day');
@@ -141,9 +119,9 @@ angular.module('starter.controllers', ['ionic'])
 
       $scope.data.currDaySummary = {
         breakdown: [
-            {key: "moving", time: dayMovingTime},
-            {key: "waiting", time: dayStoppedTime},
-            {key: "in place", time: dayInSecs - (dayMovingTime + dayStoppedTime)},
+            ["moving", dayMovingTime],
+            ["waiting", dayStoppedTime],
+            ["in place", dayInSecs - (dayMovingTime + dayStoppedTime)],
         ]
       }
       $scope.data.currDaySummary.distance = dayDistance;
