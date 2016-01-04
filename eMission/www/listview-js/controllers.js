@@ -19,7 +19,7 @@ angular.module('starter.controllers', ['ionic'])
       }
   });
 
-        moment.locale('en', {
+  moment.locale('en', {
     relativeTime : {
         future: "in %s",
         past:   "%s ago",
@@ -36,6 +36,28 @@ angular.module('starter.controllers', ['ionic'])
         yy: "%d years"
     }
 });
+
+            $scope.exampleData = [
+                    { key: "One", y: 5 },
+                    { key: "Two", y: 2 },
+                    { key: "Three", y: 9 },
+                    { key: "Four", y: 7 },
+                    { key: "Five", y: 4 },
+                    { key: "Six", y: 3 },
+                    { key: "Seven", y: 9 }
+                ];
+
+            $scope.xFunction = function(){
+                return function(d) {
+                    return d.key;
+                };
+            }
+
+            $scope.yFunction = function(){
+                return function(d) {
+                    return d.time;
+                };
+            }
 
       $scope.data = {};
       // $scope.data.currDay = moment("2015-09-16").startOf('day');
@@ -117,15 +139,13 @@ angular.module('starter.controllers', ['ionic'])
 
       var dayInSecs = 24 * 60 * 60;
 
-      $scope.data.currDaySummary = {}
-      $scope.data.currDaySummary.movingTime = dayMovingTime;
-      $scope.data.currDaySummary.stoppedTime = dayStoppedTime;
-      $scope.data.currDaySummary.inPlaceTime = dayInSecs - (dayMovingTime + dayStoppedTime);
-      
-      $scope.data.currDaySummary.movingPct = ($scope.data.currDaySummary.movingTime * 100)/dayInSecs;
-      $scope.data.currDaySummary.stoppedPct = ($scope.data.currDaySummary.stoppedTime * 100)/dayInSecs;
-      $scope.data.currDaySummary.inPlacePct = ($scope.data.currDaySummary.inPlaceTime * 100)/dayInSecs;
-
+      $scope.data.currDaySummary = {
+        breakdown: [
+            {key: "moving", time: dayMovingTime},
+            {key: "waiting", time: dayStoppedTime},
+            {key: "in place", time: dayInSecs - (dayMovingTime + dayStoppedTime)},
+        ]
+      }
       $scope.data.currDaySummary.distance = dayDistance;
 
       console.log("currIndex = "+$scope.data.currDay+" currDayTrips = "+ $scope.data.currDayTrips.length);
