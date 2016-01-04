@@ -21,7 +21,7 @@
 
   <!-- leaflet, for some sweet, open source maps -->
   <link rel="stylesheet" href="lib/leaflet/leaflet.css"></link>
-  <script src="lib/leaflet/leaflet.js"></script>
+  <script src="lib/leaflet/leaflet-src.js"></script>
 
   <!-- leaflet plugins -->
   <script src="lib/leaflet-plugins/angular-leaflet-directive.js"></script>
@@ -114,10 +114,12 @@
             </div>
             <div class="row">{{data.currDayTrips.length}} trips, covering {{getFormattedDistance(data.currDaySummary.distance)}} km </div>
         </div>
+        <!--
         <div class="bg-color"
             item-width="100%" item-height="300">
             <img src="img/582752main_sunrise_from_iss-full_small.png">
         </div>
+        -->
         <ion-list>
             <ion-item collection-repeat="trip in data.currDayTrips"
                 item-width=100% item-height="100 + trip.sections.length * 40 + 300"

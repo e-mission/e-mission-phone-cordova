@@ -6457,14 +6457,12 @@ L.DomEvent = {
 	},
 
 	stopPropagation: function (e) {
-
 		if (e.stopPropagation) {
 			e.stopPropagation();
 		} else {
 			e.cancelBubble = true;
 		}
 		L.DomEvent._skipped(e);
-
 		return this;
 	},
 
@@ -6474,6 +6472,7 @@ L.DomEvent = {
 		return L.DomEvent
 			.on(el, 'mousewheel', stop)
 			.on(el, 'MozMousePixelScroll', stop);
+        return el;
 	},
 
 	disableClickPropagation: function (el) {
@@ -6486,10 +6485,10 @@ L.DomEvent = {
 		return L.DomEvent
 			.on(el, 'click', L.DomEvent._fakeStop)
 			.on(el, 'dblclick', stop);
+        // return el;
 	},
 
 	preventDefault: function (e) {
-
 		if (e.preventDefault) {
 			e.preventDefault();
 		} else {
@@ -7436,7 +7435,15 @@ L.Map.Tap = L.Handler.extend({
 	_onDown: function (e) {
 		if (!e.touches) { return; }
 
-		L.DomEvent.preventDefault(e);
+        /*
+         * If we have turned off dragging and zooming, then this is basically a
+         * set of static images. At that point, we expect to be able to treat it as an 
+         * image - i.e. click on it and scroll the underlying window.
+         * So we preventDefault only when dragging and zooming are enabled
+         */
+        if (this.dragging || this.doubleClickZoom || this.scrollWheelZoom || this.touchZoom) {
+		    L.DomEvent.preventDefault(e);
+        }
 
 		this._fireClick = true;
 
