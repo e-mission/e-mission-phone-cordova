@@ -185,3 +185,14 @@ body {
   color:#e9584e;
 
 }
+
+.circle {
+    height:50px;
+    width:50px;
+    border-radius: 50%;
+    background: #7570b3;
+    font-size: x-large;
+    text-align: center;
+    vertical-align: middle;
+    color:whitesmoke !important;
+}
