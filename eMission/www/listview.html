@@ -36,6 +36,12 @@
 
   <!-- other utils -->
   <script src="lib/angular-simple-logger/index.js"></script>
+
+  <!-- graphs using nvd3 -->
+  <script src="lib/nvd3/d3.v3.min.js"></script>
+  <script src="lib/nvd3/nv.d3.min.js"></script>
+  <script src="lib/nvd3/angularjs-nvd3-directives.js"></script>
+  <link rel="stylesheet" href="lib/nvd3/nv.d3.css"/>
     
   <!-- cordova script (this will be a 404 during development) -->
   <script src="cordova.js"></script>
@@ -97,7 +103,6 @@
           <div class="col date">
           </div>
         </div>
-        -->
         <div class="col bg-color">
             <div class="row">
                 <div class="col">In Places</div>
@@ -114,12 +119,33 @@
             </div>
             <div class="row">{{data.currDayTrips.length}} trips, covering {{getFormattedDistance(data.currDaySummary.distance)}} km </div>
         </div>
-        <!--
         <div class="bg-color"
             item-width="100%" item-height="300">
             <img src="img/582752main_sunrise_from_iss-full_small.png">
         </div>
         -->
+        <div class="col bg-color">
+            <div class="row">
+                <nvd3-pie-chart
+                    class="col"
+                    data="data.currDaySummary.breakdown"
+                    margin="{left:0,top:0,bottom:0,right:0}"
+                    width="200"
+                    height="150"
+                    showlabels="true">
+                    <!-- <svg height="300"></svg> -->
+                </nvd3-pie-chart>
+                <div class="col">
+                    <ion-list>
+                        <ion-item class="bg-color">
+                            <span class="circle" style="font-size:xx-large">{{data.currDayTrips.length}}</span> trips
+                        </ion-item>
+                        <ion-item class="bg-color">
+                            <span class="circle" style="font-size:xx-large">{{getFormattedDistance(data.currDaySummary.distance)}}</span> km
+                        </ion-item>
+                </div>
+            </div>
+        </div>
         <ion-list>
             <ion-item collection-repeat="trip in data.currDayTrips"
                 item-width=100% item-height="100 + trip.sections.length * 40 + 300"

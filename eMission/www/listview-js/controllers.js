@@ -19,7 +19,7 @@ angular.module('starter.controllers', ['ionic'])
       }
   });
 
-        moment.locale('en', {
+  moment.locale('en', {
     relativeTime : {
         future: "in %s",
         past:   "%s ago",
@@ -117,15 +117,13 @@ angular.module('starter.controllers', ['ionic'])
 
       var dayInSecs = 24 * 60 * 60;
 
-      $scope.data.currDaySummary = {}
-      $scope.data.currDaySummary.movingTime = dayMovingTime;
-      $scope.data.currDaySummary.stoppedTime = dayStoppedTime;
-      $scope.data.currDaySummary.inPlaceTime = dayInSecs - (dayMovingTime + dayStoppedTime);
-      
-      $scope.data.currDaySummary.movingPct = ($scope.data.currDaySummary.movingTime * 100)/dayInSecs;
-      $scope.data.currDaySummary.stoppedPct = ($scope.data.currDaySummary.stoppedTime * 100)/dayInSecs;
-      $scope.data.currDaySummary.inPlacePct = ($scope.data.currDaySummary.inPlaceTime * 100)/dayInSecs;
-
+      $scope.data.currDaySummary = {
+        breakdown: [
+            ["moving", dayMovingTime],
+            ["waiting", dayStoppedTime],
+            ["in place", dayInSecs - (dayMovingTime + dayStoppedTime)],
+        ]
+      }
       $scope.data.currDaySummary.distance = dayDistance;
 
       console.log("currIndex = "+$scope.data.currDay+" currDayTrips = "+ $scope.data.currDayTrips.length);
