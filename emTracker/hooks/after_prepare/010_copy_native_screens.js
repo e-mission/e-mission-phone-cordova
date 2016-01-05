@@ -19,6 +19,21 @@ var filestocopy = [{
     "extra_native_src/android/NativeSettings.java": 
     "platforms/android/src/com/ionicframework/referencesidebarapp565061/NativeSettings.java"
 }, {
+    "extra_native_src/android/strings_activity_native_settings.xml": 
+    "platforms/android/res/values/strings_activity_native_settings.xml"
+}, {
+    "extra_native_src/android/pref_general.xml": 
+    "platforms/android/res/xml/pref_general.xml"
+}, {
+    "extra_native_src/android/pref_headers.xml": 
+    "platforms/android/res/xml/pref_headers.xml"
+}, {
+    "extra_native_src/android/pref_data_sync.xml": 
+    "platforms/android/res/xml/pref_data_sync.xml"
+}, {
+    "extra_native_src/android/pref_notification.xml": 
+    "platforms/android/res/xml/pref_notification.xml"
+}, {
     "extra_native_src/ios/NativeSettings.m": 
     "platforms/ios/referenceSidebarApp/Classes/NativeSettings.m"
 }, {
