@@ -1,7 +1,10 @@
 angular.module('starter.controllers', [])
 
 .controller('appCtrl', function($scope, $ionicModal, $timeout) {
-    console.log("creating the main app ctrl")
+    alert("creating the main app ctrl");
+    $scope.openNativeSettings = function() {
+        alert("about to open native settings");
+    }
 })
      
 .controller('logCtrl', function($scope) {

@@ -28,7 +28,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     url: "/app",
     abstract: true,
     templateUrl: "templates/menu.html",
-    // controller: 'appCtrl'
+    controller: 'appCtrl'
   })
 
   .state('app.log', {
