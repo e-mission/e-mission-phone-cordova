@@ -18,10 +18,14 @@
     "org.apache.cordova.device",
     "org.apache.cordova.console",
     "com.ionic.keyboard",
-    "org.apache.cordova.statusbar"
+    "org.apache.cordova.statusbar",
+    {
+      "locator": "/Users/shankari/e-mission/cordova-launch-native-screen",
+      "id": "edu.berkeley.eecs.emission.cordova.launchnative"
+    }
   ],
   "cordovaPlatforms": [
-    "android",
-    "ios"
+    "ios",
+    "android"
   ]
 }
