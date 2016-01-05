@@ -4,6 +4,11 @@ angular.module('starter.controllers', [])
     alert("creating the main app ctrl");
     $scope.openNativeSettings = function() {
         alert("about to open native settings");
+        window.cordova.plugins.BEMLaunchNative.launch("NativeSettings", function(result) {
+            alert("Successfully opened screen NativeSettings, result is "+result);
+        }, function(err) {
+            alert("Unable to open screen NativeSettings because of err "+err);
+        });
     }
 })
      
