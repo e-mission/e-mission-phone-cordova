@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+        id="edu.berkeley.eecs.emission.nativescreens"
+        version="0.0.1">
+
+  <name>NativeScreen</name>
+  <description>The native screens that we wish to launch</description>
+  <author>K. Shankari (shankari@eecs.berkeley.edu)</author>
+  <license>For private use</license>
+
+  <engines>
+    <engine name="cordova" version=">=3.6.0"/>
+  </engines>
+
+  <!--
+  Since these are pure native screens, they have no javascript component.
+  Let us see whether we can define a plugin with no javascript, or whether we
+    we need to include dummy/blank javascript
+  <asset src="www/launchnative.js" target="js/launchnative.js"/>
+
+  <js-module src="www/launchnative.js" name="launchnative">
+    <clobbers target="cordova.plugins.BEMLaunchNative" />
+  </js-module>
+  -->
+
+  <platform name="android">
+
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="NativeScreen">
+        <!--
+            We are not making any javascript calls, so we don't have a package
+            that we need to refer to
+        -->
+        <param name="android-package" value="IgnoreMe"/>
+      </feature>
+    </config-file>
+
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+        <activity android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale" android:label="Settings" android:launchMode="singleTop" android:name="NativeSettings" android:theme="@android:style/Theme.Black.NoTitleBar" android:windowSoftInputMode="adjustResize">
+        </activity>
+    </config-file>
+
+    <source-file src="src/android/NativeSettings.java" target-dir="src/com/ionicframework/referencesidebarapp565061"/>
+    <source-file src="src/android/strings_activity_native_settings.xml" target-dir="res/values/"/>
+    <source-file src="src/android/pref_data_sync.xml" target-dir="res/xml/"/>
+    <source-file src="src/android/pref_general.xml" target-dir="res/xml/"/>
+    <source-file src="src/android/pref_headers.xml" target-dir="res/xml/"/>
+    <source-file src="src/android/pref_notification.xml" target-dir="res/xml/"/>
+  </platform>
+
+  <platform name="ios">
+
+    <config-file target="config.xml" parent="/*">
+      <feature name="NativeScreen">
+        <!--
+            We are not making any javascript calls, so we don't have a package
+            that we need to refer to
+        -->
+        <param name="ios-package" value="IgnoreMe" />
+      </feature>
+    </config-file>
+
+    <header-file src="src/ios/NativeSettings.h" target-dir="NativeScreen"/>
+    <source-file src="src/ios/NativeSettings.m" target-dir="NativeScreen"/>
+    <source-file src="src/ios/NativeSettings.xib" target-dir="NativeScreen"/>
+  </platform>
+</plugin>
