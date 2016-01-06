@@ -35,7 +35,8 @@
       </feature>
     </config-file>
 
-    <source-file src="src/android/NativeSettings.java" target-dir="src/edu/berkeley/eecs/emission/nativescreens"/>
+    <source-file src="src/android/NativeSettings.java" target-dir="src/com/ionicframework/referencesidebarapp565061"/>
+    <source-file src="src/android/strings_activity_native_settings.xml" target-dir="res/values/"/>
     <source-file src="src/android/pref_data_sync.xml" target-dir="res/xml/"/>
     <source-file src="src/android/pref_general.xml" target-dir="res/xml/"/>
     <source-file src="src/android/pref_headers.xml" target-dir="res/xml/"/>
