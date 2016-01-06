@@ -35,6 +35,11 @@
       </feature>
     </config-file>
 
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+        <activity android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale" android:label="Settings" android:launchMode="singleTop" android:name="NativeSettings" android:theme="@android:style/Theme.Black.NoTitleBar" android:windowSoftInputMode="adjustResize">
+        </activity>
+    </config-file>
+
     <source-file src="src/android/NativeSettings.java" target-dir="src/com/ionicframework/referencesidebarapp565061"/>
     <source-file src="src/android/strings_activity_native_settings.xml" target-dir="res/values/"/>
     <source-file src="src/android/pref_data_sync.xml" target-dir="res/xml/"/>
