@@ -16,7 +16,37 @@ angular.module('starter.controllers', [])
    
 .controller('sensedDataCtrl', function($scope) {
     var currentStart = 0;
+
+    $scope.config = {}
+    $scope.config.key_data_mapping = {
+        "Transitions": {
+            fn: UserCacheHelper.getMessages,
+            key: "statemachine/transition"
+        },
+        "Locations": {
+            fn: UserCacheHelper.getSensorData,
+            key: "background/location"
+        },
+        "Motion Activity": {
+            fn: UserCacheHelper.getSensorData,
+            key: "background/motion_activity"
+        },
+    }
+
+    $scope.config.keys = []
+    for (key in $scope.config.key_data_mapping) {
+        $scope.config.keys.push(key);
+    }
+
+    $scope.selected = {}
+    $scope.selected.key = $scope.config.keys[0]
+
     $scope.entries = [];
+
+    $scope.setSelected = function() {
+      $scope.entries = [];
+      $scope.addEntries();
+    } 
 
     /* Let's keep a connection to the database open */
 
@@ -27,7 +57,14 @@ angular.module('starter.controllers', [])
     });
 
   $scope.addEntries = function() {
-    UserCacheHelper.getMessages(db, "statemachine/transition", function(entryList) {
+    if (angular.isUndefined($scope.selected.key)) {
+        usercacheFn = UserCacheHelper.getMessages;
+        usercacheKey = "statemachine/transition";
+    } else {
+        usercacheFn = $scope.config.key_data_mapping[$scope.selected.key]["fn"]
+        usercacheKey = $scope.config.key_data_mapping[$scope.selected.key]["key"]
+    }
+    usercacheFn(db, usercacheKey, function(entryList) {
       $scope.$apply(function() {
           for (i = 0; i < entryList.length; i++) {
             // $scope.entries.push({metadata: {write_ts: 1, write_fmt_time: "1"}, data: "1"})

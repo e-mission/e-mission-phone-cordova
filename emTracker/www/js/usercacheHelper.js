@@ -74,7 +74,7 @@ var UserCacheHelper = {
                                                     .format("llll");
                         entry.metadata = metadata;
                         entry.data = row[KEY_DATA];
-                        return entry;
+                        resultList.push(entry);
                     }
                     callBack(resultList);
                 }, function(e) {

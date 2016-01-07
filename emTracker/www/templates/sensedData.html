@@ -1,11 +1,11 @@
 <ion-view style="" title="Sensed data">
     <ion-content class="has-header" overflow-scroll="true" padding="true">
         <form style="" class="list">
-            <label style="" name="sel-sensor" class="item item-select">
+            <label style="" name="sel-key" class="item item-select">
                 <span class="input-label">Sensor</span>
-                <select ng-model="key_type">
-                    <option>Location</option>
-                    <option>Motion</option>
+                <select ng-model="selected.key" ng-change="setSelected()">
+                    <option>Locations</option>
+                    <option>Motion Activity</option>
                     <option selected>Transitions</option>
                 </select>
             </label>
