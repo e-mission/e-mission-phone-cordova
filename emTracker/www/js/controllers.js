@@ -41,22 +41,19 @@ angular.module('starter.controllers', [])
     $scope.selected = {}
     $scope.selected.key = $scope.config.keys[0]
 
-    $scope.entries = [];
-
     $scope.setSelected = function() {
-      $scope.entries = [];
-      $scope.addEntries();
+      $scope.updateEntries();
     } 
 
     /* Let's keep a connection to the database open */
 
     var db = window.sqlitePlugin.openDatabase({
       name: "userCacheDB",
-      location: 2,
+      // location: 2,
       createFromLocation: 1
     });
 
-  $scope.addEntries = function() {
+  $scope.updateEntries = function() {
     if (angular.isUndefined($scope.selected.key)) {
         usercacheFn = UserCacheHelper.getMessages;
         usercacheKey = "statemachine/transition";
@@ -65,19 +62,22 @@ angular.module('starter.controllers', [])
         usercacheKey = $scope.config.key_data_mapping[$scope.selected.key]["key"]
     }
     usercacheFn(db, usercacheKey, function(entryList) {
+      $scope.entries = [];
       $scope.$apply(function() {
           for (i = 0; i < entryList.length; i++) {
             // $scope.entries.push({metadata: {write_ts: 1, write_fmt_time: "1"}, data: "1"})
             var currEntry = entryList[i];
             currEntry.data = JSON.stringify(JSON.parse(currEntry.data), null, 2);
-            console.log("currEntry.data = "+currEntry.data);
+            // console.log("currEntry.data = "+currEntry.data);
             $scope.entries.push(currEntry);
+            // This should really be within a try/catch/finally block
+            $scope.$broadcast('scroll.refreshComplete');
           }
       })
     })
   }
 
-  $scope.addEntries();
+  $scope.updateEntries();
   /*
     UserCacheHelper.getMessages("statemachine/transition",
         function(entryArray){
