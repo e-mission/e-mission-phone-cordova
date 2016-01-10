@@ -41,17 +41,18 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     controller: 'appCtrl'
   })
 
-/*
   .state('app.log', {
     url: "/log",
     views: {
       'menuContent': {
-        templateUrl: "templates/log.html"
-        // controller: 'logCtrl'
+        templateUrl: "templates/log.html",
+        resolve: {
+            cordova: waitFn
+        },
+        controller: 'logCtrl'
       }
     }
   })
-*/
 
   .state('app.sensedData', {
     url: "/sensor-data",
@@ -79,5 +80,5 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/sensor-data');
+  $urlRouterProvider.otherwise('/app/log');
 });

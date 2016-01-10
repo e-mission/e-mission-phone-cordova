@@ -14,6 +14,28 @@ angular.module('starter.controllers', [])
 })
      
 .controller('logCtrl', function($scope) {
+    alert("Launching logCtr");
+    var currentStart = 0;
+    var RETRIEVE_COUNT = 20;
+    $scope.entries = [];
+
+    $scope.addEntries = function() {
+        alert("calling addEntries");
+        window.Logger.getMessagesFromIndex(currentStart, RETRIEVE_COUNT, function(entryList) {
+            $scope.$apply(function() {
+                for (i = 0; i < entryList.length; i++) {
+                    var currEntry = entryList[i];
+                    $scope.entries.push(currEntry);
+                    // This should really be within a try/catch/finally block
+                    $scope.$broadcast('scroll.refreshComplete');
+                }
+            })
+            currentStart = currentStart + entryList.length;
+        }), function(e) {
+            alert(e);
+        }
+    }
+    $scope.addEntries();
 })
    
 .controller('sensedDataCtrl', function($scope) {
