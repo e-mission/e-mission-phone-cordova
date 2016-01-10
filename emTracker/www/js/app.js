@@ -22,8 +22,18 @@ angular.module('starter', ['ionic', 'starter.controllers'])
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
+  var waitFn = function($q) {
+      var deferred = $q.defer();
+      ionic.Platform.ready(function() {
+          console.log('ionic.Platform.ready');
+          // We don't actually resolve with anything, because we don't need to return
+          // anything. We just need to wait until the platform is
+          // ready and at that point, we can use our usual window.sqlitePlugin stuff
+          deferred.resolve();
+      });
+      return deferred.promise;
+  }
   $stateProvider
-
   .state('app', {
     url: "/app",
     abstract: true,
@@ -31,6 +41,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     controller: 'appCtrl'
   })
 
+/*
   .state('app.log', {
     url: "/log",
     views: {
@@ -40,13 +51,17 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       }
     }
   })
+*/
 
   .state('app.sensedData', {
     url: "/sensor-data",
     views: {
       'menuContent': {
-        templateUrl: "templates/sensedData.html"
-        // controller: 'sensedDataCtrl'
+        templateUrl: "templates/sensedData.html",
+        resolve: {
+            cordova: waitFn
+        },
+        controller: 'sensedDataCtrl'
       }
     }
   })
@@ -55,11 +70,14 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       views: {
         'menuContent': {
           templateUrl: "templates/map.html",
+          resolve: {
+              cordova: waitFn
+          },
           // controller: 'mapCtrl'
         }
       }
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/log');
+  $urlRouterProvider.otherwise('/app/sensor-data');
 });

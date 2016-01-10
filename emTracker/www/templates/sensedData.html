@@ -1,19 +1,24 @@
 <ion-view style="" title="Sensed data">
     <ion-content class="has-header" overflow-scroll="true" padding="true">
+        <ion-refresher
+            pulling-text="Pull to refresh..."
+            on-refresh="updateEntries()">
+        </ion-refresher>
         <form style="" class="list">
-            <label style="" name="sel-sensor" class="item item-select">
+            <label style="" name="sel-key" class="item item-select">
                 <span class="input-label">Sensor</span>
-                <select ng-model="key_type">
-                    <option>Location</option>
-                    <option>Motion</option>
-                    <option>Messages</option>
+                <select ng-model="selected.key" ng-change="setSelected()">
+                    <option>Locations</option>
+                    <option>Motion Activity</option>
+                    <option selected>Transitions</option>
                 </select>
             </label>
         </form>
-        <ion-list style="">
-            <ion-item style="">Item 1</ion-item>
-            <ion-item style="">Item 2</ion-item>
-            <ion-item style="">Item 3</ion-item>
+        <ion-list>
+            <ion-item class="row responsive-sm" ng-repeat="entry in entries track by entry.metadata.write_ts">
+                <div class="col timestamp">{{entry.metadata.write_fmt_time}}</div>
+                <div class="col detail item-text-wrap" readonly="True" >{{entry.data}}</div>
+            </ion-item>
         </ion-list>
     </ion-content>
 </ion-view>
