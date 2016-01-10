@@ -20,8 +20,12 @@
     "com.ionic.keyboard",
     "org.apache.cordova.statusbar",
     {
-      "locator": "/Users/shankari/e-mission/cordova-launch-native-screen",
+      "locator": "https://github.com/e-mission/cordova-launch-native-screen",
       "id": "edu.berkeley.eecs.emission.cordova.launchnative"
+    },
+    {
+      "locator": "/Users/shankari/e-mission/cordova-unified-logger",
+      "id": "edu.berkeley.eecs.emission.cordova.unifiedlogger"
     }
   ],
   "cordovaPlatforms": [
