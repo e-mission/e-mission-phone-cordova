@@ -19,9 +19,21 @@ angular.module('starter.controllers', [])
     $scope.logCtrl = {};
 
     $scope.refreshEntries = function() {
-        $scope.logCtrl.currentStart = 0;
-        $scope.entries = [];
-        $scope.addEntries();
+        window.Logger.getMaxIndex(function(maxIndex) {
+            $scope.logCtrl.currentStart = maxIndex;
+            $scope.logCtrl.gotMaxIndex = true;
+            $scope.logCtrl.reachedEnd = false;
+            $scope.entries = [];
+            $scope.addEntries();
+        }, function (e) {
+            var errStr = "While getting max index "+JSON.stringify(e, null, 2);
+            console.log(errStr);
+            alert(errStr);
+        });
+    }
+
+    $scope.moreDataCanBeLoaded = function() {
+        return $scope.logCtrl.gotMaxIndex && !($scope.logCtrl.reachedEnd);
     }
 
     $scope.clear = function() {
@@ -32,20 +44,34 @@ angular.module('starter.controllers', [])
 
     $scope.addEntries = function() {
         alert("calling addEntries");
-        window.Logger.getMessagesFromIndex($scope.logCtrl.currentStart, RETRIEVE_COUNT, function(entryList) {
-            $scope.$apply(function() {
-                for (i = 0; i < entryList.length; i++) {
-                    var currEntry = entryList[i];
-                    $scope.entries.push(currEntry);
-                }
-                // This should really be within a try/catch/finally block
-                $scope.$broadcast('scroll.refreshComplete');
-            })
-            $scope.logCtrl.currentStart = $scope.logCtrl.currentStart + entryList.length;
-        }), function(e) {
-            alert(e);
+        window.Logger.getMessagesFromIndex($scope.logCtrl.currentStart, RETRIEVE_COUNT,
+            function(entryList) {
+                $scope.$apply($scope.processEntries(entryList));
+                console.log("entry list size = "+$scope.entries.length);
+                console.log("Broadcasting infinite scroll complete");
+                $scope.$broadcast('scroll.infiniteScrollComplete')
+            }, function(e) {
+                var errStr = "While getting messages from the log "+JSON.stringify(e, null, 2);
+                console.log(errStr);
+                alert(errStr);
+            }
+        )
+    }
+
+    $scope.processEntries = function(entryList) {
+        for (i = 0; i < entryList.length; i++) {
+            var currEntry = entryList[i];
+            $scope.entries.push(currEntry);
+        }
+        if (entryList.length == 0) {
+            console.log("Reached the end of the scrolling");
+            $scope.logCtrl.reachedEnd = true;
+        } else {
+            $scope.logCtrl.currentStart = entryList[entryList.length-1].ID
+            console.log("new start index = "+$scope.logCtrl.currentStart);
         }
     }
+
     $scope.refreshEntries();
 })
    

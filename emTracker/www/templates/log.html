@@ -7,9 +7,12 @@
         </div>
         <ion-list style="">
             <ion-item class="row responsive-sm" ng-repeat="entry in entries track by entry.ID">
-                <div class="col timestamp">{{entry.fmt_time}}</div>
+                <div class="col timestamp item-text-wrap">{{entry.fmt_time}}</div>
                 <div class="col detail item-text-wrap"> {{entry.ID}} | {{entry.level}} | {{entry.message}}</div>
             </ion-item>
+            <ion-infinite-scroll 
+                ng-if="moreDataCanBeLoaded()"
+                on-infinite="addEntries()"></ion-infinite-scroll>
         </ion-list>
     </ion-content>
 </ion-view>
