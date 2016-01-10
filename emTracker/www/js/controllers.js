@@ -2,11 +2,13 @@ angular.module('starter.controllers', [])
 
 .controller('appCtrl', function($scope, $ionicModal, $timeout) {
     $scope.openNativeSettings = function() {
-        console.log("about to open native settings");
+        window.Logger.log(window.Logger.DEBUG, "about to open native settings");
         window.cordova.plugins.BEMLaunchNative.launch("NativeSettings", function(result) {
-            console.log("Successfully opened screen NativeSettings, result is "+result);
+            window.Logger.log(window.Logger.DEBUG,
+                "Successfully opened screen NativeSettings, result is "+result);
         }, function(err) {
-            console.log("Unable to open screen NativeSettings because of err "+err);
+            window.Logger.log(window.Logger.ERROR,
+                "Unable to open screen NativeSettings because of err "+err);
         });
     }
 })
@@ -68,7 +70,8 @@ angular.module('starter.controllers', [])
             // $scope.entries.push({metadata: {write_ts: 1, write_fmt_time: "1"}, data: "1"})
             var currEntry = entryList[i];
             currEntry.data = JSON.stringify(JSON.parse(currEntry.data), null, 2);
-            // console.log("currEntry.data = "+currEntry.data);
+            window.Logger.log(window.Logger.DEBUG,
+                "currEntry.data = "+currEntry.data);
             $scope.entries.push(currEntry);
             // This should really be within a try/catch/finally block
             $scope.$broadcast('scroll.refreshComplete');

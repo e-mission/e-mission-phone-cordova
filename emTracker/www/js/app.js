@@ -25,7 +25,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   var waitFn = function($q) {
       var deferred = $q.defer();
       ionic.Platform.ready(function() {
-          console.log('ionic.Platform.ready');
+          window.Logger.log(window.Logger.INFO, 'ionic.Platform.ready');
           // We don't actually resolve with anything, because we don't need to return
           // anything. We just need to wait until the platform is
           // ready and at that point, we can use our usual window.sqlitePlugin stuff
