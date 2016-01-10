@@ -2,12 +2,12 @@ angular.module('starter.controllers', [])
 
 .controller('appCtrl', function($scope, $ionicModal, $timeout) {
     $scope.openNativeSettings = function() {
-        window.Logger.log(window.Logger.DEBUG, "about to open native settings");
+        window.Logger.log(window.Logger.LEVEL_DEBUG, "about to open native settings");
         window.cordova.plugins.BEMLaunchNative.launch("NativeSettings", function(result) {
-            window.Logger.log(window.Logger.DEBUG,
+            window.Logger.log(window.Logger.LEVEL_DEBUG,
                 "Successfully opened screen NativeSettings, result is "+result);
         }, function(err) {
-            window.Logger.log(window.Logger.ERROR,
+            window.Logger.log(window.Logger.LEVEL_ERROR,
                 "Unable to open screen NativeSettings because of err "+err);
         });
     }
@@ -70,7 +70,7 @@ angular.module('starter.controllers', [])
             // $scope.entries.push({metadata: {write_ts: 1, write_fmt_time: "1"}, data: "1"})
             var currEntry = entryList[i];
             currEntry.data = JSON.stringify(JSON.parse(currEntry.data), null, 2);
-            window.Logger.log(window.Logger.DEBUG,
+            window.Logger.log(window.Logger.LEVEL_DEBUG,
                 "currEntry.data = "+currEntry.data);
             $scope.entries.push(currEntry);
             // This should really be within a try/catch/finally block
