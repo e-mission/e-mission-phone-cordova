@@ -15,27 +15,38 @@ angular.module('starter.controllers', [])
      
 .controller('logCtrl', function($scope) {
     alert("Launching logCtr");
-    var currentStart = 0;
     var RETRIEVE_COUNT = 20;
-    $scope.entries = [];
+    $scope.logCtrl = {};
+
+    $scope.refreshEntries = function() {
+        $scope.logCtrl.currentStart = 0;
+        $scope.entries = [];
+        $scope.addEntries();
+    }
+
+    $scope.clear = function() {
+        window.Logger.clearAll();
+        window.Logger.log(window.Logger.LEVEL_INFO, "Finished clearing entries from unified log");
+        $scope.refreshEntries();
+    }
 
     $scope.addEntries = function() {
         alert("calling addEntries");
-        window.Logger.getMessagesFromIndex(currentStart, RETRIEVE_COUNT, function(entryList) {
+        window.Logger.getMessagesFromIndex($scope.logCtrl.currentStart, RETRIEVE_COUNT, function(entryList) {
             $scope.$apply(function() {
                 for (i = 0; i < entryList.length; i++) {
                     var currEntry = entryList[i];
                     $scope.entries.push(currEntry);
-                    // This should really be within a try/catch/finally block
-                    $scope.$broadcast('scroll.refreshComplete');
                 }
+                // This should really be within a try/catch/finally block
+                $scope.$broadcast('scroll.refreshComplete');
             })
-            currentStart = currentStart + entryList.length;
+            $scope.logCtrl.currentStart = $scope.logCtrl.currentStart + entryList.length;
         }), function(e) {
             alert(e);
         }
     }
-    $scope.addEntries();
+    $scope.refreshEntries();
 })
    
 .controller('sensedDataCtrl', function($scope) {
