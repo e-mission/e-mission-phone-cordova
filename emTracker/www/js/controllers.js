@@ -14,7 +14,7 @@ angular.module('starter.controllers', [])
 })
      
 .controller('logCtrl', function($scope) {
-    alert("Launching logCtr");
+    console.log("Launching logCtr");
     var RETRIEVE_COUNT = 20;
     $scope.logCtrl = {};
 
@@ -43,7 +43,7 @@ angular.module('starter.controllers', [])
     }
 
     $scope.addEntries = function() {
-        alert("calling addEntries");
+        console.log("calling addEntries");
         window.Logger.getMessagesFromIndex($scope.logCtrl.currentStart, RETRIEVE_COUNT,
             function(entryList) {
                 $scope.$apply($scope.processEntries(entryList));
