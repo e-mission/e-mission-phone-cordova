@@ -25,7 +25,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   var waitFn = function($q) {
       var deferred = $q.defer();
       ionic.Platform.ready(function() {
-          console.log('ionic.Platform.ready');
+          window.Logger.log(window.Logger.LEVEL_INFO, 'ionic.Platform.ready');
           // We don't actually resolve with anything, because we don't need to return
           // anything. We just need to wait until the platform is
           // ready and at that point, we can use our usual window.sqlitePlugin stuff
@@ -41,17 +41,18 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     controller: 'appCtrl'
   })
 
-/*
   .state('app.log', {
     url: "/log",
     views: {
       'menuContent': {
-        templateUrl: "templates/log.html"
-        // controller: 'logCtrl'
+        templateUrl: "templates/log.html",
+        resolve: {
+            cordova: waitFn
+        },
+        controller: 'logCtrl'
       }
     }
   })
-*/
 
   .state('app.sensedData', {
     url: "/sensor-data",
@@ -79,5 +80,5 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/sensor-data');
+  $urlRouterProvider.otherwise('/app/log');
 });

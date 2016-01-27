@@ -16,8 +16,8 @@
         </form>
         <ion-list>
             <ion-item class="row responsive-sm" ng-repeat="entry in entries track by entry.metadata.write_ts">
-                <div class="col timestamp">{{entry.metadata.write_fmt_time}}</div>
-                <div class="col detail item-text-wrap" readonly="True" >{{entry.data}}</div>
+                <div class="col timestamp item-text-wrap">{{entry.metadata.write_fmt_time}}</div>
+                <div class="col detail item-text-wrap">{{entry.data}}</div>
             </ion-item>
         </ion-list>
     </ion-content>

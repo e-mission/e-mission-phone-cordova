@@ -1,14 +1,18 @@
 <ion-view style="" title="Log">
     <ion-content class="has-header" overflow-scroll="true" padding="true">
         <div style="" class="button-bar">
-            <button style="" class="button button-stable button-block  icon ion-refresh"></button>
-            <button style="" class="button button-stable button-block  icon ion-trash-a"></button>
+            <button style="" class="button button-stable button-block  icon ion-refresh" ng-click="refreshEntries()"></button>
+            <button style="" class="button button-stable button-block  icon ion-trash-a" ng-click="clear()"></button>
             <button style="" class="button button-stable button-block  icon ion-email"></button>
         </div>
         <ion-list style="">
-            <ion-item style="">Item 1</ion-item>
-            <ion-item style="">Item 2</ion-item>
-            <ion-item style="">Item 3</ion-item>
+            <ion-item class="row responsive-sm" ng-repeat="entry in entries track by entry.ID">
+                <div class="col timestamp item-text-wrap">{{entry.fmt_time}}</div>
+                <div class="col detail item-text-wrap"> {{entry.ID}} | {{entry.level}} | {{entry.message}}</div>
+            </ion-item>
+            <ion-infinite-scroll 
+                ng-if="moreDataCanBeLoaded()"
+                on-infinite="addEntries()"></ion-infinite-scroll>
         </ion-list>
     </ion-content>
 </ion-view>

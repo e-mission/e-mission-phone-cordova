@@ -2,16 +2,77 @@ angular.module('starter.controllers', [])
 
 .controller('appCtrl', function($scope, $ionicModal, $timeout) {
     $scope.openNativeSettings = function() {
-        console.log("about to open native settings");
+        window.Logger.log(window.Logger.LEVEL_DEBUG, "about to open native settings");
         window.cordova.plugins.BEMLaunchNative.launch("NativeSettings", function(result) {
-            console.log("Successfully opened screen NativeSettings, result is "+result);
+            window.Logger.log(window.Logger.LEVEL_DEBUG,
+                "Successfully opened screen NativeSettings, result is "+result);
         }, function(err) {
-            console.log("Unable to open screen NativeSettings because of err "+err);
+            window.Logger.log(window.Logger.LEVEL_ERROR,
+                "Unable to open screen NativeSettings because of err "+err);
         });
     }
 })
      
 .controller('logCtrl', function($scope) {
+    console.log("Launching logCtr");
+    var RETRIEVE_COUNT = 20;
+    $scope.logCtrl = {};
+
+    $scope.refreshEntries = function() {
+        window.Logger.getMaxIndex(function(maxIndex) {
+            $scope.logCtrl.currentStart = maxIndex;
+            $scope.logCtrl.gotMaxIndex = true;
+            $scope.logCtrl.reachedEnd = false;
+            $scope.entries = [];
+            $scope.addEntries();
+        }, function (e) {
+            var errStr = "While getting max index "+JSON.stringify(e, null, 2);
+            console.log(errStr);
+            alert(errStr);
+        });
+    }
+
+    $scope.moreDataCanBeLoaded = function() {
+        return $scope.logCtrl.gotMaxIndex && !($scope.logCtrl.reachedEnd);
+    }
+
+    $scope.clear = function() {
+        window.Logger.clearAll();
+        window.Logger.log(window.Logger.LEVEL_INFO, "Finished clearing entries from unified log");
+        $scope.refreshEntries();
+    }
+
+    $scope.addEntries = function() {
+        console.log("calling addEntries");
+        window.Logger.getMessagesFromIndex($scope.logCtrl.currentStart, RETRIEVE_COUNT,
+            function(entryList) {
+                $scope.$apply($scope.processEntries(entryList));
+                console.log("entry list size = "+$scope.entries.length);
+                console.log("Broadcasting infinite scroll complete");
+                $scope.$broadcast('scroll.infiniteScrollComplete')
+            }, function(e) {
+                var errStr = "While getting messages from the log "+JSON.stringify(e, null, 2);
+                console.log(errStr);
+                alert(errStr);
+            }
+        )
+    }
+
+    $scope.processEntries = function(entryList) {
+        for (i = 0; i < entryList.length; i++) {
+            var currEntry = entryList[i];
+            $scope.entries.push(currEntry);
+        }
+        if (entryList.length == 0) {
+            console.log("Reached the end of the scrolling");
+            $scope.logCtrl.reachedEnd = true;
+        } else {
+            $scope.logCtrl.currentStart = entryList[entryList.length-1].ID
+            console.log("new start index = "+$scope.logCtrl.currentStart);
+        }
+    }
+
+    $scope.refreshEntries();
 })
    
 .controller('sensedDataCtrl', function($scope) {
@@ -68,7 +129,8 @@ angular.module('starter.controllers', [])
             // $scope.entries.push({metadata: {write_ts: 1, write_fmt_time: "1"}, data: "1"})
             var currEntry = entryList[i];
             currEntry.data = JSON.stringify(JSON.parse(currEntry.data), null, 2);
-            // console.log("currEntry.data = "+currEntry.data);
+            window.Logger.log(window.Logger.LEVEL_DEBUG,
+                "currEntry.data = "+currEntry.data);
             $scope.entries.push(currEntry);
             // This should really be within a try/catch/finally block
             $scope.$broadcast('scroll.refreshComplete');
