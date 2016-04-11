@@ -1,0 +1,15 @@
+<ion-view view-title="Reccomendations">
+  <ion-content>
+  <div align="center" padding="5px">
+    <ti-segmented-control on-select="buttonClicked($index)" style="width: 300px;">
+      <ti-segmented-control-button class="button-positive" title="'Cats'" ng-click="data.filter='cat'"></ti-segmented-control-button>
+      <ti-segmented-control-button class="button-positive" title="'Dogs'" ng-click="data.filter='dog'"></ti-segmented-control-button>
+      <ti-segmented-control-button class="button-positive" title="'Birds'" selected ng-click="data.filter='bird'"></ti-segmented-control-button>
+    </ti-segmented-control>
+  </div>
+    
+    <div class="list">
+        <div class="item" ng-repeat="animal in data.animals | filter : data.filter">{{animal.name}}</div>
+      </div>
+  </ion-content>
+</ion-view>
