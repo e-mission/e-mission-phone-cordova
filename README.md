@@ -1,3 +1,6 @@
+### This project is now obsolete and is only retained for historical reasons
+### Current phone development is at https://github.com/e-mission/e-mission-phone
+### Do not use!
 This is the repo for the cross-platform UI, which we will build using apache
 cordova. The UI screens from here will be used to build the UI for the hybrid
 app stored in https://github.com/e-mission/e-mission-phone. Since we are
